@@ -1,26 +1,35 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves Canadian Grocery Price Data
+# Author: Tina Kim
+# Date: 19 November 2024
+# Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: None
+# Any other information needed? None
 
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
+
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
 
+# Define URL and destination
+url <- "https://jacobfilipp.com/hammerdata/hammer-5-csv.zip"
+destfile <- "hammer-5-csv.zip"
+
+# Download the ZIP file
+download.file(url, destfile, mode = "wb")
+
+# Extract the ZIP file
+unzip(destfile, exdir = "unzipped_files")
+
+# Read the CSV file
+csv_file <- list.files("unzipped_files", pattern = "\\.csv$", full.names = TRUE)
+data_price <- read.csv("unzipped_files/hammer-4-raw.csv")
+data_product <- read.csv("unzipped_files/hammer-4-product.csv")
 
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
-
-         
+write_csv(data_price, "data/01-raw_data/data_price.csv")
+write_csv(data_product, "data/01-raw_data/data_product.csv")
