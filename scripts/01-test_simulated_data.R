@@ -1,23 +1,23 @@
 #### Preamble ####
-# Purpose: Tests the structure and validity of the simulated Australian 
-  #electoral divisions dataset.
-# Author: Rohan Alexander
-# Date: 26 September 2024
-# Contact: rohan.alexander@utoronto.ca
+# Purpose: Tests the structure and validity of the simulated 
+  # Canadian Grocery Store Prices dataset
+# Author: Tina Kim
+# Date: 19 November 2024
+# Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
   # - The `tidyverse` package must be installed and loaded
   # - 00-simulate_data.R must have been run
-# Any other information needed? Make sure you are in the `starter_folder` rproj
+# Any other information needed? None
 
 
 #### Workspace setup ####
 library(tidyverse)
 
-analysis_data <- read_csv("data/00-simulated_data/simulated_data.csv")
+simulated_data <- read_csv("data/00-simulated_data/simulated_data.csv")
 
 # Test if the data was successfully loaded
-if (exists("analysis_data")) {
+if (exists("simulated_data")) {
   message("Test Passed: The dataset was successfully loaded.")
 } else {
   stop("Test Failed: The dataset could not be loaded.")
@@ -26,64 +26,92 @@ if (exists("analysis_data")) {
 
 #### Test data ####
 
-# Check if the dataset has 151 rows
-if (nrow(analysis_data) == 151) {
-  message("Test Passed: The dataset has 151 rows.")
+# Check if the dataset has 1000 rows
+if (nrow(simulated_data) == 1000) {
+  message("Test Passed: The dataset has 1000 rows.")
 } else {
-  stop("Test Failed: The dataset does not have 151 rows.")
+  stop("Test Failed: The dataset does not have 1000 rows.")
 }
 
-# Check if the dataset has 3 columns
-if (ncol(analysis_data) == 3) {
-  message("Test Passed: The dataset has 3 columns.")
+# Check if the dataset has 5 columns
+if (ncol(simulated_data) == 5) {
+  message("Test Passed: The dataset has 5 columns.")
 } else {
-  stop("Test Failed: The dataset does not have 3 columns.")
-}
-
-# Check if all values in the 'division' column are unique
-if (n_distinct(analysis_data$division) == nrow(analysis_data)) {
-  message("Test Passed: All values in 'division' are unique.")
-} else {
-  stop("Test Failed: The 'division' column contains duplicate values.")
-}
-
-# Check if the 'state' column contains only valid Australian state names
-valid_states <- c("New South Wales", "Victoria", "Queensland", "South Australia", 
-                  "Western Australia", "Tasmania", "Northern Territory", 
-                  "Australian Capital Territory")
-
-if (all(analysis_data$state %in% valid_states)) {
-  message("Test Passed: The 'state' column contains only valid Australian state names.")
-} else {
-  stop("Test Failed: The 'state' column contains invalid state names.")
-}
-
-# Check if the 'party' column contains only valid party names
-valid_parties <- c("Labor", "Liberal", "Greens", "National", "Other")
-
-if (all(analysis_data$party %in% valid_parties)) {
-  message("Test Passed: The 'party' column contains only valid party names.")
-} else {
-  stop("Test Failed: The 'party' column contains invalid party names.")
+  stop("Test Failed: The dataset does not have 5 columns.")
 }
 
 # Check if there are any missing values in the dataset
-if (all(!is.na(analysis_data))) {
+if (all(!is.na(simulated_data))) {
   message("Test Passed: The dataset contains no missing values.")
 } else {
   stop("Test Failed: The dataset contains missing values.")
 }
 
-# Check if there are no empty strings in 'division', 'state', and 'party' columns
-if (all(analysis_data$division != "" & analysis_data$state != "" & analysis_data$party != "")) {
-  message("Test Passed: There are no empty strings in 'division', 'state', or 'party'.")
+# Check if all prices are within the expected range (1 to 20)
+if (all(simulated_data$current_price >= 1 & simulated_data$current_price <= 20)) {
+  message("Test Passed: All current prices are within the expected range (1 to 20).")
 } else {
-  stop("Test Failed: There are empty strings in one or more columns.")
+  stop("Test Failed: Some current prices are outside the expected range.")
 }
 
-# Check if the 'party' column has at least two unique values
-if (n_distinct(analysis_data$party) >= 2) {
-  message("Test Passed: The 'party' column contains at least two unique values.")
+# Check if all `nowtime` values are between `2022-01-01` and `2024-01-01`
+if (all(simulated_data$nowtime >= as.Date('2022-01-01') & simulated_data$nowtime 
+        <= as.Date('2024-01-01'))) {
+  message("Test Passed: All dates are within the expected range.")
 } else {
-  stop("Test Failed: The 'party' column contains less than two unique values.")
+  stop("Test Failed: Some dates are outside the expected range.")
+}
+
+# Check if vendors are distributed
+vendor_counts <- table(simulated_data$vendor)
+if (all(vendor_counts >= 50)) {
+  message("Test Passed: Vendors are sampled correctly.")
+} else {
+  stop("Test Failed: Some vendors have fewer than 50 samples.")
+}
+
+# Check if food categories are sampled correctly
+food_category_counts <- table(simulated_data$food_category)
+if (all(food_category_counts >= 100)) {
+  message("Test Passed: Food categories are sampled correctly.")
+} else {
+  stop("Test Failed: Some food categories have fewer than 100 samples.")
+}
+
+# Check if there are exactly identical entries for the same vendor
+duplicates <- simulated_data %>%
+  group_by(vendor, product_name, current_price, food_category, nowtime) %>%
+  summarise(count = n()) %>%
+  filter(count > 1)
+
+if (nrow(duplicates) == 0) {
+  message("Test Passed: No duplicate product entries for the same vendor.")
+} else {
+  stop("Test Failed: There are duplicate product entries for the same vendor.")
+}
+
+# Make sure that all products are mapped to the correct food category
+category_map <- c(
+  "Apples" = "Fruits & Vegetables",
+  "Bananas" = "Fruits & Vegetables",
+  "Broccoli" = "Fruits & Vegetables",
+  "Carrots" = "Fruits & Vegetables",
+  "Whole Grain Bread" = "Grain Products",
+  "Oats" = "Grain Products",
+  "Brown Rice" = "Grain Products",
+  "Eggs" = "Protein Foods",
+  "Chicken Breast" = "Protein Foods",
+  "Salmon" = "Protein Foods",
+  "Tofu" = "Protein Foods",
+  "Greek Yogurt" = "Protein Foods"
+)
+
+test_category_match <- all(simulated_data$product_name %in% names(category_map)) & 
+  all(simulated_data$food_category == category_map[simulated_data$product_name])
+
+# Output test result
+if (test_category_match) {
+  message("Test Passed: All product categories match the expected categories.")
+} else {
+  message("Test Failed: Some product categories do not match the expected categories.")
 }
