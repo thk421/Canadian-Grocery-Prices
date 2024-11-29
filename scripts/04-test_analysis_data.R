@@ -1,69 +1,99 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 26 September 2024 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Tests the cleaned analysis data
+# Author: Tina Kim
+# Date: 28 November 2024
+# Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: Have the analysis data loaded
+# Any other information needed? None
 
 
 #### Workspace setup ####
 library(tidyverse)
-library(testthat)
+library(lubridate)
 
-data <- read_csv("data/02-analysis_data/analysis_data.csv")
+analysis_data <- read_csv("data/02-analysis_data/analysis_data.csv")
 
 
 #### Test data ####
-# Test that the dataset has 151 rows - there are 151 divisions in Australia
-test_that("dataset has 151 rows", {
-  expect_equal(nrow(analysis_data), 151)
-})
+# Test 1: Check if there are any missing values in the essential columns
+if (all(!is.na(analysis_data$nowtime), 
+        !is.na(analysis_data$current_price), 
+        !is.na(analysis_data$vendor), 
+        !is.na(analysis_data$product_name), 
+        !is.na(analysis_data$stock_status), 
+        !is.na(analysis_data$is_sale), 
+        !is.na(analysis_data$is_best), 
+        !is.na(analysis_data$food_category), 
+        !is.na(analysis_data$price_per_standard_unit))) {
+  message("Test Passed: No missing values in essential columns.")
+} else {
+  stop("Test Failed: There are missing values in essential columns.")
+}
 
-# Test that the dataset has 3 columns
-test_that("dataset has 3 columns", {
-  expect_equal(ncol(analysis_data), 3)
-})
+# Test 2: Check if 'nowtime' is in the correct datetime format
+if (inherits(analysis_data$nowtime, "POSIXct")) {
+  message("Test Passed: 'nowtime' is in the correct datetime format (YYYY-MM-DD HH:MM:SS).")
+} else {
+  stop("Test Failed: 'nowtime' is not in the correct datetime format (YYYY-MM-DD HH:MM:SS).")
+}
 
-# Test that the 'division' column is character type
-test_that("'division' is character", {
-  expect_type(analysis_data$division, "character")
-})
+# Test 3: Check if 'current_price' is numeric and positive
+if (all(is.numeric(analysis_data$current_price) & analysis_data$current_price > 0)) {
+  message("Test Passed: 'current_price' is numeric and positive.")
+} else {
+  stop("Test Failed: 'current_price' is not numeric or contains non-positive values.")
+}
 
-# Test that the 'party' column is character type
-test_that("'party' is character", {
-  expect_type(analysis_data$party, "character")
-})
+# Test 4: Check if 'vendor' contains valid vendor names
+valid_vendors <- c("Walmart", "Voila", "TandT", "SaveOnFoods", "NoFrills", "Metro", "Loblaws", "Galleria")
+if (all(analysis_data$vendor %in% valid_vendors)) {
+  message("Test Passed: All vendor values are valid.")
+} else {
+  stop("Test Failed: Some vendor values are invalid.")
+}
 
-# Test that the 'state' column is character type
-test_that("'state' is character", {
-  expect_type(analysis_data$state, "character")
-})
+# Test 5: Check if 'food_category' contains only valid categories
+valid_food_categories <- c("Fruits & Vegetables", "Protein Foods", "Grain Products")
+if (all(analysis_data$food_category %in% valid_food_categories)) {
+  message("Test Passed: All food categories are valid.")
+} else {
+  stop("Test Failed: Some food categories are invalid.")
+}
 
-# Test that there are no missing values in the dataset
-test_that("no missing values in dataset", {
-  expect_true(all(!is.na(analysis_data)))
-})
+# Test 6: Check if 'price_per_standard_unit' is numeric and greater than zero
+if (all(is.numeric(analysis_data$price_per_standard_unit) & analysis_data$price_per_standard_unit > 0)) {
+  message("Test Passed: 'price_per_standard_unit' is numeric and greater than zero.")
+} else {
+  stop("Test Failed: 'price_per_standard_unit' is not numeric or contains non-positive values.")
+}
 
-# Test that 'division' contains unique values (no duplicates)
-test_that("'division' column contains unique values", {
-  expect_equal(length(unique(analysis_data$division)), 151)
-})
+# Test 7: Check if 'price_decrease' is logical (numeric value/NA)
+if (all(is.numeric(analysis_data$price_decrease))) {
+  message("Test Passed: 'price_decrease' are either NA or numeric.")
+} else {
+  stop("Test Failed: 'price_decrease' contain invalid values (not NA or numeric).")
+}
 
-# Test that 'state' contains only valid Australian state or territory names
-valid_states <- c("New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", 
-                  "Tasmania", "Northern Territory", "Australian Capital Territory")
-test_that("'state' contains valid Australian state names", {
-  expect_true(all(analysis_data$state %in% valid_states))
-})
+# Test 8: Check if 'stock_status' contains only valid values
+valid_stock_status <- c("in_stock", "out_of_stock")
+if (all(analysis_data$stock_status %in% valid_stock_status)) {
+  message("Test Passed: 'stock_status' contains only valid values.")
+} else {
+  stop("Test Failed: 'stock_status' contains invalid values.")
+}
 
-# Test that there are no empty strings in 'division', 'party', or 'state' columns
-test_that("no empty strings in 'division', 'party', or 'state' columns", {
-  expect_false(any(analysis_data$division == "" | analysis_data$party == "" | analysis_data$state == ""))
-})
+# Test 9: Check if 'is_sale' and 'is_best' are logical (TRUE/FALSE)
+if (all(analysis_data$is_sale %in% c(TRUE, FALSE), na.rm = TRUE) & 
+    all(analysis_data$is_best %in% c(TRUE, FALSE), na.rm = TRUE)) {
+  message("Test Passed: 'is_sale' and 'is_best' are logical.")
+} else {
+  stop("Test Failed: 'is_sale' or 'is_best' are not logical.")
+}
 
-# Test that the 'party' column contains at least 2 unique values
-test_that("'party' column contains at least 2 unique values", {
-  expect_true(length(unique(analysis_data$party)) >= 2)
-})
+# Test 10: Check for no exact duplicates
+if (nrow(analysis_data) == nrow(distinct(analysis_data))) {
+  message("Test Passed: There are no exact duplicate rows in the dataset.")
+} else {
+  stop("Test Failed: The dataset contains exact duplicate rows.")
+}

@@ -49,9 +49,6 @@ unit_conversion <- c(
 cleaned_data <- merged_data %>%
   # Remove rows with missing units or current price
   filter(!is.na(current_price), !is.na(units)) %>%
-  # Remove exact duplicates
-  distinct(product_id, product_name, vendor, units, nowtime, current_price, 
-           .keep_all = TRUE) %>%
   # Create a price decrease and increase column for when old prices are 
   # higher and lower than current prices
   mutate(
@@ -59,10 +56,7 @@ cleaned_data <- merged_data %>%
     current_price = as.numeric(current_price),
     price_decrease = ifelse(!is.na(old_price) & old_price > current_price, 
                       old_price - current_price, 
-                      NA),
-    price_increase = ifelse(!is.na(old_price) & current_price > old_price, 
-                            current_price - old_price, 
-                            NA)
+                      NA)
   ) %>%
   # Use the other column to make useful flags
   mutate(stock_status = ifelse(grepl("Out of stock", other), "out_of_stock", "in_stock"),
@@ -128,7 +122,9 @@ cleaned_unit_data <- cleaned_unit_data %>%
   select(-old_price, -price_per_unit, -product_id, -concatted, -units, -unit_cleaned, -unit_standardized) %>%
   arrange(desc(vendor))
 
+# Remove exact duplicates
+distinct_cleaned_data <- cleaned_unit_data %>% distinct()
 
 #### Save data ####
-write_csv(cleaned_unit_data, "data/02-analysis_data/analysis_data.csv")
-write_parquet(cleaned_unit_data, "data/02-analysis_data/analysis_data.parquet")
+write_csv(distinct_cleaned_data, "data/02-analysis_data/analysis_data.csv")
+write_parquet(distinct_cleaned_data, "data/02-analysis_data/analysis_data.parquet")
