@@ -1,152 +1,1001 @@
-division,state,party
-Division 1,Victoria,Liberal
-Division 2,New South Wales,Liberal
-Division 3,Tasmania,Liberal
-Division 4,New South Wales,Liberal
-Division 5,Queensland,Liberal
-Division 6,New South Wales,Labor
-Division 7,Victoria,Liberal
-Division 8,Western Australia,Labor
-Division 9,Western Australia,Greens
-Division 10,Queensland,Labor
-Division 11,Queensland,Labor
-Division 12,Northern Territory,Liberal
-Division 13,New South Wales,Labor
-Division 14,Western Australia,Labor
-Division 15,Western Australia,National
-Division 16,Victoria,Liberal
-Division 17,South Australia,Liberal
-Division 18,Victoria,Liberal
-Division 19,Western Australia,Labor
-Division 20,South Australia,Labor
-Division 21,New South Wales,Liberal
-Division 22,Queensland,Greens
-Division 23,New South Wales,Liberal
-Division 24,New South Wales,Liberal
-Division 25,Queensland,Labor
-Division 26,Victoria,National
-Division 27,New South Wales,Liberal
-Division 28,Queensland,Liberal
-Division 29,Tasmania,Liberal
-Division 30,South Australia,Liberal
-Division 31,New South Wales,Liberal
-Division 32,Victoria,Labor
-Division 33,Tasmania,Liberal
-Division 34,New South Wales,Liberal
-Division 35,Western Australia,Labor
-Division 36,New South Wales,Liberal
-Division 37,Tasmania,Greens
-Division 38,Tasmania,Labor
-Division 39,Victoria,Greens
-Division 40,South Australia,Labor
-Division 41,New South Wales,Other
-Division 42,New South Wales,Other
-Division 43,Tasmania,Labor
-Division 44,Tasmania,National
-Division 45,Queensland,Liberal
-Division 46,Australian Capital Territory,Other
-Division 47,Queensland,Labor
-Division 48,Queensland,Other
-Division 49,South Australia,Liberal
-Division 50,Victoria,National
-Division 51,South Australia,Liberal
-Division 52,Victoria,Labor
-Division 53,South Australia,National
-Division 54,Queensland,Liberal
-Division 55,Queensland,Labor
-Division 56,South Australia,Liberal
-Division 57,New South Wales,Other
-Division 58,Northern Territory,Liberal
-Division 59,New South Wales,Labor
-Division 60,Western Australia,Labor
-Division 61,New South Wales,Liberal
-Division 62,South Australia,Liberal
-Division 63,Queensland,Labor
-Division 64,Tasmania,Labor
-Division 65,South Australia,Labor
-Division 66,Victoria,Labor
-Division 67,Queensland,Liberal
-Division 68,Queensland,Liberal
-Division 69,Tasmania,Labor
-Division 70,South Australia,National
-Division 71,Australian Capital Territory,Labor
-Division 72,Western Australia,Labor
-Division 73,Queensland,National
-Division 74,Victoria,Labor
-Division 75,Western Australia,Labor
-Division 76,Tasmania,Labor
-Division 77,Queensland,Liberal
-Division 78,Western Australia,Liberal
-Division 79,Queensland,Labor
-Division 80,Queensland,Liberal
-Division 81,Victoria,Labor
-Division 82,New South Wales,Liberal
-Division 83,Victoria,Liberal
-Division 84,Queensland,National
-Division 85,Western Australia,Liberal
-Division 86,New South Wales,Labor
-Division 87,Queensland,Liberal
-Division 88,New South Wales,Liberal
-Division 89,Tasmania,Liberal
-Division 90,South Australia,Labor
-Division 91,Victoria,Liberal
-Division 92,New South Wales,Labor
-Division 93,Tasmania,Labor
-Division 94,South Australia,Labor
-Division 95,Victoria,Liberal
-Division 96,Victoria,Labor
-Division 97,Western Australia,Liberal
-Division 98,Queensland,Liberal
-Division 99,South Australia,Liberal
-Division 100,New South Wales,Labor
-Division 101,South Australia,Labor
-Division 102,New South Wales,Labor
-Division 103,Victoria,Labor
-Division 104,Victoria,Labor
-Division 105,South Australia,Other
-Division 106,Western Australia,Labor
-Division 107,Tasmania,Liberal
-Division 108,Victoria,Labor
-Division 109,Queensland,Liberal
-Division 110,Victoria,Labor
-Division 111,Australian Capital Territory,Labor
-Division 112,Victoria,Liberal
-Division 113,Victoria,Liberal
-Division 114,Victoria,Liberal
-Division 115,Tasmania,Labor
-Division 116,Victoria,Labor
-Division 117,New South Wales,Labor
-Division 118,Victoria,Labor
-Division 119,Victoria,Greens
-Division 120,Northern Territory,Labor
-Division 121,South Australia,Liberal
-Division 122,New South Wales,Liberal
-Division 123,New South Wales,Labor
-Division 124,New South Wales,Liberal
-Division 125,New South Wales,National
-Division 126,New South Wales,Labor
-Division 127,Queensland,Labor
-Division 128,New South Wales,Other
-Division 129,Queensland,Labor
-Division 130,Australian Capital Territory,Liberal
-Division 131,Tasmania,Greens
-Division 132,New South Wales,National
-Division 133,New South Wales,Labor
-Division 134,Northern Territory,Labor
-Division 135,South Australia,National
-Division 136,Victoria,Labor
-Division 137,Tasmania,National
-Division 138,South Australia,Liberal
-Division 139,New South Wales,Labor
-Division 140,Victoria,Other
-Division 141,Queensland,Greens
-Division 142,Victoria,National
-Division 143,Western Australia,Labor
-Division 144,Victoria,Labor
-Division 145,Queensland,Liberal
-Division 146,Tasmania,Liberal
-Division 147,South Australia,Liberal
-Division 148,Victoria,Labor
-Division 149,New South Wales,National
-Division 150,New South Wales,Labor
-Division 151,Victoria,Liberal
+vendor,product_name,current_price,nowtime,food_category
+T&T,Eggs,2.4746947293169796,2023-06-05,Protein Foods
+T&T,Whole Grain Bread,10.505792394280434,2022-09-24,Grain Products
+Galleria,Salmon,9.57757753902115,2022-05-28,Protein Foods
+Galleria,Eggs,19.745430651353672,2023-11-20,Protein Foods
+T&T,Broccoli,3.7005524691194296,2022-05-31,Fruits & Vegetables
+SaveOnFoods,Eggs,16.842879278818145,2022-05-03,Protein Foods
+Walmart,Oats,1.561060310807079,2022-06-24,Grain Products
+Metro,Whole Grain Bread,15.796415370889008,2022-04-24,Grain Products
+Galleria,Broccoli,5.344804865540937,2023-10-28,Fruits & Vegetables
+T&T,Greek Yogurt,3.543342250632122,2022-09-01,Protein Foods
+SaveOnFoods,Chicken Breast,4.621607552282512,2023-12-30,Protein Foods
+T&T,Brown Rice,5.101428154855967,2023-03-04,Grain Products
+T&T,Brown Rice,18.749256450217217,2022-04-17,Grain Products
+Metro,Greek Yogurt,19.787535436451435,2023-04-01,Protein Foods
+Walmart,Greek Yogurt,6.890473642153665,2022-06-28,Protein Foods
+Metro,Carrots,3.6054867072962224,2022-12-02,Fruits & Vegetables
+Metro,Whole Grain Bread,13.558730327757075,2022-03-20,Grain Products
+SaveOnFoods,Whole Grain Bread,12.113354157656431,2023-04-24,Grain Products
+T&T,Brown Rice,7.537241318495944,2023-10-23,Grain Products
+Galleria,Apples,16.465174230514094,2022-04-05,Fruits & Vegetables
+Galleria,Greek Yogurt,6.380495231365785,2023-05-13,Protein Foods
+Metro,Greek Yogurt,17.070980151882395,2022-11-04,Protein Foods
+T&T,Whole Grain Bread,3.6034158242400736,2023-11-08,Grain Products
+Walmart,Carrots,17.377007368952036,2022-01-31,Fruits & Vegetables
+Metro,Broccoli,2.275291758822277,2023-06-27,Fruits & Vegetables
+T&T,Eggs,9.268960272660479,2023-03-10,Protein Foods
+SaveOnFoods,Brown Rice,13.92256423085928,2022-08-22,Grain Products
+Walmart,Greek Yogurt,4.91071148426272,2022-09-29,Protein Foods
+Galleria,Oats,18.908241901546717,2023-06-07,Grain Products
+SaveOnFoods,Tofu,8.20715204696171,2023-10-11,Protein Foods
+Metro,Carrots,12.898562683258206,2023-12-02,Fruits & Vegetables
+Metro,Brown Rice,4.486545636551455,2023-12-14,Grain Products
+Galleria,Salmon,13.524944748263806,2022-01-01,Protein Foods
+T&T,Apples,14.95916530303657,2023-02-13,Fruits & Vegetables
+Walmart,Greek Yogurt,10.41790922684595,2022-06-27,Protein Foods
+SaveOnFoods,Greek Yogurt,17.50565613200888,2022-03-05,Protein Foods
+SaveOnFoods,Eggs,16.80492094461806,2023-07-27,Protein Foods
+T&T,Tofu,19.682677681325004,2022-06-11,Protein Foods
+Metro,Apples,13.670154276303947,2023-06-24,Fruits & Vegetables
+Galleria,Oats,13.214342698920518,2023-10-07,Grain Products
+SaveOnFoods,Tofu,1.8577604121528566,2023-12-29,Protein Foods
+SaveOnFoods,Bananas,4.626082407077774,2023-09-20,Fruits & Vegetables
+Walmart,Tofu,1.6191576304845512,2022-05-13,Protein Foods
+SaveOnFoods,Salmon,17.096695080399513,2023-02-17,Protein Foods
+Galleria,Greek Yogurt,9.064687863690779,2023-12-13,Protein Foods
+Metro,Bananas,16.52686533355154,2022-05-11,Fruits & Vegetables
+Metro,Eggs,3.881539871217683,2022-10-29,Protein Foods
+T&T,Eggs,8.7110380071681,2022-11-14,Protein Foods
+Metro,Whole Grain Bread,14.727669699117541,2022-09-27,Grain Products
+SaveOnFoods,Greek Yogurt,2.1330427408684045,2023-04-08,Protein Foods
+Metro,Carrots,7.276635241229087,2023-12-20,Fruits & Vegetables
+Galleria,Carrots,15.758516036672518,2023-03-27,Fruits & Vegetables
+Walmart,Chicken Breast,16.96872755768709,2023-08-17,Protein Foods
+Walmart,Bananas,17.541049075080082,2022-05-03,Fruits & Vegetables
+T&T,Whole Grain Bread,19.107796130003408,2022-05-10,Grain Products
+Metro,Broccoli,8.295159297063947,2022-10-29,Fruits & Vegetables
+Galleria,Oats,19.062007365049794,2023-01-05,Grain Products
+Metro,Apples,14.37798788677901,2023-07-24,Fruits & Vegetables
+Galleria,Oats,9.017646482679993,2022-08-18,Grain Products
+Walmart,Chicken Breast,8.435005785431713,2023-08-05,Protein Foods
+SaveOnFoods,Oats,5.000768166501075,2023-06-12,Grain Products
+SaveOnFoods,Tofu,15.29712343774736,2022-01-01,Protein Foods
+T&T,Chicken Breast,9.4564791591838,2022-10-18,Protein Foods
+Metro,Salmon,9.612982006045058,2022-06-09,Protein Foods
+Walmart,Greek Yogurt,2.581766326446086,2022-01-19,Protein Foods
+Metro,Carrots,7.93821154627949,2022-07-05,Fruits & Vegetables
+Metro,Whole Grain Bread,18.00410521076992,2023-06-08,Grain Products
+T&T,Apples,11.344319072784856,2023-08-03,Fruits & Vegetables
+Walmart,Greek Yogurt,1.5857142615132034,2023-10-23,Protein Foods
+Metro,Whole Grain Bread,8.380228580674157,2023-09-14,Grain Products
+T&T,Bananas,3.154509673593566,2022-08-29,Fruits & Vegetables
+SaveOnFoods,Apples,6.267834720667452,2022-11-13,Fruits & Vegetables
+T&T,Tofu,14.670876789139584,2023-08-13,Protein Foods
+Galleria,Greek Yogurt,8.144478514790535,2023-04-01,Protein Foods
+SaveOnFoods,Bananas,13.054739134619012,2022-06-19,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,10.438208056846634,2023-07-12,Grain Products
+T&T,Brown Rice,16.342242697253823,2022-06-08,Grain Products
+Galleria,Carrots,12.061579754343256,2023-05-20,Fruits & Vegetables
+Galleria,Salmon,4.268243264174089,2022-06-28,Protein Foods
+Galleria,Apples,18.8085297527723,2023-01-08,Fruits & Vegetables
+Walmart,Eggs,2.0224066192749888,2023-07-22,Protein Foods
+Galleria,Bananas,2.6574115559924394,2022-05-27,Fruits & Vegetables
+Galleria,Chicken Breast,16.989602107554674,2022-06-24,Protein Foods
+Walmart,Brown Rice,8.996895957970992,2022-07-28,Grain Products
+Walmart,Oats,14.632235002703965,2023-06-13,Grain Products
+Metro,Brown Rice,14.98686389089562,2023-11-29,Grain Products
+T&T,Carrots,19.761940357042477,2022-08-20,Fruits & Vegetables
+T&T,Eggs,19.258375271456316,2023-01-12,Protein Foods
+Metro,Bananas,3.6940809534862638,2023-04-28,Fruits & Vegetables
+T&T,Tofu,13.63407500111498,2022-04-16,Protein Foods
+SaveOnFoods,Carrots,1.6299306019209325,2023-04-20,Fruits & Vegetables
+Galleria,Broccoli,10.39575366023928,2023-11-20,Fruits & Vegetables
+T&T,Carrots,16.03569603082724,2022-01-18,Fruits & Vegetables
+Galleria,Carrots,8.204985318239778,2022-09-03,Fruits & Vegetables
+SaveOnFoods,Bananas,19.017687866464257,2022-11-18,Fruits & Vegetables
+SaveOnFoods,Broccoli,13.55283982725814,2022-03-08,Fruits & Vegetables
+T&T,Broccoli,9.222536809975281,2023-02-04,Fruits & Vegetables
+Walmart,Salmon,16.934969365829602,2023-10-23,Protein Foods
+Walmart,Salmon,16.289275735151023,2023-12-14,Protein Foods
+Walmart,Carrots,9.114183797966689,2022-03-31,Fruits & Vegetables
+SaveOnFoods,Greek Yogurt,7.258419680874795,2022-07-28,Protein Foods
+T&T,Chicken Breast,11.735769745893776,2022-10-29,Protein Foods
+Metro,Chicken Breast,17.363354267552495,2023-05-04,Protein Foods
+Galleria,Tofu,12.13154947035946,2023-07-02,Protein Foods
+Metro,Chicken Breast,13.257282437523827,2022-03-06,Protein Foods
+Galleria,Chicken Breast,15.57459732145071,2023-05-24,Protein Foods
+SaveOnFoods,Carrots,14.164283456513658,2022-07-21,Fruits & Vegetables
+T&T,Whole Grain Bread,17.469155973754823,2022-12-25,Grain Products
+Walmart,Eggs,2.7992534930817783,2022-08-03,Protein Foods
+Walmart,Apples,12.588846589205787,2022-10-09,Fruits & Vegetables
+Metro,Bananas,5.576621003448963,2022-07-27,Fruits & Vegetables
+Walmart,Apples,9.923191519919783,2023-08-29,Fruits & Vegetables
+Metro,Brown Rice,6.394519647350535,2023-06-17,Grain Products
+T&T,Tofu,18.450384293915704,2023-02-24,Protein Foods
+Walmart,Apples,8.595136934425682,2023-11-26,Fruits & Vegetables
+T&T,Bananas,11.741548545891419,2022-11-28,Fruits & Vegetables
+SaveOnFoods,Oats,2.536663234466687,2022-02-24,Grain Products
+Walmart,Bananas,18.911303512752056,2022-09-13,Fruits & Vegetables
+Walmart,Salmon,14.979793501319364,2022-01-07,Protein Foods
+Walmart,Whole Grain Bread,10.030932107940316,2023-06-17,Grain Products
+Metro,Carrots,4.455021724570543,2022-03-30,Fruits & Vegetables
+Galleria,Tofu,14.87697073025629,2022-06-01,Protein Foods
+T&T,Brown Rice,12.677913835039362,2023-07-23,Grain Products
+Walmart,Apples,2.1597902111243457,2023-08-26,Fruits & Vegetables
+T&T,Brown Rice,2.0126122813671827,2023-07-17,Grain Products
+Metro,Salmon,9.649869984015822,2022-02-07,Protein Foods
+SaveOnFoods,Brown Rice,4.438280601985753,2023-05-13,Grain Products
+SaveOnFoods,Tofu,10.334812556393445,2023-03-19,Protein Foods
+Galleria,Apples,19.655557516263798,2022-10-01,Fruits & Vegetables
+T&T,Broccoli,5.258320037974045,2023-01-08,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,14.538044450804591,2022-04-12,Grain Products
+Metro,Tofu,3.852395126828924,2023-11-19,Protein Foods
+Walmart,Carrots,10.988790949108079,2023-11-11,Fruits & Vegetables
+Galleria,Brown Rice,16.74104064446874,2023-10-25,Grain Products
+Walmart,Brown Rice,3.410350342048332,2022-11-23,Grain Products
+SaveOnFoods,Apples,16.573982352390885,2023-01-23,Fruits & Vegetables
+SaveOnFoods,Salmon,5.674064910970628,2023-03-20,Protein Foods
+SaveOnFoods,Whole Grain Bread,2.843341344734654,2022-07-29,Grain Products
+SaveOnFoods,Carrots,4.110327616101131,2023-10-28,Fruits & Vegetables
+Metro,Chicken Breast,13.622748875524849,2023-02-05,Protein Foods
+Galleria,Apples,13.871134218992665,2023-11-01,Fruits & Vegetables
+Metro,Salmon,3.5260856468230486,2023-11-04,Protein Foods
+Galleria,Chicken Breast,19.610955709591508,2023-11-09,Protein Foods
+SaveOnFoods,Apples,3.785637036897242,2022-06-11,Fruits & Vegetables
+SaveOnFoods,Tofu,18.89451832487248,2023-09-26,Protein Foods
+Metro,Greek Yogurt,14.306683152914047,2023-09-01,Protein Foods
+Galleria,Brown Rice,11.791295167058706,2023-01-05,Grain Products
+SaveOnFoods,Chicken Breast,5.680630799150094,2023-04-17,Protein Foods
+Walmart,Chicken Breast,7.476559116505086,2023-05-17,Protein Foods
+Galleria,Brown Rice,16.955476962961257,2022-06-11,Grain Products
+Galleria,Tofu,18.508907858282328,2023-04-14,Protein Foods
+T&T,Broccoli,10.791932856664062,2023-02-18,Fruits & Vegetables
+Metro,Broccoli,17.874131768243387,2023-04-22,Fruits & Vegetables
+Metro,Broccoli,14.377371857408434,2023-03-20,Fruits & Vegetables
+SaveOnFoods,Brown Rice,9.051493004197255,2023-11-26,Grain Products
+SaveOnFoods,Whole Grain Bread,6.705112964147702,2022-11-30,Grain Products
+T&T,Chicken Breast,19.304304372053593,2022-05-12,Protein Foods
+Galleria,Broccoli,3.3715913253836334,2022-01-26,Fruits & Vegetables
+SaveOnFoods,Salmon,13.926470125326887,2022-04-18,Protein Foods
+SaveOnFoods,Oats,16.57694372953847,2023-11-07,Grain Products
+T&T,Broccoli,5.109221616061404,2022-05-05,Fruits & Vegetables
+T&T,Brown Rice,12.287656401982531,2022-12-03,Grain Products
+Metro,Apples,4.072222682181746,2022-01-10,Fruits & Vegetables
+Walmart,Brown Rice,8.705003870883957,2023-03-11,Grain Products
+Galleria,Tofu,5.538816882297397,2023-09-26,Protein Foods
+Metro,Chicken Breast,11.024378065252677,2022-09-10,Protein Foods
+Galleria,Chicken Breast,13.748141221702099,2022-11-10,Protein Foods
+Walmart,Oats,18.243734433781356,2022-03-06,Grain Products
+SaveOnFoods,Carrots,7.323146467329934,2023-12-10,Fruits & Vegetables
+Metro,Brown Rice,5.608193488558754,2022-11-29,Grain Products
+Metro,Apples,6.889785987325013,2023-08-14,Fruits & Vegetables
+Metro,Bananas,5.3093051633331925,2022-08-18,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,3.3370595555752516,2023-10-22,Grain Products
+T&T,Carrots,6.087356885196641,2022-07-18,Fruits & Vegetables
+Metro,Broccoli,18.549419104121625,2022-10-15,Fruits & Vegetables
+Galleria,Oats,2.073199031408876,2023-11-15,Grain Products
+Galleria,Broccoli,10.527647789567709,2022-01-21,Fruits & Vegetables
+Metro,Broccoli,16.081932787783444,2022-07-03,Fruits & Vegetables
+Galleria,Oats,16.920619558542967,2023-02-20,Grain Products
+Metro,Apples,11.949199698166922,2022-12-30,Fruits & Vegetables
+SaveOnFoods,Greek Yogurt,5.5951517096254975,2023-02-27,Protein Foods
+Galleria,Apples,12.059182272292674,2022-02-05,Fruits & Vegetables
+T&T,Chicken Breast,3.612795777618885,2022-10-26,Protein Foods
+SaveOnFoods,Broccoli,10.171534156193957,2023-06-30,Fruits & Vegetables
+Walmart,Apples,2.780026642838493,2022-12-21,Fruits & Vegetables
+SaveOnFoods,Eggs,6.794421031838283,2022-04-09,Protein Foods
+Galleria,Greek Yogurt,13.8574017372448,2023-06-01,Protein Foods
+Metro,Brown Rice,4.897564777638763,2022-01-04,Grain Products
+Walmart,Chicken Breast,8.503451614640653,2022-01-18,Protein Foods
+Galleria,Greek Yogurt,16.254209015052766,2022-06-15,Protein Foods
+SaveOnFoods,Salmon,5.338093196041882,2022-10-18,Protein Foods
+Metro,Greek Yogurt,2.461242839228362,2023-01-09,Protein Foods
+SaveOnFoods,Carrots,15.786273248493671,2022-08-09,Fruits & Vegetables
+Metro,Greek Yogurt,13.732654236955568,2023-08-22,Protein Foods
+Walmart,Apples,10.71108379936777,2023-04-03,Fruits & Vegetables
+T&T,Carrots,5.066039144527167,2023-09-10,Fruits & Vegetables
+Metro,Brown Rice,4.566172677092254,2023-07-21,Grain Products
+Metro,Salmon,12.611796339740977,2022-08-14,Protein Foods
+Galleria,Bananas,1.7360883031506091,2023-09-01,Fruits & Vegetables
+Walmart,Apples,5.359370513586327,2022-07-19,Fruits & Vegetables
+Galleria,Whole Grain Bread,16.654819903429598,2022-03-27,Grain Products
+Metro,Oats,6.7069967477582395,2023-08-17,Grain Products
+SaveOnFoods,Chicken Breast,1.3057443781290203,2023-05-20,Protein Foods
+SaveOnFoods,Apples,19.270088243531063,2023-09-04,Fruits & Vegetables
+Metro,Salmon,2.6671871768776327,2023-06-02,Protein Foods
+Metro,Brown Rice,15.212444544071332,2023-11-25,Grain Products
+SaveOnFoods,Salmon,16.884156038053334,2022-06-18,Protein Foods
+SaveOnFoods,Tofu,1.303630159702152,2023-10-01,Protein Foods
+Galleria,Apples,17.2043684667442,2023-08-12,Fruits & Vegetables
+Galleria,Salmon,11.45564803830348,2023-02-02,Protein Foods
+SaveOnFoods,Apples,7.454060759861022,2022-08-05,Fruits & Vegetables
+Metro,Salmon,7.188335565850139,2022-11-29,Protein Foods
+Metro,Salmon,13.145182128064334,2022-09-22,Protein Foods
+SaveOnFoods,Chicken Breast,3.429098636377603,2023-12-27,Protein Foods
+SaveOnFoods,Oats,6.911300928331912,2023-09-09,Grain Products
+Walmart,Greek Yogurt,12.078569524455816,2023-08-11,Protein Foods
+SaveOnFoods,Oats,15.424728533253074,2022-05-17,Grain Products
+SaveOnFoods,Carrots,11.482359693618491,2022-03-23,Fruits & Vegetables
+Walmart,Greek Yogurt,14.067958801286295,2023-02-19,Protein Foods
+Galleria,Chicken Breast,8.054022413678467,2022-04-14,Protein Foods
+SaveOnFoods,Eggs,18.228190280497074,2022-09-07,Protein Foods
+Metro,Bananas,19.538971150992438,2023-12-30,Fruits & Vegetables
+Metro,Salmon,15.555789447622374,2022-05-04,Protein Foods
+Galleria,Oats,1.2330561594571918,2023-05-05,Grain Products
+Metro,Eggs,10.929475540993735,2023-04-27,Protein Foods
+Galleria,Greek Yogurt,16.181878777686507,2023-03-18,Protein Foods
+SaveOnFoods,Carrots,4.941655836533755,2022-06-14,Fruits & Vegetables
+Metro,Greek Yogurt,8.339353894582018,2022-12-28,Protein Foods
+T&T,Salmon,11.30527279782109,2023-12-07,Protein Foods
+Galleria,Salmon,15.140808561816812,2022-10-03,Protein Foods
+Galleria,Tofu,7.333316202973947,2023-09-06,Protein Foods
+SaveOnFoods,Broccoli,7.173389525618404,2022-12-22,Fruits & Vegetables
+Walmart,Salmon,9.051117699360475,2022-07-31,Protein Foods
+Metro,Apples,6.249725631903857,2022-04-27,Fruits & Vegetables
+SaveOnFoods,Broccoli,12.895712842931971,2022-08-30,Fruits & Vegetables
+Galleria,Salmon,1.828359053004533,2022-09-29,Protein Foods
+SaveOnFoods,Oats,12.524160948349163,2022-07-10,Grain Products
+Galleria,Eggs,8.923932841047645,2022-09-15,Protein Foods
+Galleria,Brown Rice,1.8287614269647747,2023-06-12,Grain Products
+Walmart,Eggs,19.87474706931971,2022-08-26,Protein Foods
+T&T,Brown Rice,12.904659778811038,2022-03-06,Grain Products
+Walmart,Chicken Breast,16.937962881755084,2023-02-05,Protein Foods
+T&T,Apples,8.544607967371121,2023-01-05,Fruits & Vegetables
+T&T,Carrots,19.108690729364753,2022-08-20,Fruits & Vegetables
+T&T,Tofu,8.189557824516669,2023-08-24,Protein Foods
+SaveOnFoods,Apples,16.57800666266121,2022-07-21,Fruits & Vegetables
+T&T,Whole Grain Bread,1.1373044769279659,2022-03-31,Grain Products
+Galleria,Tofu,17.601110430201516,2023-03-08,Protein Foods
+T&T,Eggs,2.404935877304524,2023-05-25,Protein Foods
+Metro,Carrots,16.517380766570568,2022-01-19,Fruits & Vegetables
+SaveOnFoods,Apples,12.134817694313824,2023-05-03,Fruits & Vegetables
+Metro,Tofu,13.972180735319853,2023-12-16,Protein Foods
+Walmart,Brown Rice,14.56899674818851,2022-03-20,Grain Products
+Galleria,Tofu,6.322000293293968,2022-12-14,Protein Foods
+Galleria,Eggs,13.796757606323808,2023-01-22,Protein Foods
+Walmart,Greek Yogurt,6.643748190253973,2022-12-04,Protein Foods
+Metro,Brown Rice,11.849869719939306,2023-09-29,Grain Products
+Walmart,Whole Grain Bread,2.03941744659096,2023-10-20,Grain Products
+SaveOnFoods,Apples,7.604559919331223,2023-06-21,Fruits & Vegetables
+SaveOnFoods,Tofu,10.455902601825073,2022-01-18,Protein Foods
+T&T,Apples,11.10209070960991,2023-01-06,Fruits & Vegetables
+SaveOnFoods,Salmon,16.499599170405418,2023-10-01,Protein Foods
+SaveOnFoods,Bananas,10.696202863939106,2023-04-23,Fruits & Vegetables
+T&T,Chicken Breast,17.129970230627805,2023-10-06,Protein Foods
+Metro,Oats,12.289664400974289,2022-10-02,Grain Products
+T&T,Carrots,11.220010535558686,2023-05-27,Fruits & Vegetables
+Walmart,Oats,12.913767855381593,2022-05-29,Grain Products
+Galleria,Broccoli,6.547502380097285,2022-06-13,Fruits & Vegetables
+SaveOnFoods,Tofu,11.777543627656996,2022-07-19,Protein Foods
+Metro,Salmon,19.99049966665916,2023-09-20,Protein Foods
+Walmart,Greek Yogurt,18.488625400699675,2023-08-06,Protein Foods
+T&T,Chicken Breast,15.617520683212206,2022-02-02,Protein Foods
+Metro,Apples,17.03092152089812,2022-06-11,Fruits & Vegetables
+Galleria,Apples,18.523317501647398,2022-09-26,Fruits & Vegetables
+T&T,Bananas,12.415012597804889,2022-04-09,Fruits & Vegetables
+T&T,Oats,7.988236635690555,2022-04-22,Grain Products
+Metro,Greek Yogurt,15.193066515494138,2023-09-13,Protein Foods
+Galleria,Brown Rice,10.21235404489562,2022-02-01,Grain Products
+Metro,Apples,1.0914056261535734,2022-09-25,Fruits & Vegetables
+Galleria,Bananas,13.789706469047815,2023-12-30,Fruits & Vegetables
+Galleria,Brown Rice,8.669303992530331,2022-08-28,Grain Products
+Galleria,Greek Yogurt,19.110458658542484,2022-11-03,Protein Foods
+SaveOnFoods,Apples,3.553056969307363,2022-11-28,Fruits & Vegetables
+Walmart,Bananas,8.176678964635357,2022-09-11,Fruits & Vegetables
+Walmart,Broccoli,18.097283623414114,2023-01-03,Fruits & Vegetables
+SaveOnFoods,Tofu,16.26347918785177,2023-01-07,Protein Foods
+Walmart,Tofu,10.622119534760714,2022-12-11,Protein Foods
+Metro,Chicken Breast,1.3437809823080897,2022-01-16,Protein Foods
+Galleria,Greek Yogurt,5.755189507966861,2022-08-18,Protein Foods
+Metro,Oats,6.813774844631553,2023-04-30,Grain Products
+Galleria,Apples,13.57275675656274,2022-11-16,Fruits & Vegetables
+T&T,Broccoli,2.8653629813343287,2023-06-27,Fruits & Vegetables
+Galleria,Eggs,19.340518568176776,2022-02-28,Protein Foods
+T&T,Salmon,17.477249500108883,2023-11-17,Protein Foods
+Metro,Whole Grain Bread,6.412388852098957,2023-02-03,Grain Products
+Walmart,Brown Rice,9.259057521121576,2022-05-24,Grain Products
+Galleria,Bananas,7.478031798033044,2022-08-10,Fruits & Vegetables
+T&T,Whole Grain Bread,7.614469527732581,2022-10-22,Grain Products
+SaveOnFoods,Eggs,6.779291143640876,2023-09-28,Protein Foods
+SaveOnFoods,Carrots,18.375803395407274,2023-09-04,Fruits & Vegetables
+T&T,Brown Rice,6.387998173944652,2022-10-15,Grain Products
+Galleria,Bananas,17.489099060883746,2023-12-09,Fruits & Vegetables
+SaveOnFoods,Apples,16.51713460078463,2023-08-09,Fruits & Vegetables
+Walmart,Salmon,4.507155347848311,2022-01-10,Protein Foods
+Galleria,Salmon,5.317303051939234,2023-05-20,Protein Foods
+Metro,Broccoli,13.646890906151384,2023-09-04,Fruits & Vegetables
+Walmart,Chicken Breast,9.893505839863792,2022-10-23,Protein Foods
+Metro,Chicken Breast,3.083161215065047,2022-11-27,Protein Foods
+Walmart,Oats,3.7673176547978073,2022-05-20,Grain Products
+SaveOnFoods,Tofu,7.02631233423017,2022-11-07,Protein Foods
+Walmart,Salmon,12.53685696888715,2023-06-25,Protein Foods
+Galleria,Oats,18.9932899819687,2022-07-14,Grain Products
+Galleria,Eggs,9.029137221630663,2022-01-02,Protein Foods
+Walmart,Carrots,18.603282992495224,2023-12-13,Fruits & Vegetables
+T&T,Apples,2.8931807812768966,2023-11-23,Fruits & Vegetables
+SaveOnFoods,Bananas,17.45949022192508,2023-05-01,Fruits & Vegetables
+Galleria,Oats,5.949276379542425,2023-11-07,Grain Products
+T&T,Chicken Breast,6.396615586709231,2022-09-05,Protein Foods
+T&T,Chicken Breast,4.151302146958187,2023-08-06,Protein Foods
+T&T,Eggs,1.5691759339533746,2022-03-31,Protein Foods
+Metro,Apples,2.864254186861217,2022-07-10,Fruits & Vegetables
+Metro,Apples,3.2772972835227847,2023-12-02,Fruits & Vegetables
+T&T,Oats,4.688852081308141,2023-05-21,Grain Products
+Walmart,Bananas,16.762259342474863,2023-11-21,Fruits & Vegetables
+Walmart,Bananas,1.2909709406085312,2022-08-30,Fruits & Vegetables
+SaveOnFoods,Brown Rice,8.328127237735316,2022-07-31,Grain Products
+Galleria,Brown Rice,18.372764186235145,2022-09-29,Grain Products
+Galleria,Chicken Breast,1.290427620522678,2023-02-12,Protein Foods
+Walmart,Apples,6.8833690257743,2023-01-25,Fruits & Vegetables
+Galleria,Carrots,9.141551097622141,2022-07-19,Fruits & Vegetables
+Metro,Oats,11.680490247206762,2023-12-08,Grain Products
+Walmart,Greek Yogurt,18.494543872773647,2022-05-03,Protein Foods
+T&T,Carrots,10.82152596465312,2023-10-18,Fruits & Vegetables
+Metro,Bananas,15.060759426094592,2022-02-03,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,12.73907670751214,2022-09-27,Grain Products
+T&T,Apples,4.90924068284221,2022-02-28,Fruits & Vegetables
+Walmart,Greek Yogurt,10.665091774892062,2023-12-11,Protein Foods
+Galleria,Carrots,2.1601846090052277,2022-05-09,Fruits & Vegetables
+SaveOnFoods,Bananas,15.715540430042893,2023-12-27,Fruits & Vegetables
+SaveOnFoods,Greek Yogurt,4.880690415157005,2023-08-03,Protein Foods
+Galleria,Oats,17.28439829708077,2023-07-09,Grain Products
+Galleria,Brown Rice,10.76166449370794,2023-06-26,Grain Products
+Galleria,Oats,5.7808056003414094,2023-12-07,Grain Products
+Metro,Salmon,16.44223948987201,2022-01-20,Protein Foods
+T&T,Salmon,2.2730485959909856,2022-11-16,Protein Foods
+Walmart,Tofu,1.4976760980207473,2022-01-01,Protein Foods
+T&T,Whole Grain Bread,12.328869932098314,2023-06-28,Grain Products
+T&T,Broccoli,17.09098156215623,2023-05-07,Fruits & Vegetables
+T&T,Bananas,9.595584066817537,2023-11-28,Fruits & Vegetables
+Walmart,Apples,10.541368902195245,2022-11-17,Fruits & Vegetables
+Walmart,Bananas,4.983532540267333,2022-08-30,Fruits & Vegetables
+T&T,Eggs,14.59613761655055,2023-02-27,Protein Foods
+Walmart,Brown Rice,11.191221016459167,2023-10-13,Grain Products
+Galleria,Eggs,1.9336491443682462,2023-02-27,Protein Foods
+T&T,Broccoli,16.631582726491615,2022-10-12,Fruits & Vegetables
+Walmart,Chicken Breast,5.797432841500267,2022-08-07,Protein Foods
+Galleria,Brown Rice,10.907529745716602,2022-03-10,Grain Products
+Metro,Brown Rice,7.212849906412885,2022-08-02,Grain Products
+T&T,Oats,3.09700798522681,2022-06-23,Grain Products
+Walmart,Brown Rice,17.18291124724783,2023-07-06,Grain Products
+Metro,Whole Grain Bread,12.868160699959844,2022-06-09,Grain Products
+Metro,Apples,17.113254451891407,2023-08-06,Fruits & Vegetables
+Walmart,Brown Rice,3.394224417163059,2022-08-02,Grain Products
+Walmart,Oats,13.696780641097575,2022-12-22,Grain Products
+SaveOnFoods,Greek Yogurt,12.550727578811347,2022-12-19,Protein Foods
+Metro,Eggs,18.96766079077497,2022-01-01,Protein Foods
+Walmart,Chicken Breast,12.031864147400483,2022-06-17,Protein Foods
+SaveOnFoods,Whole Grain Bread,6.759524207096547,2022-02-17,Grain Products
+T&T,Eggs,18.76080361008644,2023-06-13,Protein Foods
+Galleria,Chicken Breast,17.042827883036807,2022-05-19,Protein Foods
+SaveOnFoods,Bananas,9.06689374288544,2023-03-24,Fruits & Vegetables
+Walmart,Tofu,10.227636619936675,2022-08-29,Protein Foods
+Walmart,Eggs,15.601882887305692,2023-07-24,Protein Foods
+Metro,Oats,5.7932595470920205,2023-12-15,Grain Products
+T&T,Tofu,16.428759269881994,2022-05-22,Protein Foods
+T&T,Greek Yogurt,16.619812753982842,2022-08-12,Protein Foods
+T&T,Carrots,8.929403790039942,2022-09-13,Fruits & Vegetables
+SaveOnFoods,Salmon,18.411142961122096,2022-05-12,Protein Foods
+Galleria,Eggs,2.346637788694352,2022-09-06,Protein Foods
+SaveOnFoods,Brown Rice,16.39182561193593,2022-11-11,Grain Products
+Galleria,Brown Rice,10.232184953754768,2023-09-28,Grain Products
+Metro,Carrots,6.799459777306765,2022-02-12,Fruits & Vegetables
+Walmart,Tofu,12.739602832356468,2022-01-27,Protein Foods
+Galleria,Whole Grain Bread,7.06581404642202,2022-08-16,Grain Products
+Galleria,Brown Rice,13.394399461103603,2022-08-29,Grain Products
+T&T,Brown Rice,18.401117821224034,2022-09-22,Grain Products
+SaveOnFoods,Apples,11.812501593492925,2023-02-04,Fruits & Vegetables
+Metro,Greek Yogurt,13.11992341093719,2023-09-30,Protein Foods
+T&T,Whole Grain Bread,8.905329633504152,2023-01-15,Grain Products
+T&T,Whole Grain Bread,16.135592872509733,2022-03-18,Grain Products
+Galleria,Salmon,17.383247688878328,2023-01-09,Protein Foods
+SaveOnFoods,Whole Grain Bread,7.98092531808652,2023-05-30,Grain Products
+Metro,Greek Yogurt,10.270832822890952,2023-04-16,Protein Foods
+Walmart,Carrots,18.030685568228364,2023-06-08,Fruits & Vegetables
+Walmart,Carrots,9.812634146073833,2022-12-10,Fruits & Vegetables
+Metro,Salmon,4.977231981698424,2022-02-02,Protein Foods
+T&T,Greek Yogurt,13.848869623849168,2023-12-06,Protein Foods
+Walmart,Brown Rice,14.948466469766572,2023-11-23,Grain Products
+Walmart,Greek Yogurt,13.401189086493105,2022-08-17,Protein Foods
+Metro,Carrots,4.93137013586238,2023-12-30,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,19.254659267840907,2023-06-13,Grain Products
+T&T,Chicken Breast,1.1310461345128715,2022-08-17,Protein Foods
+Walmart,Eggs,18.14116449514404,2023-11-12,Protein Foods
+Galleria,Bananas,2.70321434433572,2022-12-28,Fruits & Vegetables
+T&T,Salmon,16.904800763586536,2023-06-09,Protein Foods
+Galleria,Tofu,11.529914790764451,2023-07-23,Protein Foods
+T&T,Chicken Breast,12.464921673526987,2023-09-05,Protein Foods
+T&T,Whole Grain Bread,16.415858866181225,2022-09-14,Grain Products
+Metro,Carrots,5.996517874766141,2023-11-23,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,1.7589919799938798,2023-12-17,Grain Products
+Walmart,Oats,3.6274598902091384,2022-09-01,Grain Products
+Walmart,Chicken Breast,3.002406826708466,2022-10-14,Protein Foods
+SaveOnFoods,Broccoli,4.33271059137769,2023-02-22,Fruits & Vegetables
+T&T,Broccoli,19.26241914811544,2022-02-11,Fruits & Vegetables
+Galleria,Whole Grain Bread,4.686544189695269,2023-09-30,Grain Products
+Walmart,Eggs,7.311434587929398,2022-09-18,Protein Foods
+SaveOnFoods,Brown Rice,14.153712320141494,2023-10-05,Grain Products
+Galleria,Apples,14.175861901370808,2022-04-19,Fruits & Vegetables
+T&T,Whole Grain Bread,6.436025178059936,2023-12-20,Grain Products
+T&T,Bananas,6.683265814790502,2022-09-19,Fruits & Vegetables
+Metro,Chicken Breast,9.169124364154413,2022-07-12,Protein Foods
+T&T,Carrots,8.269954054616392,2022-03-15,Fruits & Vegetables
+Galleria,Eggs,18.229513809783384,2022-07-02,Protein Foods
+T&T,Tofu,11.160464666085318,2023-10-27,Protein Foods
+T&T,Chicken Breast,12.540740054333583,2022-02-12,Protein Foods
+Metro,Eggs,10.5830880086869,2023-06-16,Protein Foods
+Galleria,Whole Grain Bread,10.583803360816091,2023-04-11,Grain Products
+Galleria,Brown Rice,9.049382479628548,2022-05-23,Grain Products
+Galleria,Carrots,5.133159334305674,2023-04-19,Fruits & Vegetables
+Walmart,Salmon,7.065754148410633,2023-07-05,Protein Foods
+Metro,Tofu,5.590782423969358,2023-01-22,Protein Foods
+SaveOnFoods,Oats,1.0218953154981136,2022-10-02,Grain Products
+SaveOnFoods,Whole Grain Bread,5.252526059979573,2023-02-25,Grain Products
+T&T,Salmon,19.41412781830877,2022-10-30,Protein Foods
+T&T,Oats,9.21565443999134,2022-07-30,Grain Products
+SaveOnFoods,Tofu,19.302835441892967,2022-09-20,Protein Foods
+Metro,Oats,5.860582200111821,2022-08-08,Grain Products
+Walmart,Salmon,3.573180241510272,2022-01-16,Protein Foods
+Galleria,Brown Rice,11.689248504349962,2022-01-05,Grain Products
+SaveOnFoods,Carrots,9.231737480731681,2022-06-01,Fruits & Vegetables
+Walmart,Eggs,17.394988402491435,2023-11-27,Protein Foods
+SaveOnFoods,Apples,18.394061946077272,2022-04-25,Fruits & Vegetables
+Metro,Salmon,12.747869695769623,2023-11-13,Protein Foods
+Galleria,Chicken Breast,16.977681991877034,2023-06-29,Protein Foods
+T&T,Bananas,6.476847247686237,2022-04-26,Fruits & Vegetables
+Metro,Eggs,18.083442157367244,2022-01-27,Protein Foods
+Metro,Carrots,3.680961621226743,2022-07-10,Fruits & Vegetables
+T&T,Carrots,3.696420404361561,2022-10-03,Fruits & Vegetables
+Galleria,Broccoli,12.01178400265053,2023-01-28,Fruits & Vegetables
+Walmart,Apples,19.905394594650716,2022-03-10,Fruits & Vegetables
+SaveOnFoods,Salmon,11.136117195012048,2023-11-24,Protein Foods
+T&T,Chicken Breast,3.441700925817713,2022-02-02,Protein Foods
+Walmart,Bananas,4.365268695168197,2022-02-21,Fruits & Vegetables
+SaveOnFoods,Eggs,15.71645519300364,2022-01-02,Protein Foods
+T&T,Oats,13.359710943419486,2023-05-28,Grain Products
+Metro,Apples,11.567306748125702,2022-04-19,Fruits & Vegetables
+SaveOnFoods,Chicken Breast,15.164635902270675,2023-02-19,Protein Foods
+Galleria,Chicken Breast,7.521044644061476,2023-11-13,Protein Foods
+Walmart,Brown Rice,8.433564357925206,2023-07-02,Grain Products
+Galleria,Tofu,7.691601674538106,2023-12-05,Protein Foods
+Metro,Carrots,12.833050003042445,2023-11-05,Fruits & Vegetables
+SaveOnFoods,Apples,4.054172673029825,2023-02-04,Fruits & Vegetables
+Galleria,Broccoli,5.682275114580989,2022-03-01,Fruits & Vegetables
+SaveOnFoods,Tofu,19.005709502846003,2023-10-18,Protein Foods
+Metro,Bananas,19.778490872122347,2023-02-28,Fruits & Vegetables
+Metro,Broccoli,11.177596598863602,2023-01-09,Fruits & Vegetables
+Galleria,Tofu,1.8608460444957018,2023-09-18,Protein Foods
+Walmart,Whole Grain Bread,12.443062637466937,2023-03-03,Grain Products
+Galleria,Tofu,14.711907028686255,2022-05-25,Protein Foods
+Metro,Chicken Breast,12.077434651786461,2022-09-29,Protein Foods
+Metro,Salmon,11.00299543957226,2022-09-21,Protein Foods
+Metro,Eggs,7.721568167442456,2022-07-16,Protein Foods
+Walmart,Greek Yogurt,2.5211739183869213,2023-11-30,Protein Foods
+Metro,Eggs,3.4394635094795376,2023-08-30,Protein Foods
+T&T,Broccoli,7.951632403535768,2022-08-27,Fruits & Vegetables
+Galleria,Bananas,12.40278341458179,2023-02-11,Fruits & Vegetables
+Metro,Whole Grain Bread,5.519024004694074,2023-03-26,Grain Products
+Metro,Whole Grain Bread,1.3447750327177346,2023-06-11,Grain Products
+SaveOnFoods,Brown Rice,6.887585664400831,2022-10-24,Grain Products
+SaveOnFoods,Tofu,2.48224053834565,2022-12-25,Protein Foods
+Walmart,Brown Rice,5.7673360460903496,2022-11-25,Grain Products
+Walmart,Tofu,3.676623850595206,2023-04-04,Protein Foods
+Walmart,Apples,8.032180214533582,2023-12-15,Fruits & Vegetables
+SaveOnFoods,Eggs,3.66694362857379,2022-08-22,Protein Foods
+Walmart,Bananas,11.791936655296013,2022-04-21,Fruits & Vegetables
+Metro,Oats,11.310927731916308,2022-06-05,Grain Products
+T&T,Salmon,4.110168572282419,2023-02-05,Protein Foods
+SaveOnFoods,Broccoli,18.95562210888602,2023-05-07,Fruits & Vegetables
+Walmart,Salmon,12.891958715161309,2023-11-06,Protein Foods
+Galleria,Oats,2.2320582589600235,2022-03-23,Grain Products
+Metro,Carrots,4.4374472454655915,2022-07-25,Fruits & Vegetables
+Walmart,Whole Grain Bread,13.687024573329836,2023-12-02,Grain Products
+Metro,Salmon,18.22781066247262,2022-02-14,Protein Foods
+T&T,Brown Rice,16.500555609818548,2023-11-02,Grain Products
+Metro,Greek Yogurt,9.407014355063438,2023-01-22,Protein Foods
+T&T,Whole Grain Bread,4.062826873967424,2022-10-17,Grain Products
+T&T,Whole Grain Bread,4.149687316035852,2022-01-25,Grain Products
+Galleria,Tofu,10.099971529096365,2022-07-22,Protein Foods
+T&T,Greek Yogurt,8.521390945184976,2023-11-28,Protein Foods
+Walmart,Eggs,16.103473532712087,2023-09-27,Protein Foods
+Galleria,Carrots,15.626904781674966,2023-02-24,Fruits & Vegetables
+Metro,Tofu,8.584134112112224,2023-01-26,Protein Foods
+SaveOnFoods,Oats,12.973739102482796,2023-06-16,Grain Products
+T&T,Bananas,8.840713176177815,2023-07-28,Fruits & Vegetables
+Walmart,Tofu,7.942424261011183,2022-08-01,Protein Foods
+SaveOnFoods,Tofu,12.796242772368714,2022-08-23,Protein Foods
+SaveOnFoods,Tofu,19.163202613359317,2023-04-07,Protein Foods
+Walmart,Whole Grain Bread,10.045378256356344,2023-10-05,Grain Products
+Metro,Whole Grain Bread,12.78881164547056,2022-06-29,Grain Products
+Metro,Bananas,6.4952576535288244,2022-04-23,Fruits & Vegetables
+Walmart,Apples,8.743786722887307,2022-12-23,Fruits & Vegetables
+T&T,Greek Yogurt,9.452666535740718,2022-01-30,Protein Foods
+SaveOnFoods,Chicken Breast,6.3871401061769575,2022-10-18,Protein Foods
+Galleria,Eggs,19.432640148093924,2022-07-25,Protein Foods
+Metro,Carrots,17.769377945456654,2023-06-13,Fruits & Vegetables
+Walmart,Salmon,16.368162177037448,2023-05-28,Protein Foods
+Walmart,Tofu,14.456302625592798,2022-02-28,Protein Foods
+Walmart,Greek Yogurt,4.42383045447059,2023-04-20,Protein Foods
+T&T,Carrots,2.215538484742865,2023-03-27,Fruits & Vegetables
+Galleria,Brown Rice,3.0250392062589526,2023-03-12,Grain Products
+Galleria,Brown Rice,17.115502047352493,2023-03-04,Grain Products
+T&T,Whole Grain Bread,7.829173962818459,2023-02-10,Grain Products
+SaveOnFoods,Apples,15.915011305594817,2023-07-10,Fruits & Vegetables
+Walmart,Tofu,18.252738042734563,2023-03-08,Protein Foods
+T&T,Eggs,13.035069640725851,2023-08-08,Protein Foods
+T&T,Chicken Breast,12.687209479976445,2022-01-15,Protein Foods
+Metro,Carrots,2.2832581766415387,2023-07-01,Fruits & Vegetables
+SaveOnFoods,Eggs,5.588383765192702,2023-01-27,Protein Foods
+SaveOnFoods,Broccoli,8.804785853484645,2023-08-25,Fruits & Vegetables
+Metro,Greek Yogurt,16.41232522856444,2022-01-01,Protein Foods
+Metro,Chicken Breast,8.203683292958885,2022-08-27,Protein Foods
+Metro,Whole Grain Bread,9.492054379777983,2022-08-19,Grain Products
+SaveOnFoods,Greek Yogurt,11.839647867716849,2022-10-12,Protein Foods
+SaveOnFoods,Eggs,3.4930350168142468,2022-11-14,Protein Foods
+Walmart,Whole Grain Bread,1.2473490017000586,2023-10-24,Grain Products
+Galleria,Greek Yogurt,13.87572482204996,2022-05-31,Protein Foods
+Galleria,Greek Yogurt,16.867956607602537,2022-09-24,Protein Foods
+Walmart,Eggs,18.78900614194572,2023-08-29,Protein Foods
+Galleria,Broccoli,2.1105616635177284,2022-06-01,Fruits & Vegetables
+Metro,Carrots,13.692490089917555,2023-05-11,Fruits & Vegetables
+T&T,Greek Yogurt,8.331274272175506,2022-04-23,Protein Foods
+SaveOnFoods,Bananas,11.94645183486864,2022-03-31,Fruits & Vegetables
+T&T,Tofu,3.6374693787656724,2022-01-03,Protein Foods
+Metro,Apples,5.860843212110922,2023-10-22,Fruits & Vegetables
+Galleria,Whole Grain Bread,6.9481567984912544,2023-09-08,Grain Products
+Walmart,Oats,14.587238329229876,2023-08-20,Grain Products
+Walmart,Eggs,4.584911048877984,2022-05-22,Protein Foods
+Metro,Bananas,3.701444507110864,2022-05-24,Fruits & Vegetables
+SaveOnFoods,Oats,11.908120712963864,2023-08-26,Grain Products
+Metro,Carrots,1.9338551820255816,2023-12-21,Fruits & Vegetables
+Walmart,Bananas,9.265145379817113,2022-12-21,Fruits & Vegetables
+T&T,Chicken Breast,10.17149306810461,2022-03-31,Protein Foods
+Walmart,Tofu,9.83152111270465,2022-07-10,Protein Foods
+SaveOnFoods,Apples,10.237836804473773,2023-02-19,Fruits & Vegetables
+SaveOnFoods,Apples,15.014112814562395,2022-01-17,Fruits & Vegetables
+Walmart,Tofu,19.82873992435634,2023-05-08,Protein Foods
+T&T,Bananas,16.96775881573558,2023-04-13,Fruits & Vegetables
+T&T,Tofu,3.1266001199837774,2023-08-01,Protein Foods
+Galleria,Carrots,17.367015646304935,2022-09-29,Fruits & Vegetables
+SaveOnFoods,Broccoli,11.789174467790872,2023-11-08,Fruits & Vegetables
+SaveOnFoods,Eggs,13.982299478026107,2023-09-30,Protein Foods
+Metro,Bananas,16.002504096366465,2022-02-10,Fruits & Vegetables
+T&T,Whole Grain Bread,8.647985131246969,2022-01-24,Grain Products
+Galleria,Broccoli,17.212266599060968,2022-05-07,Fruits & Vegetables
+T&T,Apples,4.602505116490647,2023-06-25,Fruits & Vegetables
+Walmart,Carrots,10.418711028527468,2022-10-04,Fruits & Vegetables
+Galleria,Eggs,3.2808426353149116,2022-04-03,Protein Foods
+SaveOnFoods,Tofu,5.344602818135172,2024-01-01,Protein Foods
+T&T,Carrots,18.204460033215582,2022-06-05,Fruits & Vegetables
+T&T,Eggs,10.001722590532154,2022-05-18,Protein Foods
+Galleria,Whole Grain Bread,11.26905880519189,2022-04-03,Grain Products
+Galleria,Bananas,19.50211106054485,2023-10-20,Fruits & Vegetables
+Walmart,Bananas,19.4761514083948,2022-04-08,Fruits & Vegetables
+Galleria,Greek Yogurt,14.021829922683537,2022-05-12,Protein Foods
+Metro,Oats,15.819223909871653,2022-06-18,Grain Products
+Walmart,Eggs,1.3886111313477159,2022-02-16,Protein Foods
+Metro,Apples,14.840849070809782,2023-12-07,Fruits & Vegetables
+SaveOnFoods,Brown Rice,18.531270471168682,2023-10-14,Grain Products
+Galleria,Bananas,9.368698158999905,2022-06-27,Fruits & Vegetables
+SaveOnFoods,Brown Rice,14.405920842196792,2023-12-16,Grain Products
+Galleria,Greek Yogurt,16.517771028215066,2023-09-26,Protein Foods
+Galleria,Greek Yogurt,10.245576954679564,2023-05-02,Protein Foods
+T&T,Apples,17.016988933784887,2024-01-01,Fruits & Vegetables
+Galleria,Salmon,10.364602699643001,2022-01-30,Protein Foods
+T&T,Salmon,1.3357151488307863,2022-01-10,Protein Foods
+T&T,Greek Yogurt,9.368839901406318,2022-03-28,Protein Foods
+Metro,Eggs,10.08056859462522,2023-03-04,Protein Foods
+Metro,Greek Yogurt,12.4235709044151,2023-01-03,Protein Foods
+SaveOnFoods,Whole Grain Bread,9.421687744325027,2022-02-01,Grain Products
+Metro,Carrots,6.836371413664892,2023-11-21,Fruits & Vegetables
+SaveOnFoods,Tofu,13.786795111605898,2023-11-15,Protein Foods
+Metro,Oats,12.573171018622816,2022-09-19,Grain Products
+Galleria,Salmon,19.499892281601205,2023-09-10,Protein Foods
+Metro,Oats,4.340859534451738,2023-12-22,Grain Products
+T&T,Whole Grain Bread,19.491303021786734,2023-05-03,Grain Products
+T&T,Greek Yogurt,12.007025636499748,2023-02-12,Protein Foods
+Walmart,Greek Yogurt,15.024379948619753,2023-02-27,Protein Foods
+Galleria,Broccoli,17.450539893005043,2023-12-19,Fruits & Vegetables
+Walmart,Greek Yogurt,13.302235974697396,2023-12-16,Protein Foods
+T&T,Greek Yogurt,14.199226239928976,2023-04-12,Protein Foods
+Metro,Chicken Breast,19.922203325899318,2022-10-30,Protein Foods
+T&T,Apples,17.138094599591568,2022-04-17,Fruits & Vegetables
+Walmart,Bananas,15.550622527487576,2022-05-18,Fruits & Vegetables
+Galleria,Carrots,3.6156411410775036,2023-03-07,Fruits & Vegetables
+SaveOnFoods,Chicken Breast,2.8085897483397275,2023-01-05,Protein Foods
+Galleria,Tofu,10.915116311050951,2023-06-19,Protein Foods
+Metro,Brown Rice,4.656758470227942,2023-02-19,Grain Products
+Galleria,Apples,14.897838383447379,2023-10-24,Fruits & Vegetables
+T&T,Eggs,10.397152597317472,2023-12-28,Protein Foods
+T&T,Oats,3.7124239143449813,2023-10-31,Grain Products
+Galleria,Chicken Breast,16.983122412348166,2023-11-01,Protein Foods
+Galleria,Eggs,18.884775227634236,2023-07-23,Protein Foods
+Walmart,Brown Rice,6.281382062705234,2023-01-23,Grain Products
+SaveOnFoods,Greek Yogurt,3.8572064677719027,2023-08-06,Protein Foods
+Galleria,Oats,14.426795409759507,2023-10-28,Grain Products
+T&T,Bananas,11.741433293092996,2022-07-31,Fruits & Vegetables
+Metro,Whole Grain Bread,2.719546377658844,2023-09-28,Grain Products
+SaveOnFoods,Salmon,11.646467734361067,2023-02-04,Protein Foods
+T&T,Whole Grain Bread,12.689941200893372,2022-09-08,Grain Products
+Galleria,Carrots,11.419978776946664,2023-01-04,Fruits & Vegetables
+Metro,Whole Grain Bread,8.476328025572002,2023-07-05,Grain Products
+Walmart,Carrots,8.916694860905409,2022-11-06,Fruits & Vegetables
+Walmart,Tofu,18.19330751011148,2023-12-18,Protein Foods
+T&T,Eggs,13.7988176997751,2023-11-06,Protein Foods
+Metro,Whole Grain Bread,19.141014408087358,2022-02-18,Grain Products
+Galleria,Bananas,3.8734050886705518,2023-04-17,Fruits & Vegetables
+T&T,Chicken Breast,11.635091124568135,2023-08-03,Protein Foods
+Metro,Salmon,2.8740792656317353,2023-12-05,Protein Foods
+Metro,Carrots,12.845549368765205,2023-04-09,Fruits & Vegetables
+Galleria,Brown Rice,5.871082436526194,2022-03-08,Grain Products
+Galleria,Whole Grain Bread,10.106064727297053,2022-07-28,Grain Products
+Walmart,Brown Rice,10.06572661944665,2023-01-10,Grain Products
+T&T,Apples,16.77933691139333,2023-02-18,Fruits & Vegetables
+Galleria,Brown Rice,18.0159727409482,2022-10-28,Grain Products
+Galleria,Greek Yogurt,11.960638700984418,2022-11-26,Protein Foods
+SaveOnFoods,Tofu,18.932106737978756,2022-10-20,Protein Foods
+Metro,Greek Yogurt,6.544870791491121,2023-11-30,Protein Foods
+T&T,Apples,12.881066252943128,2023-09-02,Fruits & Vegetables
+Galleria,Whole Grain Bread,12.783493405440822,2023-12-15,Grain Products
+Galleria,Tofu,13.32373919710517,2022-01-04,Protein Foods
+Walmart,Tofu,5.4633015571162105,2022-12-10,Protein Foods
+Walmart,Brown Rice,8.671305727446452,2023-10-22,Grain Products
+Walmart,Whole Grain Bread,4.248046601423994,2022-02-15,Grain Products
+SaveOnFoods,Tofu,10.864097547251731,2022-04-10,Protein Foods
+SaveOnFoods,Oats,12.102866223780438,2022-04-07,Grain Products
+Walmart,Oats,2.5214854278601706,2022-08-26,Grain Products
+Walmart,Tofu,14.849147980101407,2022-09-27,Protein Foods
+Galleria,Tofu,12.667264057090506,2023-04-16,Protein Foods
+SaveOnFoods,Whole Grain Bread,13.747019443428144,2023-10-08,Grain Products
+Galleria,Tofu,6.626537629170343,2022-08-03,Protein Foods
+Galleria,Bananas,7.850801533320919,2023-12-04,Fruits & Vegetables
+Walmart,Bananas,12.99025948275812,2022-02-05,Fruits & Vegetables
+SaveOnFoods,Brown Rice,19.24201279808767,2022-06-09,Grain Products
+T&T,Bananas,7.928889031289145,2022-12-03,Fruits & Vegetables
+T&T,Whole Grain Bread,4.761808460811153,2022-08-01,Grain Products
+Galleria,Carrots,5.828066507121548,2023-04-09,Fruits & Vegetables
+Galleria,Bananas,10.22075090999715,2022-12-30,Fruits & Vegetables
+Metro,Greek Yogurt,8.852351328823715,2022-03-02,Protein Foods
+T&T,Greek Yogurt,7.236661272589117,2023-01-27,Protein Foods
+SaveOnFoods,Eggs,7.780054439324886,2023-05-10,Protein Foods
+T&T,Chicken Breast,13.993325830437243,2023-05-11,Protein Foods
+SaveOnFoods,Oats,17.399836036143824,2022-10-18,Grain Products
+Metro,Salmon,9.910405988572165,2022-12-29,Protein Foods
+Galleria,Bananas,12.07428485690616,2022-06-10,Fruits & Vegetables
+Walmart,Apples,10.47263939352706,2023-01-29,Fruits & Vegetables
+T&T,Brown Rice,13.678849291056395,2023-12-24,Grain Products
+SaveOnFoods,Whole Grain Bread,14.0695919864811,2022-02-27,Grain Products
+SaveOnFoods,Bananas,3.0392685760743916,2022-12-19,Fruits & Vegetables
+SaveOnFoods,Bananas,3.1319761036429554,2022-03-04,Fruits & Vegetables
+Walmart,Oats,18.722823342774063,2022-05-12,Grain Products
+T&T,Brown Rice,9.0156416289974,2022-05-31,Grain Products
+T&T,Chicken Breast,11.702918221475556,2022-09-15,Protein Foods
+Galleria,Tofu,19.168601569719613,2022-04-06,Protein Foods
+Galleria,Brown Rice,4.722500381991267,2022-09-14,Grain Products
+Galleria,Carrots,5.251182459993288,2022-08-12,Fruits & Vegetables
+Galleria,Bananas,12.805782552575693,2022-03-02,Fruits & Vegetables
+Galleria,Brown Rice,16.85676611517556,2022-07-12,Grain Products
+T&T,Tofu,16.351399121340364,2022-04-14,Protein Foods
+Metro,Brown Rice,3.8703956028912216,2023-08-18,Grain Products
+Metro,Greek Yogurt,2.581344638252631,2022-02-09,Protein Foods
+Metro,Greek Yogurt,15.799681820906699,2022-04-02,Protein Foods
+Metro,Eggs,19.13542880350724,2023-02-18,Protein Foods
+T&T,Brown Rice,12.749627184821293,2023-12-28,Grain Products
+Metro,Bananas,9.307109754066914,2023-06-29,Fruits & Vegetables
+Galleria,Whole Grain Bread,13.624008105136454,2022-11-23,Grain Products
+T&T,Chicken Breast,17.508955831173807,2022-10-06,Protein Foods
+Walmart,Greek Yogurt,10.549807616276667,2022-12-08,Protein Foods
+Walmart,Carrots,11.047257513040677,2023-11-17,Fruits & Vegetables
+T&T,Oats,15.644127225037664,2023-03-17,Grain Products
+Walmart,Greek Yogurt,8.025914878118783,2022-09-10,Protein Foods
+Galleria,Chicken Breast,18.869551258860156,2023-08-09,Protein Foods
+T&T,Tofu,1.6319166810717434,2023-12-26,Protein Foods
+Walmart,Whole Grain Bread,7.427272422704846,2022-07-22,Grain Products
+T&T,Bananas,3.576942420564592,2022-02-13,Fruits & Vegetables
+Walmart,Salmon,7.405370608670637,2023-10-14,Protein Foods
+SaveOnFoods,Tofu,10.186733736656606,2023-05-23,Protein Foods
+Metro,Brown Rice,15.385978386271745,2023-08-04,Grain Products
+SaveOnFoods,Brown Rice,16.126336882356554,2022-05-05,Grain Products
+Walmart,Salmon,8.912713793106377,2023-11-29,Protein Foods
+SaveOnFoods,Whole Grain Bread,1.5688566430471838,2023-07-17,Grain Products
+Metro,Oats,18.828688101144508,2022-01-09,Grain Products
+Metro,Salmon,18.394550106022507,2022-01-28,Protein Foods
+Metro,Broccoli,12.630157473497093,2023-12-06,Fruits & Vegetables
+Galleria,Apples,18.46274953056127,2022-11-02,Fruits & Vegetables
+Galleria,Brown Rice,12.898921438725665,2022-02-11,Grain Products
+Walmart,Tofu,3.4026194729376584,2022-08-06,Protein Foods
+Metro,Greek Yogurt,3.7101911208592355,2023-12-25,Protein Foods
+Galleria,Salmon,13.95123334787786,2023-11-21,Protein Foods
+Metro,Brown Rice,18.537471525603905,2023-11-09,Grain Products
+T&T,Salmon,3.862396152690053,2022-11-09,Protein Foods
+T&T,Bananas,17.812090058345348,2022-11-27,Fruits & Vegetables
+Metro,Greek Yogurt,9.553469801554456,2023-06-16,Protein Foods
+Walmart,Whole Grain Bread,1.8867298597469926,2022-11-30,Grain Products
+T&T,Tofu,16.64589284802787,2023-12-29,Protein Foods
+SaveOnFoods,Carrots,19.35942771122791,2023-02-10,Fruits & Vegetables
+Galleria,Oats,16.340519996825606,2023-07-23,Grain Products
+Walmart,Carrots,6.628801800543442,2023-12-11,Fruits & Vegetables
+Galleria,Whole Grain Bread,4.759949348634109,2023-02-12,Grain Products
+Galleria,Greek Yogurt,4.831785591086373,2022-11-03,Protein Foods
+Metro,Salmon,7.640741043258458,2023-10-28,Protein Foods
+Metro,Eggs,5.257612405344844,2023-01-21,Protein Foods
+T&T,Oats,4.125342490384355,2022-10-03,Grain Products
+SaveOnFoods,Eggs,2.761869069421664,2022-05-21,Protein Foods
+SaveOnFoods,Chicken Breast,13.025097966659814,2023-12-17,Protein Foods
+Metro,Greek Yogurt,15.910978523781523,2022-10-30,Protein Foods
+Walmart,Brown Rice,2.130296664778143,2022-04-08,Grain Products
+Galleria,Chicken Breast,2.601693439297378,2023-04-16,Protein Foods
+T&T,Broccoli,1.081276752986014,2022-03-02,Fruits & Vegetables
+T&T,Oats,3.70219358173199,2023-12-01,Grain Products
+Galleria,Eggs,18.65468037012033,2022-08-02,Protein Foods
+SaveOnFoods,Carrots,4.075811639195308,2022-03-21,Fruits & Vegetables
+Walmart,Carrots,19.781521848635748,2023-04-18,Fruits & Vegetables
+Metro,Carrots,14.380241932114586,2023-04-19,Fruits & Vegetables
+Walmart,Eggs,7.166308541083708,2022-02-20,Protein Foods
+T&T,Chicken Breast,7.233619435690343,2023-09-02,Protein Foods
+SaveOnFoods,Brown Rice,15.757339438889176,2023-12-20,Grain Products
+SaveOnFoods,Salmon,10.473459434462711,2022-03-03,Protein Foods
+Walmart,Bananas,10.443130147177726,2022-09-21,Fruits & Vegetables
+SaveOnFoods,Broccoli,6.061121963197365,2023-05-27,Fruits & Vegetables
+Metro,Salmon,18.66622726456262,2022-06-30,Protein Foods
+SaveOnFoods,Salmon,13.873369879089296,2022-08-19,Protein Foods
+Walmart,Oats,14.494936811970547,2023-10-20,Grain Products
+SaveOnFoods,Chicken Breast,6.354087419109419,2022-12-16,Protein Foods
+SaveOnFoods,Whole Grain Bread,12.033146915957332,2023-04-10,Grain Products
+SaveOnFoods,Broccoli,19.130879284115508,2022-06-09,Fruits & Vegetables
+T&T,Carrots,1.6839724192395806,2023-10-22,Fruits & Vegetables
+Walmart,Eggs,10.694482901832089,2023-05-08,Protein Foods
+SaveOnFoods,Brown Rice,17.351133153308183,2022-09-07,Grain Products
+SaveOnFoods,Salmon,6.272354972315952,2023-08-13,Protein Foods
+Walmart,Bananas,7.89413251564838,2022-11-18,Fruits & Vegetables
+Walmart,Greek Yogurt,18.413832558784634,2022-04-27,Protein Foods
+T&T,Brown Rice,2.5244721134658903,2023-03-21,Grain Products
+T&T,Eggs,10.741768108448014,2023-04-16,Protein Foods
+Walmart,Tofu,8.980719075538218,2023-12-02,Protein Foods
+Metro,Tofu,4.002939864527434,2023-10-31,Protein Foods
+Walmart,Brown Rice,9.541601828997955,2022-12-25,Grain Products
+Galleria,Salmon,4.222793993540108,2022-10-25,Protein Foods
+Galleria,Chicken Breast,17.249696963699535,2023-11-19,Protein Foods
+Walmart,Greek Yogurt,14.074530250160024,2023-11-01,Protein Foods
+Metro,Greek Yogurt,3.3089794917032123,2022-05-30,Protein Foods
+Metro,Chicken Breast,3.2632042148616165,2023-12-02,Protein Foods
+Galleria,Whole Grain Bread,6.482333675492555,2023-05-28,Grain Products
+Walmart,Oats,18.864476344548166,2023-05-07,Grain Products
+SaveOnFoods,Apples,18.701167022110894,2022-01-01,Fruits & Vegetables
+T&T,Oats,4.475641668075696,2022-11-04,Grain Products
+Metro,Bananas,18.344601079123095,2022-08-17,Fruits & Vegetables
+T&T,Carrots,2.2626987991388887,2022-01-01,Fruits & Vegetables
+T&T,Eggs,17.67494662478566,2022-07-30,Protein Foods
+Galleria,Salmon,2.1173999637831002,2023-08-01,Protein Foods
+Walmart,Whole Grain Bread,19.082221594639122,2023-11-03,Grain Products
+Metro,Salmon,4.041318750008941,2023-07-31,Protein Foods
+T&T,Bananas,12.03587177558802,2023-02-19,Fruits & Vegetables
+SaveOnFoods,Apples,14.51691711274907,2022-09-22,Fruits & Vegetables
+SaveOnFoods,Carrots,6.3261278457939625,2023-01-18,Fruits & Vegetables
+SaveOnFoods,Greek Yogurt,1.5060018862131983,2023-05-29,Protein Foods
+Galleria,Bananas,14.501826596213505,2023-07-23,Fruits & Vegetables
+SaveOnFoods,Oats,6.942189558641985,2023-12-03,Grain Products
+SaveOnFoods,Whole Grain Bread,17.247604067903012,2022-12-31,Grain Products
+Metro,Tofu,9.964566827751696,2022-03-07,Protein Foods
+SaveOnFoods,Tofu,19.849953742930666,2022-01-26,Protein Foods
+Metro,Whole Grain Bread,2.47941497573629,2023-12-25,Grain Products
+Galleria,Greek Yogurt,1.4694546146783978,2022-04-29,Protein Foods
+Metro,Broccoli,11.928201618604362,2022-05-06,Fruits & Vegetables
+Metro,Broccoli,12.545615659561008,2022-07-31,Fruits & Vegetables
+Galleria,Apples,1.082938975887373,2022-12-31,Fruits & Vegetables
+Walmart,Brown Rice,15.130299884825945,2023-07-30,Grain Products
+SaveOnFoods,Bananas,1.8887576861307025,2022-02-28,Fruits & Vegetables
+Galleria,Brown Rice,10.086352999554947,2022-07-10,Grain Products
+Galleria,Eggs,18.83254586928524,2023-07-11,Protein Foods
+Galleria,Brown Rice,2.133116118144244,2022-07-20,Grain Products
+Walmart,Tofu,19.119177132612094,2023-08-11,Protein Foods
+SaveOnFoods,Greek Yogurt,15.64529698365368,2023-11-06,Protein Foods
+Galleria,Chicken Breast,17.179438604740426,2022-08-08,Protein Foods
+T&T,Chicken Breast,5.14132742350921,2023-06-26,Protein Foods
+Metro,Salmon,19.894982205703855,2023-01-18,Protein Foods
+Walmart,Oats,14.176938145654276,2023-08-22,Grain Products
+T&T,Apples,6.4555293950252235,2022-04-22,Fruits & Vegetables
+T&T,Whole Grain Bread,16.540906232548878,2023-05-17,Grain Products
+T&T,Oats,19.229064723709598,2022-07-25,Grain Products
+Galleria,Chicken Breast,18.108008552575484,2023-03-14,Protein Foods
+Walmart,Salmon,3.409948016749695,2023-11-20,Protein Foods
+Walmart,Chicken Breast,2.1330225551500916,2023-09-19,Protein Foods
+Galleria,Apples,16.549845652421936,2023-06-24,Fruits & Vegetables
+T&T,Oats,17.346011134563014,2023-12-21,Grain Products
+Metro,Chicken Breast,1.858792980434373,2023-11-24,Protein Foods
+Walmart,Brown Rice,5.266079723602161,2022-01-22,Grain Products
+Metro,Whole Grain Bread,14.391540762968361,2023-07-21,Grain Products
+Metro,Brown Rice,2.875217580003664,2023-06-25,Grain Products
+Walmart,Tofu,1.3019304231274873,2023-11-03,Protein Foods
+T&T,Tofu,18.206986039411277,2022-07-15,Protein Foods
+SaveOnFoods,Apples,1.9316359208896756,2022-07-23,Fruits & Vegetables
+Galleria,Eggs,17.60896789468825,2023-03-27,Protein Foods
+SaveOnFoods,Carrots,3.290835508145392,2022-01-14,Fruits & Vegetables
+Galleria,Oats,8.67911835690029,2022-09-03,Grain Products
+Walmart,Whole Grain Bread,5.368536678841338,2022-04-19,Grain Products
+Galleria,Broccoli,15.748472776962444,2023-04-23,Fruits & Vegetables
+Galleria,Eggs,11.950178154744208,2023-06-10,Protein Foods
+Walmart,Eggs,4.701290354598314,2022-10-01,Protein Foods
+Walmart,Eggs,9.07038984913379,2023-01-11,Protein Foods
+Metro,Salmon,9.359532524598762,2023-06-06,Protein Foods
+T&T,Greek Yogurt,18.268082639202476,2022-04-24,Protein Foods
+Metro,Whole Grain Bread,9.790625541936606,2022-12-11,Grain Products
+T&T,Broccoli,18.7003590404056,2022-12-02,Fruits & Vegetables
+T&T,Greek Yogurt,8.39964295946993,2022-09-26,Protein Foods
+T&T,Whole Grain Bread,16.300005495082587,2023-03-04,Grain Products
+SaveOnFoods,Carrots,15.602558677550405,2023-10-28,Fruits & Vegetables
+Galleria,Carrots,7.477238507708535,2023-09-21,Fruits & Vegetables
+Metro,Tofu,18.819975333753973,2023-12-31,Protein Foods
+SaveOnFoods,Greek Yogurt,10.572794318664819,2022-06-01,Protein Foods
+T&T,Whole Grain Bread,7.161268853349611,2022-06-18,Grain Products
+T&T,Apples,9.41026344615966,2023-11-03,Fruits & Vegetables
+T&T,Brown Rice,10.252496073022485,2022-10-10,Grain Products
+T&T,Broccoli,16.990450173150748,2023-04-19,Fruits & Vegetables
+Metro,Oats,19.034028818132356,2023-05-15,Grain Products
+T&T,Apples,9.93702643434517,2023-09-29,Fruits & Vegetables
+T&T,Oats,8.050177691271529,2022-11-22,Grain Products
+Galleria,Chicken Breast,5.292261790251359,2022-02-26,Protein Foods
+SaveOnFoods,Brown Rice,1.0875258983578533,2023-03-26,Grain Products
+SaveOnFoods,Greek Yogurt,14.479309796821326,2022-06-22,Protein Foods
+Galleria,Whole Grain Bread,14.230998511891812,2023-09-15,Grain Products
+SaveOnFoods,Chicken Breast,1.2792040780186653,2022-01-18,Protein Foods
+Galleria,Tofu,4.5659711472690105,2022-11-27,Protein Foods
+T&T,Broccoli,11.20022663823329,2023-10-02,Fruits & Vegetables
+Metro,Whole Grain Bread,4.021174411755055,2022-01-07,Grain Products
+T&T,Bananas,5.6741897678002715,2023-06-10,Fruits & Vegetables
+T&T,Apples,18.5239848557394,2023-07-22,Fruits & Vegetables
+SaveOnFoods,Carrots,7.898987545864657,2022-12-24,Fruits & Vegetables
+SaveOnFoods,Brown Rice,19.8635301978793,2023-11-05,Grain Products
+Galleria,Eggs,14.788768214406446,2022-07-29,Protein Foods
+Walmart,Brown Rice,3.8351888966280967,2022-11-14,Grain Products
+T&T,Tofu,12.246138471411541,2023-04-02,Protein Foods
+SaveOnFoods,Chicken Breast,17.125974290072918,2022-01-01,Protein Foods
+Metro,Bananas,14.945894686272368,2022-11-16,Fruits & Vegetables
+Metro,Greek Yogurt,9.787421316839755,2023-05-20,Protein Foods
+SaveOnFoods,Oats,10.71065087034367,2023-11-05,Grain Products
+T&T,Chicken Breast,11.571295141708106,2023-03-21,Protein Foods
+Galleria,Whole Grain Bread,4.815117323771119,2023-08-28,Grain Products
+SaveOnFoods,Salmon,17.89462789008394,2022-12-12,Protein Foods
+Walmart,Oats,3.93329588486813,2022-06-15,Grain Products
+Metro,Whole Grain Bread,12.107391660101712,2023-04-28,Grain Products
+SaveOnFoods,Salmon,10.137802524724975,2022-05-25,Protein Foods
+SaveOnFoods,Eggs,4.748381078476086,2022-09-15,Protein Foods
+Metro,Brown Rice,19.590064955409616,2022-04-06,Grain Products
+Metro,Broccoli,7.061597810359672,2022-09-07,Fruits & Vegetables
+SaveOnFoods,Salmon,1.850985225988552,2023-11-28,Protein Foods
+Walmart,Salmon,15.320035723270848,2023-03-23,Protein Foods
+SaveOnFoods,Brown Rice,11.770320029230788,2023-03-21,Grain Products
+Walmart,Greek Yogurt,1.1851928485557437,2023-09-04,Protein Foods
+SaveOnFoods,Carrots,6.7143273442052305,2023-11-14,Fruits & Vegetables
+SaveOnFoods,Chicken Breast,17.40260895132087,2022-02-08,Protein Foods
+Metro,Oats,5.410818985896185,2023-03-17,Grain Products
+Galleria,Chicken Breast,2.1122562773525715,2023-01-10,Protein Foods
+SaveOnFoods,Greek Yogurt,14.509948319755495,2022-11-11,Protein Foods
+Metro,Salmon,10.66622207337059,2023-03-18,Protein Foods
+SaveOnFoods,Whole Grain Bread,8.69399374932982,2022-10-05,Grain Products
+Walmart,Apples,9.065764444181696,2023-01-17,Fruits & Vegetables
+T&T,Carrots,18.36534990509972,2023-11-28,Fruits & Vegetables
+Walmart,Tofu,18.13812333950773,2022-03-22,Protein Foods
+T&T,Bananas,5.143240364268422,2022-11-22,Fruits & Vegetables
+Metro,Carrots,11.92299639293924,2023-11-05,Fruits & Vegetables
+Metro,Oats,1.7724095901940018,2023-07-27,Grain Products
+Metro,Apples,11.271352717652917,2022-09-12,Fruits & Vegetables
+SaveOnFoods,Eggs,3.1437407853081822,2022-06-15,Protein Foods
+Metro,Carrots,15.391623486299068,2023-03-07,Fruits & Vegetables
+Walmart,Chicken Breast,3.1117394100874662,2022-03-19,Protein Foods
+SaveOnFoods,Tofu,4.878173619275913,2022-05-16,Protein Foods
+Galleria,Brown Rice,15.586372452089563,2022-02-04,Grain Products
+Metro,Greek Yogurt,9.024548640241846,2023-03-15,Protein Foods
+Walmart,Apples,11.392125635407865,2023-11-11,Fruits & Vegetables
+SaveOnFoods,Apples,17.72985790995881,2023-08-07,Fruits & Vegetables
+T&T,Apples,14.824959579389542,2022-05-14,Fruits & Vegetables
+Metro,Chicken Breast,15.304077588021755,2022-06-03,Protein Foods
+Walmart,Tofu,12.414040051400661,2022-06-29,Protein Foods
+Walmart,Chicken Breast,2.920268046669662,2023-05-17,Protein Foods
+Metro,Whole Grain Bread,16.698231416288763,2022-01-04,Grain Products
+Metro,Broccoli,15.026730171404779,2022-01-11,Fruits & Vegetables
+T&T,Broccoli,17.77653742558323,2023-01-12,Fruits & Vegetables
+Walmart,Chicken Breast,2.599135157186538,2022-05-28,Protein Foods
+SaveOnFoods,Tofu,16.75997756444849,2023-10-26,Protein Foods
+Metro,Greek Yogurt,6.221509483642876,2022-12-09,Protein Foods
+Metro,Bananas,7.3501013377681375,2022-05-02,Fruits & Vegetables
+SaveOnFoods,Tofu,17.853703843429685,2022-01-04,Protein Foods
+T&T,Carrots,4.635195402894169,2023-10-06,Fruits & Vegetables
+Walmart,Carrots,1.2316354175563902,2023-04-13,Fruits & Vegetables
+T&T,Chicken Breast,14.401540205115452,2023-06-11,Protein Foods
+Galleria,Tofu,1.7147556573618203,2022-12-02,Protein Foods
+Galleria,Whole Grain Bread,16.627984966151416,2023-04-27,Grain Products
+Walmart,Chicken Breast,18.165256245061755,2022-12-04,Protein Foods
+T&T,Eggs,4.162694629281759,2023-06-07,Protein Foods
+Galleria,Oats,4.944313874933869,2023-07-23,Grain Products
+Walmart,Whole Grain Bread,16.121723311021924,2023-11-04,Grain Products
+Walmart,Greek Yogurt,17.970729667227715,2022-05-21,Protein Foods
+SaveOnFoods,Tofu,5.629976077238098,2023-05-28,Protein Foods
+SaveOnFoods,Oats,9.230671340366825,2022-07-10,Grain Products
+Metro,Salmon,8.564912822563201,2022-04-26,Protein Foods
+SaveOnFoods,Salmon,13.646262724651024,2023-07-30,Protein Foods
+T&T,Broccoli,6.798741045407951,2022-09-07,Fruits & Vegetables
+Galleria,Greek Yogurt,16.04744738363661,2022-10-18,Protein Foods
+Metro,Greek Yogurt,7.483309069415554,2022-01-20,Protein Foods
+Metro,Chicken Breast,5.891642561648041,2022-12-02,Protein Foods
+T&T,Apples,1.0752689426299185,2022-12-09,Fruits & Vegetables
+Galleria,Greek Yogurt,8.226438432466239,2023-08-03,Protein Foods
+Galleria,Oats,12.389104805653915,2023-03-14,Grain Products
+T&T,Tofu,7.441672373563051,2023-03-29,Protein Foods
+SaveOnFoods,Chicken Breast,4.339900577906519,2022-03-24,Protein Foods
+SaveOnFoods,Brown Rice,19.953817735193297,2023-03-24,Grain Products
+SaveOnFoods,Brown Rice,6.042592566460371,2022-11-15,Grain Products
+Walmart,Whole Grain Bread,11.453652709024027,2022-10-18,Grain Products
+Metro,Greek Yogurt,3.5696486609522253,2022-02-03,Protein Foods
+Galleria,Eggs,13.95462210662663,2022-12-06,Protein Foods
+Walmart,Oats,9.556670244317502,2023-10-28,Grain Products
+SaveOnFoods,Whole Grain Bread,7.966246752999723,2023-11-13,Grain Products
+Galleria,Greek Yogurt,8.336495467694476,2022-11-09,Protein Foods
+Walmart,Chicken Breast,8.68495269306004,2023-01-10,Protein Foods
+Metro,Oats,16.72372969891876,2022-01-05,Grain Products
+SaveOnFoods,Tofu,18.404281033435836,2023-06-18,Protein Foods
+Walmart,Eggs,15.462855617050081,2023-05-31,Protein Foods
+SaveOnFoods,Carrots,7.979624956147745,2023-02-03,Fruits & Vegetables
+Galleria,Brown Rice,14.136373787885532,2023-10-05,Grain Products
+SaveOnFoods,Greek Yogurt,10.652620916021988,2023-05-10,Protein Foods
+Walmart,Greek Yogurt,1.3690928113646805,2023-08-14,Protein Foods
+Metro,Chicken Breast,13.29108365951106,2022-08-05,Protein Foods
+Galleria,Bananas,12.837145624682307,2023-08-23,Fruits & Vegetables
+Galleria,Broccoli,7.326451076893136,2022-09-03,Fruits & Vegetables
+Galleria,Broccoli,1.4994498931337148,2022-06-20,Fruits & Vegetables
+SaveOnFoods,Brown Rice,19.52399982442148,2022-02-09,Grain Products
+SaveOnFoods,Tofu,19.834222282283008,2022-09-01,Protein Foods
+T&T,Tofu,2.4550163657404482,2023-06-30,Protein Foods
+Galleria,Apples,11.220952579984441,2022-11-02,Fruits & Vegetables
+Galleria,Chicken Breast,19.579202119261026,2023-04-15,Protein Foods
+T&T,Bananas,3.0838196685072035,2023-10-21,Fruits & Vegetables
+T&T,Greek Yogurt,7.888871382223442,2022-02-15,Protein Foods
+T&T,Whole Grain Bread,10.496567799709737,2023-11-13,Grain Products
+Walmart,Apples,18.339939629193395,2022-01-03,Fruits & Vegetables
+Metro,Oats,11.86915585771203,2023-10-04,Grain Products
+SaveOnFoods,Apples,1.433096919907257,2023-07-04,Fruits & Vegetables
+Galleria,Chicken Breast,17.249362892936915,2023-11-24,Protein Foods
+Metro,Eggs,16.77920059254393,2022-11-27,Protein Foods
+Metro,Salmon,17.684870199067518,2022-05-07,Protein Foods
+Metro,Apples,16.38244159752503,2023-12-17,Fruits & Vegetables
+SaveOnFoods,Whole Grain Bread,1.0012413973454386,2023-01-19,Grain Products
+Metro,Salmon,2.934688926441595,2023-02-06,Protein Foods
+Galleria,Broccoli,16.861691660480574,2023-06-26,Fruits & Vegetables
+Walmart,Oats,5.20180052658543,2023-04-06,Grain Products
+Galleria,Eggs,1.5779111564625055,2023-08-10,Protein Foods
+SaveOnFoods,Bananas,11.957794412504882,2023-12-26,Fruits & Vegetables
+Galleria,Whole Grain Bread,15.380715447943658,2022-09-23,Grain Products
+Galleria,Eggs,17.599427127977833,2022-05-24,Protein Foods
+SaveOnFoods,Bananas,2.146952364128083,2022-08-25,Fruits & Vegetables
+Walmart,Greek Yogurt,5.214928817003965,2023-11-24,Protein Foods
+T&T,Apples,8.866478270385414,2023-01-20,Fruits & Vegetables
+SaveOnFoods,Brown Rice,8.815262966789305,2022-02-26,Grain Products
+T&T,Tofu,12.008416265714914,2022-01-07,Protein Foods
+Walmart,Bananas,18.89703007764183,2022-06-12,Fruits & Vegetables
+Metro,Tofu,19.764373348793015,2022-04-04,Protein Foods
+Walmart,Tofu,3.4661591285839677,2022-03-21,Protein Foods
+Galleria,Eggs,6.222624648362398,2022-03-15,Protein Foods
+Metro,Broccoli,16.7392736133188,2022-12-03,Fruits & Vegetables
+SaveOnFoods,Bananas,19.833915661089122,2022-03-06,Fruits & Vegetables
+T&T,Tofu,13.790810605278239,2022-03-01,Protein Foods
+Walmart,Greek Yogurt,2.4703922250773758,2023-07-26,Protein Foods
+Walmart,Salmon,3.553664704086259,2023-10-27,Protein Foods
+Metro,Brown Rice,7.423838793532923,2023-03-14,Grain Products
+Walmart,Brown Rice,5.7900706238579005,2022-05-10,Grain Products
+Walmart,Oats,5.765649085398763,2022-11-21,Grain Products
+T&T,Chicken Breast,15.882090433966368,2023-09-19,Protein Foods
+Metro,Tofu,4.301940275123343,2022-03-12,Protein Foods
+SaveOnFoods,Broccoli,12.367774398298934,2022-02-03,Fruits & Vegetables
+Walmart,Greek Yogurt,14.14007784286514,2023-12-03,Protein Foods
+T&T,Carrots,18.535776385338977,2022-10-19,Fruits & Vegetables
+Walmart,Bananas,14.109524694504216,2022-12-30,Fruits & Vegetables
+Walmart,Carrots,6.199520560912788,2023-07-14,Fruits & Vegetables
+Walmart,Apples,1.2079580300487578,2022-07-07,Fruits & Vegetables
+T&T,Brown Rice,1.8211723533459008,2023-09-01,Grain Products
+T&T,Tofu,4.190058208536357,2023-06-16,Protein Foods
+T&T,Oats,17.20017570327036,2022-12-08,Grain Products
+Walmart,Carrots,1.8723535761237144,2022-01-15,Fruits & Vegetables
+T&T,Salmon,6.156365092145279,2022-09-24,Protein Foods
+T&T,Tofu,17.88991606212221,2022-11-02,Protein Foods
+Galleria,Apples,11.409972597379237,2022-03-08,Fruits & Vegetables
