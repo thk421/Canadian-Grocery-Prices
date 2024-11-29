@@ -1,11 +1,11 @@
 #### Preamble ####
 # Purpose: Analyzes, visualizes, and summarizes data
 # Author: Tina Kim
-# Date: 22 November 2024
+# Date: 28 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Have the analysis data loaded.
-# Any other information needed? None.
+# Pre-requisites: Have the analysis data loaded
+# Any other information needed? None
 
 
 #### Workspace setup ####
