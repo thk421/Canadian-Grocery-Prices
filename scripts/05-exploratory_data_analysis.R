@@ -11,9 +11,6 @@
 #### Workspace setup ####
 library(tidyverse)
 library(rstanarm)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
 
 
 #### Read data ####
