@@ -60,7 +60,8 @@ cleaned_data <- merged_data %>%
   # Use the other column to make useful flags
   mutate(stock_status = ifelse(grepl("Out of stock", other), "out_of_stock", "in_stock"),
          is_sale = grepl("SALE", other),
-         is_best = grepl("Best seller", other)) %>%
+         is_best = grepl("Best seller", other),
+         is_organic = grepl("organic", product_name, ignore.case = TRUE)) %>%
   # Delete unnecessary columns
   select(-other, -brand, -detail_url, -sku, -upc) %>%
   # Add food category to the dataset

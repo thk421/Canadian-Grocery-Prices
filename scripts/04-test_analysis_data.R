@@ -83,12 +83,13 @@ if (all(analysis_data$stock_status %in% valid_stock_status)) {
   stop("Test Failed: 'stock_status' contains invalid values.")
 }
 
-# Test 9: Check if 'is_sale' and 'is_best' are logical (TRUE/FALSE)
+# Test 9: Check if 'is_sale', 'is_best', and 'is_organic' are logical (TRUE/FALSE)
 if (all(analysis_data$is_sale %in% c(TRUE, FALSE), na.rm = TRUE) & 
-    all(analysis_data$is_best %in% c(TRUE, FALSE), na.rm = TRUE)) {
-  message("Test Passed: 'is_sale' and 'is_best' are logical.")
+    all(analysis_data$is_best %in% c(TRUE, FALSE), na.rm = TRUE) &
+    all(analysis_data$is_organic %in% c(TRUE, FALSE), na.rm = TRUE)) {
+  message("Test Passed: 'is_sale', 'is_best', and 'is_organic' are logical.")
 } else {
-  stop("Test Failed: 'is_sale' or 'is_best' are not logical.")
+  stop("Test Failed: 'is_sale', 'is_best', and 'is_organic' are not logical.")
 }
 
 # Test 10: Check for no exact duplicates
