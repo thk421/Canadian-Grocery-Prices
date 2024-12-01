@@ -1,13 +1,11 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: [https://github.com/RohanAlexander/starter_folder](https://github.com/RohanAlexander/starter_folder)."
+title: "Predicting Grocery Price Trends Using Bayesian Models"
+subtitle: "An analysis of price patterns across Canadian grocery vendors to identify the most beneficial vendor for consumers"
+author: Tina Kim
+thanks: "Code and data are available at: https://github.com/thk421/Canadian-Grocery-Prices.git"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This study uses Bayesian statistical models to analyze grocery price trends across eight Canadian vendors by examining current and historical grocery price data. Our findings show that vendor-specific factors and product type significantly influence price changes. This research provides actionable insights for consumers and vendors looking to optimize their grocery purchasing and pricing strategies while adhering to the 2019 Canada's Food Guide, especially in light of the growing demand for affordable, sustainable food choices."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -19,7 +17,13 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(brms)
+library(ggplot2)
+library(lubridate)
+library(modelsummary)
+library(arrow)
+
+analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
 ```
 
 
@@ -27,75 +31,71 @@ library(palmerpenguins)
 
 Overview paragraph
 
+The 2019 Canada's Food Guide [@cfg2019] highlights the importance of balanced nutrition, encouraging a diet abundant in vegetables, fruits, whole grains, and protein foods sourced from both plants and animals. It promotes reducing saturated fats, added sugars, and highly processed foods, while introducing greater flexibility by combining dairy products with other protein foods and recommending unsweetened, lower-fat milk or fortified plant-based alternatives. Unfortunately, it has become difficult in more recent years to adhere to the 2019 CFG and to maintain healthy eating habits due to increasing grocery prices. A basket of groceries that were once worth \$1000 five years ago costs around $1296 in 2024 [@rbc_grocery_costs]. As a result, consumers are forced to make more informed decisions when buying their groceries, especially when weighing the benefits of getting unhealthier but cheaper options and healthier but pricier options. To solve this issue, this study investigates the trends in grocery pricing across Canadian vendors, leveraging Bayesian statistical methods to model future price changes. By focusing on various predictors such as product categories, vendor information, and temporal trends, this research offers insights into the dynamics of grocery pricing.
+
 Estimand paragraph
+
+The key estimand of this study is the effect of vendor choice, product category, and temporal trends on grocery pricing across Canada. Specifically, we aim to estimate how much more or less consumers might pay for certain product categories when purchasing from different vendors, considering the ongoing trends in grocery pricing and the role that seasonal and economic shifts play. Through this analysis, we seek to estimate the probability of future price decreases or increases based on these factors
 
 Results paragraph
 
+The analysis reveals that vendor choice plays a significant role in determining grocery prices, with large national vendors generally offering lower prices compared to local or regional options. Furthermore, we observe a clear seasonal trend in grocery pricing, with prices typically rising in the winter months and dropping during certain sales periods. The model also indicates that certain product categories, particularly organic and plant-based foods, are subject to higher price volatility, while staple items such as grains and protein foods remain relatively stable.
+
 Why it matters paragraph
 
-Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data....
+Understanding how pricing trends vary across different vendors and product categories is crucial for consumers seeking to optimize their grocery spending while adhering to the dietary guidelines outlined by Canada's Food Guide. This research not only informs consumer decision-making but also provides valuable insights for policymakers and vendors aiming to address food accessibility and affordability in Canada. By modeling future price trends, we can better anticipate and prepare for fluctuations in grocery costs, helping Canadians make healthier, more cost-effective food choices.
 
-
-
-
+Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data describes the data used in the analysis, @sec-model details the Bayesian model and assumptions, @sec-results presents the results, and @sec-discussion offers a discussion of the findings and suggests areas for future research.
 
 
 # Data {#sec-data}
 
 ## Overview
 
-We use the statistical programming language R [@citeR].... Our data [@shelter].... Following @tellingstories, we consider...
+The Canadian Grocery Price Data used in this analysis paper was sourced from Project Hammer [@grocery_data]. We use the statistical programming language R [@citeR] for data processing and analysis. 
 
-Overview text
 
 ## Measurement
 	
 Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
 
+To construct a dataset that accurately reflects the real-world phenomena we aim to study, we begin by translating observable factors into measurable entries. We focus on the pricing dynamics of grocery products from multiple vendors across Canada, which are impacted by various factors such as product type, vendor, and temporal trends.
+
+First, the phenomenon of interest is the price of grocery products, which varies by several attributes such as vendor, product category, unit of sale, and whether the product is on promotion. We collect data from different vendors’ websites and public repositories that provide information on product names, prices, units of sale, and promotional statuses. The phenomenon of price changes over time is captured by the difference between the old and current prices, which is crucial for understanding market trends and consumer decision-making.
+
+Once the raw data is collected, it undergoes a series of steps to ensure the quality and consistency of the dataset:
+
+Standardization of units: Products in the dataset are sold in different units (e.g., kg, g, pack, each), which can complicate price comparisons. To address this, we standardize the units of all products to a consistent measurement, such as price per kilogram or price per liter, to allow for meaningful price comparisons across different products and vendors.
+
+Categorization of products: We categorize products into broader groups such as “Fruits & Vegetables,” “Protein Foods,” and “Grain Products” based on keywords in the product name. This helps us understand pricing trends across different food categories and assess whether certain types of products are more susceptible to price fluctuations.
+
+Handling missing or incorrect values: In the raw data, some records contain missing or incomplete information, such as missing prices or vendor names. These missing values are cleaned by removing rows where critical information is missing or by imputing values where applicable.
+
+Transformations: Some variables, such as prices or units, require transformations for analysis. For instance, prices are often recorded in raw values (e.g., a price for a pack of 5 items), and we calculate the price per unit to enable more consistent analysis across items with varying quantities.
+
+Through these steps, we systematically translate complex real-world phenomena into structured, analyzable data that can be used to answer research questions about grocery pricing dynamics.
+
+
+
 ## Outcome variables
 
 Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular.
 
+The primary outcome variable in our study is the price per unit of each product. This outcome variable captures the key phenomenon we are interested in: how much consumers are paying per unit of a product, after accounting for varying packaging sizes and vendor pricing strategies.
 
-
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+Price per Unit
+The price per unit is a derived variable, calculated by dividing the current price by the unit size for each product. This allows us to standardize prices across different products that may be sold in different quantities, whether it's per kilogram, per liter, or per item. The calculation of price per unit is crucial for comparing products sold in various units of measurement and understanding the underlying cost dynamics of each product.
 
 ```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| label: tbl-price-per-unit
+#| fig-cap: "Summary of price per unit across product categories and vendors"
 #| echo: false
 #| warning: false
 #| message: false
 
-analysis_data <- read_csv(here::here("data/02-analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
 ```
 
-Talk way more about it. 
+Talk more about it.
 
 ## Predictor variables
 
@@ -103,78 +103,160 @@ Add graphs, tables and text.
 
 Use sub-sub-headings for each outcome variable and feel free to combine a few into one if they go together naturally.
 
+**Temporal Information** 
+   - Timestamp (nowtime): This refers to the time when the data was collected. It enables the identification of trends over time, such as the seasonal impact on stock or sales. This element is critical when applying Bayesian inference to predict future price trends. From Figure 3, we see that majority of the data was collected after October, which might bring some limitations that will be discussed further into this paper.
+
+**Vendor Characterisics**
+   - Vendor Name (vendor): There are 8 vendors in this analysis: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors. For instance, we can factor in the fact that Voila has approximately 4 times the number of products compared to Galleria as seen in the table below.
+
+**Product Classification**
+   - Food Category (food_category): Classification as “Fruits & Vegetables,” “Protein Foods,” or “Grain Products” affects weighted cost calculations. Looking at the summary table below, we see that the overall number of protein foods far outweigh grain products.
+
+**Product Price Information**
+   - Current Price (current_price): This is the most recent price of a product (in CAD) used when measuring weighted costs and quiet decreases. The table below presents the price statistics for a product range, including the minimum price (0.2), maximum price (65.99), mean price (7.03), and standard deviation (5.20). The standard deviation of 5.20 is relatively high compared to the mean price of 7.03, suggesting significant variability in prices.
+
+   - Quiet Price Decrease (price_decrease): Tracks subtle pricing adjustments by iden- tifying instances where a product’s price decreased without being labeled as a sale. This outcome sheds light on subtle pricing strategies vendors might employ to remain com- petitive without overt promotional activities. It provides insights into whether vendors prioritize transparent discounting (sales) or discreet price reductions. As seen in Figure 4, Metro has the most number of products with decreased prices that were not on sale.
+
+**Stock and Promotional Indicators**
+   - Stock Status (stock_status): The proportion of products available (in stock) for each vendor reflects the reliability of a vendor in meeting consumer demands. Vendors with higher average stock levels may be perceived as more dependable by consumers. According to Figure 5, Loblaws has the most Fruits & Vegetables, Galleria has the most Grain Products, and Metro has the most Protein Foods.
+
+   - On Sale (is_sale): When a product is on sale and is explicitly labeled, we can use this predictor for identifying explicit promotions that can benefit consumers. In Figure 6, we measure the average number of products explicitly labeled as “on sale” per vendor, but we notice that only Voila has this label.
+   
+   - Best Seller Status (is_best): The “Best Seller” designation is a key predictor for stock prioritization, promotional strategies, and pricing trends. As shown in Figure 7, Walmart is the only vendor that explicitly uses this label, a crucial observation to consider when developing our statistical model.
+  
+   - Organic Product Status (is_organic): Whether a product is “Organic” serves as a critical predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In Figure 8, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
 
 
 
+# Model {#sec-model}
 
+The model is expressed as:  
+$$
+\text{price\_per\_standard\_unit}_i \sim \mathcal{N}(\mu_i, \sigma^2)
+$$  
+where:  
+- $\mu_i$ is the predicted mean price for product (i).  
+- $\sigma^2$ represents the residual variance.  
 
+The mean structure is defined as:  
+$$
+\mu_i = \beta_0 + \beta_1 \text{nowtime}_i + \beta_2 \text{vendor}_i + \beta_3 \text{food\_category}_i + \beta_4 \text{current\_price}_i + \epsilon_i
+$$  
 
+where:  
 
-# Model
+- \(\beta_0\): Intercept representing the baseline price.  
+- \(\text{nowtime}_i\): Continuous variable indicating the timestamp of data collection.  
+- \(\text{vendor}_i\): Categorical variable with levels for the eight vendors: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria.  
+- \(\text{food\_category}_i\): Categorical variable indicating "Fruits & Vegetables," "Protein Foods," or "Grain Products."  
+- \(\text{current\_price}_i\): Continuous variable for the most recent price of a product.  
+- \(\epsilon_i\): Random error term capturing unexplained variability.
 
-The goal of our modelling strategy is twofold. Firstly,...
+## Priors  
 
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+The Bayesian model incorporates weakly informative priors to reflect plausible ranges for parameters:  
+- $\beta_0 \sim \mathcal{N}(0, 10)$: Baseline prices are expected to fall within typical ranges.  
+- $\beta_1, \beta_2, \beta_3, \beta_4 \sim \mathcal{N}(0, 5)$: Moderate effect sizes are prioritized, but larger effects are not ruled out.  
+- $\sigma \sim \text{Student-}t(3, 0, 10)$: Allows flexibility for variance in product pricing.  
 
-## Model set-up
+### Model Justification
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+The selection of predictors included or excluded in the Bayesian model was guided by their relevance, interpretability, and alignment with the research objectives. Below is a detailed breakdown:
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
+#### Included Predictors
+1. **Temporal Information**:  
+   - **`nowtime`**: Captures potential seasonal trends or time-dependent price fluctuations, ensuring the model can account for temporal variability in pricing.  
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+2. **Vendor Characteristics**:  
+   - **`vendor`**: Reflects inter-vendor differences, which are critical for evaluating affordability across vendors.  
 
+3. **Product Classification**:  
+   - **`food_category`**: Ensures the model incorporates the 2019 Canadian Food Guide’s proportional weightings for different food categories, linking the analysis to dietary guidelines.  
+4. **Product Price Information**:  
+   - **`current_price`**: Serves as the baseline price, providing essential context for predicting future prices.  
 
-### Model justification
+These features were chosen based on insights from exploratory data analysis, ensuring that the model is interpretable and reflects the underlying structure of the dataset.
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+---
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+#### Excluded Predictors
+1. **Product Price Information**:  
+   - **`price_decrease`**: Highlights subtle pricing strategies, such as quiet reductions, which may not be explicitly marked as sales.
+   
+   *Reason for Exclusion*: There may be collinearity with predictors that already account for price change such as **current_price**, and may overfit due to being highly vendor-specific.
+   
+2. **Stock and Promotional Indicators**:  
+   - **`stock_status`**: Represents product availability and vendor reliability.  
+   - **`is_sale`**: Captures the effect of explicit promotions.  
+   - **`is_best`**: Evaluates the influence of "Best Seller" labels.  
 
+   *Reason for Exclusion*:  
+   These variables were excluded because they are highly vendor-specific and exhibit limited variability across vendors or over time. Including them could introduce vendor-specific biases and reduce the generalizability of the model across multiple vendors.  
 
-# Results
+2. **Organic Product Status**:  
+   - **`is_organic`**: Represents consumer preferences for organic products.  
+
+   *Reason for Exclusion*:  
+   The impact of this variable is often reflected in other covariates, such as **`food_category`** or **`vendor`**. Including it could lead to redundancy and multicollinearity, complicating the model without providing significant additional insights.
+
+---
+
+This selection ensures the model is both parsimonious and robust, focusing on variables with the highest explanatory power while avoiding potential confounders or redundant predictors.
+
+## Assumptions  
+- The outcome variable, **`price_per_standard_unit`**, is normally distributed around the predicted mean.  
+- Predictors have linear effects on the outcome.  
+- Residual errors are independent and identically distributed.  
+- Vendor and product effects are hierarchical, reflecting their nested relationships.
+
+## Implementation and Validation  
+The model was implemented in R using the `brms` package. Validation was done by visually checking posterior predictive checks to assess the model's fit.  
+
+## Limitations  
+The model assumes a consistent distribution of predictors across vendors and time, which may not hold in sparse data. Additionally, the linearity assumption may oversimplify complex relationships. Future iterations could explore interaction terms or non-linear effects to enhance flexibility.
+
+## Alternative Models Considered  
+Linear regression without Bayesian inference was considered but failed to incorporate uncertainty adequately. A Bayesian logistic model was evaluated for binary outcomes like **`is_sale`**, **is_best**, and **is_organic** but could not capture the continuous nature of the primary outcome. The chosen model balances complexity and interpretability while addressing hierarchical dependencies.
+
+# Results {#sec-results}
 
 Our results are summarized in @tbl-modelresults.
 
 ```{r}
 #| echo: false
 #| eval: true
+#| label: tbl-overall-vendor-scores
+#| fig-cap: ""
 #| warning: false
-#| message: false
 
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
+overall_vendor_scores_bar <-
+  readRDS(file = here::here("models/overall_vendor_scores_bar.rds"))
 ```
 
 ```{r}
 #| echo: false
 #| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| label: tbl-bayesian-model
+#| fig-cap: ""
 #| warning: false
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+bayesian_model <-
+  readRDS(file = here::here("models/bayesian_model.rds"))
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-predicted-price-trend
+#| fig-cap: ""
+#| warning: false
+
+predicted_price_trend <-
+  readRDS(file = here::here("models/predicted_price_trend.rds"))
 ```
 
 
-
-
-# Discussion
+# Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
 
