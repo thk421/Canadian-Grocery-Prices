@@ -4,14 +4,13 @@
 # Date: 28 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Have the exploratory data analysis script loaded
+# Pre-requisites: Have the 05-exploratory_data_analysis.R script loaded
 # Any other information needed? None
 
 
 #### Workspace setup ####
 library(tidyverse)
 library(rstanarm)
-library(fmsb)
 library(brms)
 library(bayesplot)
 
@@ -96,7 +95,8 @@ smaller_training_data <- bayesian_data %>%
 
 # Fit the Bayesian model
 bayesian_model <- brm(
-  future_price ~ current_price + food_category + vendor + month + (1 | product_name), 
+  future_price ~ current_price + food_category + vendor + month + 
+    price_decrease + (1 | product_name),
   data = smaller_training_data,
   family = gaussian(),  # Assuming prices are normally distributed
   prior = c(
@@ -142,6 +142,8 @@ predicted_price_trend <-
   theme_minimal()
 
 print(predicted_price_trend)
+
+pp_check(bayesian_model) 
 
 
 #### Save model ####
