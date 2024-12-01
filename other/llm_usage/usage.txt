@@ -208,3 +208,97 @@ ggplot(merged_data, aes(x = date, y = price, color = name)) +
 ```
 
 This approach ensures you can manage and analyze time-series price data effectively for each product. Let me know if you need further clarification!
+
+User
+make me separate summary tables for vendor names, current_price, and food_category from my analysis_data
+
+ChatGPT
+To create separate summary tables for `vendor_name`, `current_price`, and `food_category` in the `analysis_data`, you can use `dplyr` and `knitr` (or `kableExtra` for enhanced tables) to generate the summary statistics. Below is an example of how to generate and display these tables in your Quarto or R Markdown document.
+
+### 1. **Summary Table for Vendor Names**
+
+This table will show the count of products per vendor, providing an overview of how the data is distributed across vendors.
+
+```{r}
+# Summary table for Vendor Names
+vendor_summary <- analysis_data %>%
+  count(vendor) %>%
+  arrange(desc(n))  # Sorting by count, descending
+
+# Display the table
+knitr::kable(vendor_summary, caption = "Summary of Vendor Names", col.names = c("Vendor", "Product Count"))
+```
+
+### 2. **Summary Table for Current Prices**
+
+This table will summarize the `current_price` by providing the minimum, maximum, mean, and standard deviation of prices for the dataset.
+
+```{r}
+# Summary table for Current Price
+price_summary <- analysis_data %>%
+  summarise(
+    Min_Price = min(current_price, na.rm = TRUE),
+    Max_Price = max(current_price, na.rm = TRUE),
+    Mean_Price = mean(current_price, na.rm = TRUE),
+    SD_Price = sd(current_price, na.rm = TRUE)
+  )
+
+# Display the table
+knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c("Min Price", "Max Price", "Mean Price", "Standard Deviation"))
+```
+
+### 3. **Summary Table for Food Category**
+
+This table will show the distribution of products across different food categories.
+
+```{r}
+# Summary table for Food Category
+category_summary <- analysis_data %>%
+  count(food_category) %>%
+  arrange(desc(n))  # Sorting by count, descending
+
+# Display the table
+knitr::kable(category_summary, caption = "Summary of Food Categories", col.names = c("Food Category", "Product Count"))
+```
+
+### Full Code Example
+
+```{r}
+# Load required libraries
+library(dplyr)
+library(knitr)
+
+# 1. Summary for Vendor Names
+vendor_summary <- analysis_data %>%
+  count(vendor) %>%
+  arrange(desc(n))
+
+knitr::kable(vendor_summary, caption = "Summary of Vendor Names", col.names = c("Vendor", "Product Count"))
+
+# 2. Summary for Current Prices
+price_summary <- analysis_data %>%
+  summarise(
+    Min_Price = min(current_price, na.rm = TRUE),
+    Max_Price = max(current_price, na.rm = TRUE),
+    Mean_Price = mean(current_price, na.rm = TRUE),
+    SD_Price = sd(current_price, na.rm = TRUE)
+  )
+
+knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c("Min Price", "Max Price", "Mean Price", "Standard Deviation"))
+
+# 3. Summary for Food Categories
+category_summary <- analysis_data %>%
+  count(food_category) %>%
+  arrange(desc(n))
+
+knitr::kable(category_summary, caption = "Summary of Food Categories", col.names = c("Food Category", "Product Count"))
+```
+
+### Explanation:
+- **Vendor Names**: The table shows how many products are associated with each vendor.
+- **Current Prices**: Provides basic descriptive statistics for the `current_price` variable (e.g., min, max, mean, and standard deviation).
+- **Food Categories**: Displays the count of products in each food category (e.g., "Fruits & Vegetables," "Protein Foods," "Grain Products").
+
+### Additional Notes:
+- If you want to style the tables or modify the output, you can use packages like `kableExtra` or `DT` for interactive tables.
+- Make sure the column names in the `analysis_data` match the ones in your actual dataset (e.g., `vendor`, `current_price`, `food_category`).

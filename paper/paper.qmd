@@ -20,8 +20,8 @@ library(tidyverse)
 library(brms)
 library(ggplot2)
 library(lubridate)
-library(modelsummary)
 library(arrow)
+library(knitr)
 
 analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
 ```
@@ -31,11 +31,17 @@ analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.pa
 
 Overview paragraph
 
-The 2019 Canada's Food Guide [@cfg2019] highlights the importance of balanced nutrition, encouraging a diet abundant in vegetables, fruits, whole grains, and protein foods sourced from both plants and animals. It promotes reducing saturated fats, added sugars, and highly processed foods, while introducing greater flexibility by combining dairy products with other protein foods and recommending unsweetened, lower-fat milk or fortified plant-based alternatives. Unfortunately, it has become difficult in more recent years to adhere to the 2019 CFG and to maintain healthy eating habits due to increasing grocery prices. A basket of groceries that were once worth \$1000 five years ago costs around $1296 in 2024 [@rbc_grocery_costs]. As a result, consumers are forced to make more informed decisions when buying their groceries, especially when weighing the benefits of getting unhealthier but cheaper options and healthier but pricier options. To solve this issue, this study investigates the trends in grocery pricing across Canadian vendors, leveraging Bayesian statistical methods to model future price changes. By focusing on various predictors such as product categories, vendor information, and temporal trends, this research offers insights into the dynamics of grocery pricing.
+The 2019 Canada's Food Guide (CFG) [@cfg2019] emphasizes the importance of balanced nutrition, advocating for a diet rich in vegetables, fruits, whole grains, and protein foods sourced from both plants and animals. It encourages reducing saturated fats, added sugars, and highly processed foods while recommending unsweetened, lower-fat milk or fortified plant-based alternatives. Notably, the 2019 CFG introduces greater flexibility compared to previous editions by integrating dairy products into the broader protein foods category, reflecting a more inclusive approach to nutrition. 
+
+However, adhering to the 2019 CFG has become increasingly challenging due to rising grocery costs. A basket of groceries that cost \$1,000 five years ago now costs approximately $1,296 in 2024 [@rbc_grocery_costs]. This escalation forces consumers to make more informed and difficult choices, often weighing the affordability of less healthy but cheaper options against the higher costs of healthier alternatives. 
+
+To address this issue, our study explores grocery pricing trends across eight Canadian vendors: Metro, Save-On-Foods, Galleria, T&T Supermarket, Voilà, Walmart, No Frills, and Loblaws. By examining predictors such as product categories, vendor pricing, and temporal trends, this research provides critical insights into the dynamics of grocery pricing. Additionally, Bayesian statistical methods are employed to model future price changes, offering valuable tools for consumers and policymakers navigating the growing challenges of maintaining healthy, cost-effective diets.
 
 Estimand paragraph
 
-The key estimand of this study is the effect of vendor choice, product category, and temporal trends on grocery pricing across Canada. Specifically, we aim to estimate how much more or less consumers might pay for certain product categories when purchasing from different vendors, considering the ongoing trends in grocery pricing and the role that seasonal and economic shifts play. Through this analysis, we seek to estimate the probability of future price decreases or increases based on these factors
+The key estimand of this study is the effect of vendor choice, product category, and temporal trends on grocery pricing across Canada. Specifically, we aim to estimate how much more or less consumers might pay for certain product categories when purchasing from different vendors, considering the ongoing trends in grocery pricing and the role that seasonal and economic shifts play. Through this analysis, we seek to estimate the probability of future price decreases or increases based on these factors.
+
+Another key estimand is the lowest total cost of constructing a week’s worth of meals using commonly available ingredients that adhere to the 2019 CFG, tailored for each vendor. All analysis is conducted using a standardized price measure to ensure consistency, comparability, and fairness across products, units, vendors, and contexts. Since prices are often reported in various units (e.g., kilograms, grams, liters, or milliliters), standardizing them to a common unit (such as grams, milliliters, or individual items) eliminates variability caused by differing measurement scales, enabling accurate and direct comparisons. This comparison extends beyond affordability to also consider quality, reliability, transparency, and appeal to calculate an overall score measure. Quality is assessed by comparing if the product is organic or not. Reliability is based on stock availability. Transparency is measured through quiet price decreases. Lastly, best seller or sale promotions are integrated for appeal. This composite metric provides a comprehensive rating for each vendor to offer tailored recommendations, helping consumers identify the vendor that best aligns with their specific needs and priorities.
 
 Results paragraph
 
@@ -43,7 +49,7 @@ The analysis reveals that vendor choice plays a significant role in determining 
 
 Why it matters paragraph
 
-Understanding how pricing trends vary across different vendors and product categories is crucial for consumers seeking to optimize their grocery spending while adhering to the dietary guidelines outlined by Canada's Food Guide. This research not only informs consumer decision-making but also provides valuable insights for policymakers and vendors aiming to address food accessibility and affordability in Canada. By modeling future price trends, we can better anticipate and prepare for fluctuations in grocery costs, helping Canadians make healthier, more cost-effective food choices.
+Understanding how pricing trends vary across different vendors and product categories is crucial for consumers seeking to optimize their grocery spending while adhering to the dietary guidelines outlined by Canada's Food Guide. This research not only informs consumer decision-making but also provides valuable insights for policymakers and vendors aiming to address food accessibility and affordability in Canada. By modeling future price trends, we can better anticipate and prepare for fluctuations in grocery costs, helping people in Canada make healthier, more cost-effective food choices.
 
 Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data describes the data used in the analysis, @sec-model details the Bayesian model and assumptions, @sec-results presents the results, and @sec-discussion offers a discussion of the findings and suggests areas for future research.
 
@@ -52,81 +58,228 @@ Telegraphing paragraph: The remainder of this paper is structured as follows. @s
 
 ## Overview
 
-The Canadian Grocery Price Data used in this analysis paper was sourced from Project Hammer [@grocery_data]. We use the statistical programming language R [@citeR] for data processing and analysis. 
+The "Canadian Grocery Price Data" dataset was sourced from Project Hammer [@grocery_data], and a statistical analysis was performed using the R programming language [@citeR]. The primary objective of this analysis was to clean, explore, and visualize the data to identify which grocery vendor currently and in the future offers the most cost-effective options for individuals adhering to the 2019 CFG. Various R libraries were utilized throughout the process. The tidyverse library [@tidyverse] provides a comprehensive set of tools for data manipulation, cleaning, and visualization, enabling efficient handling of datasets. The lubridate library [@lubridate] simplifies working with date-time objects while arrow [@arrow] is used to handle large datasets efficiently, especially for columnar formats like Parquet. For Bayesian modeling, rstanarm [@rstanarm] and brms [@brms] offer powerful tools for fitting and interpreting multilevel models while bayesplot [@bayesplot] aids in the graphical exploration of Bayesian model results, enhancing the interpretation of complex models. A summary table showcasing 10 sample observations from the cleaned dataset is presented in @tbl-grocery-data-summary. The table was divided into Part 1 and Part 2 for better readability, but the original dataset is formatted as one continuous table.
 
+```{r}
+#| label: tbl-grocery-data-summary
+#| tbl-cap: "Sample Canadian Grocery Price Data"
+#| echo: false
+#| warning: false
+#| message: false
+
+# First table with columns 1 to 5
+analysis_data %>%
+  slice(379030:379040) %>%
+  select(1:5) %>%  # Selecting first 5 columns
+  kable(caption = "Sample Canadian Grocery Price Data - Part 1", align = rep("c", 5))
+
+# Second table with columns 5 to the end
+analysis_data %>%
+  slice(379030:379040) %>%
+  select(6:ncol(analysis_data)) %>%  # Selecting columns 6 to the last
+  kable(caption = "Sample Canadian Grocery Price Data - Part 2", align = rep("c", ncol(analysis_data)-5))
+
+```
 
 ## Measurement
 	
 Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
 
-To construct a dataset that accurately reflects the real-world phenomena we aim to study, we begin by translating observable factors into measurable entries. We focus on the pricing dynamics of grocery products from multiple vendors across Canada, which are impacted by various factors such as product type, vendor, and temporal trends.
+In this analysis, the phenomenon of interest is the cost of constructing a meal plan based on the 2019 CFG by going through grocery prices of different products from various vendors. The original Canadian Grocery Price Data from Project Hammer used in this analysis came in two files, one containing metadata and product details, and the other containing time-series price data. The files were merged into one dataset and select variables were chosen to construct the analysis data for this paper. Detailed cleaning steps for the analysis data can be seen in @sec-appendix-B.
 
-First, the phenomenon of interest is the price of grocery products, which varies by several attributes such as vendor, product category, unit of sale, and whether the product is on promotion. We collect data from different vendors’ websites and public repositories that provide information on product names, prices, units of sale, and promotional statuses. The phenomenon of price changes over time is captured by the difference between the old and current prices, which is crucial for understanding market trends and consumer decision-making.
-
-Once the raw data is collected, it undergoes a series of steps to ensure the quality and consistency of the dataset:
-
-Standardization of units: Products in the dataset are sold in different units (e.g., kg, g, pack, each), which can complicate price comparisons. To address this, we standardize the units of all products to a consistent measurement, such as price per kilogram or price per liter, to allow for meaningful price comparisons across different products and vendors.
-
-Categorization of products: We categorize products into broader groups such as “Fruits & Vegetables,” “Protein Foods,” and “Grain Products” based on keywords in the product name. This helps us understand pricing trends across different food categories and assess whether certain types of products are more susceptible to price fluctuations.
-
-Handling missing or incorrect values: In the raw data, some records contain missing or incomplete information, such as missing prices or vendor names. These missing values are cleaned by removing rows where critical information is missing or by imputing values where applicable.
-
-Transformations: Some variables, such as prices or units, require transformations for analysis. For instance, prices are often recorded in raw values (e.g., a price for a pack of 5 items), and we calculate the price per unit to enable more consistent analysis across items with varying quantities.
-
-Through these steps, we systematically translate complex real-world phenomena into structured, analyzable data that can be used to answer research questions about grocery pricing dynamics.
-
-
+After the cleaning process, we are left with a dataset containing several attributes for our analysis such as vendor, product, price, and food category. Through these steps, we systematically translate complex real-world phenomena into structured, analyzable data that can be used to answer research questions about grocery pricing dynamics.
 
 ## Outcome variables
 
-Add graphs, tables and text. Use sub-sub-headings for each outcome variable or update the subheading to be singular.
-
-The primary outcome variable in our study is the price per unit of each product. This outcome variable captures the key phenomenon we are interested in: how much consumers are paying per unit of a product, after accounting for varying packaging sizes and vendor pricing strategies.
-
-Price per Unit
-The price per unit is a derived variable, calculated by dividing the current price by the unit size for each product. This allows us to standardize prices across different products that may be sold in different quantities, whether it's per kilogram, per liter, or per item. The calculation of price per unit is crucial for comparing products sold in various units of measurement and understanding the underlying cost dynamics of each product.
+**Price per Unit**
+- The primary outcome variable in our study is the price per unit of each product. This outcome variable captures the key phenomenon we are interested in: how much consumers are paying per unit of a product, after accounting for varying packaging sizes and vendor pricing strategies. It is calculated by dividing the current price by the unit size (in grams, milliliters, or items) for each product. This allows us to standardize prices across different products that may be sold in different quantities. The calculation of price per unit is crucial for comparing products sold in various units of measurement and understanding the underlying cost dynamics of each product.
 
 ```{r}
 #| label: tbl-price-per-unit
-#| fig-cap: "Summary of price per unit across product categories and vendors"
+#| tbl-cap: "Summary of price per unit across product categories and vendors"
 #| echo: false
 #| warning: false
 #| message: false
 
 ```
 
-Talk more about it.
+**Overall Vendor Score**
+- Another outcome variable is the overall vendor score, which takes into account multiple criteria to evaluate vendors. The highest weight is put on affordability which is measured by the average price per unit of groceries from each vendor. Some additional factors taken into account are whether products are organic (quality), are in stock (reliability), are on sale or are best sellers (appeal), and if there was a quiet price decrease (transparency).
+   
+```{r}
+#| label: tbl-overall-vendor-score
+#| tbl-cap: "Summary of overall vendor scores"
+#| echo: false
+#| warning: false
+#| message: false
 
+```
+
+**Future Price Trends**
+- This outcome variable represents the predicted trajectory of grocery prices over time, estimated using a Bayesian statistical model. The model incorporates historical pricing data, vendor-specific trends, and product categories to generate probabilistic forecasts. By quantifying uncertainty, the model provides a nuanced view of potential future price fluctuations, helping consumers anticipate changes and make informed decisions.
+   
+```{r}
+#| label: tbl-future-price-trends
+#| tbl-cap: "Future Price Trends"
+#| echo: false
+#| warning: false
+#| message: false
+
+```
+   
 ## Predictor variables
 
-Add graphs, tables and text.
-
-Use sub-sub-headings for each outcome variable and feel free to combine a few into one if they go together naturally.
-
 **Temporal Information** 
-   - Timestamp (nowtime): This refers to the time when the data was collected. It enables the identification of trends over time, such as the seasonal impact on stock or sales. This element is critical when applying Bayesian inference to predict future price trends. From Figure 3, we see that majority of the data was collected after October, which might bring some limitations that will be discussed further into this paper.
+- Timestamp (nowtime): This refers to the time when the data was collected. It enables the identification of trends over time, such as the seasonal impact on stock or sales. This element is critical when applying Bayesian inference to predict future price trends. From Figure 3, we see that majority of the data was collected after October, which might bring some limitations that will be discussed further into this paper.
+   
+```{r}
+#| label: fig-nowtime
+#| tbl-cap: "Nowtime Density Plot"
+#| echo: false
+#| warning: false
+#| message: false
+
+ggplot(analysis_data, aes(x = as.Date(nowtime))) +  # Convert to Date format for better readability
+  geom_density(fill = "lightblue", color = "black") +
+  labs(title = "Density of Data Collection Dates", x = "Date", y = "Density") +
+  theme_minimal()
+
+```
 
 **Vendor Characterisics**
-   - Vendor Name (vendor): There are 8 vendors in this analysis: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors. For instance, we can factor in the fact that Voila has approximately 4 times the number of products compared to Galleria as seen in the table below.
+- Vendor Name (vendor): There are 8 vendors in this analysis: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors. For instance, we can factor in the fact that Voila has approximately 4 times the number of products compared to Galleria as seen in the table below.
+   
+```{r}
+#| label: tbl-vendors
+#| tbl-cap: "Summary table for vendors"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Summary table for Vendor Names
+vendor_summary <- analysis_data %>%
+  count(vendor) %>%
+  arrange(desc(n))  # Sorting by count, descending
+
+# Display the table
+knitr::kable(vendor_summary, caption = "Summary of Vendor Names", col.names = c("Vendor", "Product Count"))
+
+```
 
 **Product Classification**
-   - Food Category (food_category): Classification as “Fruits & Vegetables,” “Protein Foods,” or “Grain Products” affects weighted cost calculations. Looking at the summary table below, we see that the overall number of protein foods far outweigh grain products.
+- Food Category (food_category): Classification as “Fruits & Vegetables,” “Protein Foods,” or “Grain Products” affects weighted cost calculations. Looking at the summary table below, we see that the overall number of protein foods far outweigh grain products.
+
+```{r}
+#| label: tbl-food-category
+#| tbl-cap: "Summary table for food category"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Summary table for Food Category
+category_summary <- analysis_data %>%
+  count(food_category) %>%
+  arrange(desc(n))  # Sorting by count, descending
+
+# Display the table
+knitr::kable(category_summary, caption = "Summary of Food Categories", col.names = c("Food Category", "Product Count"))
+
+```
 
 **Product Price Information**
-   - Current Price (current_price): This is the most recent price of a product (in CAD) used when measuring weighted costs and quiet decreases. The table below presents the price statistics for a product range, including the minimum price (0.2), maximum price (65.99), mean price (7.03), and standard deviation (5.20). The standard deviation of 5.20 is relatively high compared to the mean price of 7.03, suggesting significant variability in prices.
+- Current Price (current_price): This is the most recent price of a product (in CAD) used when measuring weighted costs and quiet decreases. The table below presents the price statistics for a product range, including the minimum price (0.2), maximum price (65.99), mean price (7.03), and standard deviation (5.20). The standard deviation of 5.20 is relatively high compared to the mean price of 7.03, suggesting significant variability in prices.
 
-   - Quiet Price Decrease (price_decrease): Tracks subtle pricing adjustments by iden- tifying instances where a product’s price decreased without being labeled as a sale. This outcome sheds light on subtle pricing strategies vendors might employ to remain com- petitive without overt promotional activities. It provides insights into whether vendors prioritize transparent discounting (sales) or discreet price reductions. As seen in Figure 4, Metro has the most number of products with decreased prices that were not on sale.
+```{r}
+#| label: tbl-current-price
+#| tbl-cap: "Summary table for current price"
+#| echo: false
+#| warning: false
+#| message: false
+
+# Summary table for Current Price
+price_summary <- analysis_data %>%
+  summarise(
+    Min_Price = min(current_price, na.rm = TRUE),
+    Max_Price = max(current_price, na.rm = TRUE),
+    Mean_Price = mean(current_price, na.rm = TRUE),
+    SD_Price = sd(current_price, na.rm = TRUE)
+  )
+
+# Display the table
+knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c("Min Price", "Max Price", "Mean Price", "Standard Deviation"))
+
+```
+
+- Quiet Price Decrease (price_decrease): Tracks subtle pricing adjustments by identifying instances where a product’s price decreased without being labeled as a sale. This outcome sheds light on subtle pricing strategies vendors might employ to remain competitive without overt promotional activities. It provides insights into whether vendors prioritize transparent discounting (sales) or discreet price reductions. As seen in @fig-price-decrease, Metro has the most number of products with decreased prices that were not on sale.
+
+```{r}
+#| label: fig-price-decrease
+#| fig-cap: "Product quiet price decrease"
+#| echo: false
+#| warning: false
+#| message: false
+
+quiet_price_dec_bar <-
+  readRDS(file = here::here("models/quiet_price_dec_bar.rds"))
+
+```
 
 **Stock and Promotional Indicators**
-   - Stock Status (stock_status): The proportion of products available (in stock) for each vendor reflects the reliability of a vendor in meeting consumer demands. Vendors with higher average stock levels may be perceived as more dependable by consumers. According to Figure 5, Loblaws has the most Fruits & Vegetables, Galleria has the most Grain Products, and Metro has the most Protein Foods.
+- Stock Status (stock_status): The proportion of products available (in stock) for each vendor reflects the reliability of a vendor in meeting consumer demands. Vendors with higher average stock levels may be perceived as more dependable by consumers. According to @fig-stock-status, Loblaws has the most Fruits & Vegetables, Galleria has the most Grain Products, and Metro has the most Protein Foods.
 
-   - On Sale (is_sale): When a product is on sale and is explicitly labeled, we can use this predictor for identifying explicit promotions that can benefit consumers. In Figure 6, we measure the average number of products explicitly labeled as “on sale” per vendor, but we notice that only Voila has this label.
-   
-   - Best Seller Status (is_best): The “Best Seller” designation is a key predictor for stock prioritization, promotional strategies, and pricing trends. As shown in Figure 7, Walmart is the only vendor that explicitly uses this label, a crucial observation to consider when developing our statistical model.
-  
+```{r}
+#| label: fig-stock-status
+#| fig-cap: "Product stock status"
+#| echo: false
+#| warning: false
+#| message: false
+
+avg_stock_facet <-
+  readRDS(file = here::here("models/avg_stock_facet.rds"))
+
+```
+
+- On Sale (is_sale): When a product is on sale and is explicitly labeled, we can use this predictor for identifying explicit promotions that can benefit consumers. In @fig-on-sale, we measure the average number of products explicitly labeled as “on sale” per vendor, but we notice that only Voila has this label.
+
+```{r}
+#| label: fig-on-sale
+#| fig-cap: "Number of products on sale"
+#| echo: false
+#| warning: false
+#| message: false
+
+is_sale_bar <-
+  readRDS(file = here::here("models/is_sale_bar.rds"))
+
+```
+
+- Best Seller Status (is_best): The “Best Seller” designation is a key predictor for stock prioritization, promotional strategies, and pricing trends. As shown in @fig-best-seller, Walmart is the only vendor that explicitly uses this label, a crucial observation to consider when developing our statistical model.
+ 
+```{r}
+#| label: fig-best-seller
+#| fig-cap: "Number of best-seller products"
+#| echo: false
+#| warning: false
+#| message: false
+
+is_best_bar <-
+  readRDS(file = here::here("models/is_best_bar.rds"))
+
+```
+
    - Organic Product Status (is_organic): Whether a product is “Organic” serves as a critical predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In Figure 8, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
 
+```{r}
+#| label: fig-is-organic
+#| fig-cap: "Number of organic products"
+#| echo: false
+#| warning: false
+#| message: false
 
+organic_product_bar <-
+  readRDS(file = here::here("models/organic_product_bar.rds"))
+
+```
 
 # Model {#sec-model}
 
@@ -276,12 +429,19 @@ Weaknesses and next steps should also be included.
 
 \appendix
 
-# Appendix {-}
+# Appendix: Sampling Methdology Overview - Weaknesses and Potential Improvements {#sec-appendix-A}
 
+# Appendix: Additional Data Details {#sec-appendix-B}
 
-# Additional data details
+## Data Cleaning Steps
 
-# Model details {#sec-model-details}
+To prepare the dataset for analysis, we conducted comprehensive data cleaning. First, product and price datasets were merged based on product identifiers to create a unified dataset. Rows with missing critical information, such as unit or price, were removed. To standardize product categorization, keywords were defined for three primary food categories: fruits and vegetables, protein foods, and grain products. Products matching these keywords were assigned to their respective categories, while others were excluded.
+
+Unit standardization was implemented to ensure consistency in price comparisons. Units were cleaned, converted to lowercase, and mapped to standardized units (e.g., grams, milliliters). A conversion table was applied to normalize all prices to a standard per-unit measure. Additional flags were created to capture stock status, sale indicators, best-seller labels, and organic products based on product descriptions.
+
+Unnecessary columns, such as URLs, brands, and redundant identifiers, were dropped to streamline the dataset. Prices were then adjusted to calculate standardized price-per-unit values, enabling direct comparisons across products and vendors. Rows with unrecognized units or missing standardized price information were filtered out. Finally, duplicate entries were removed to ensure data integrity, and the cleaned dataset was sorted by vendor for further analysis.
+
+# Appendix: Additional Model Details {#sec-appendix-C}
 
 ## Posterior predictive check
 
@@ -299,15 +459,6 @@ In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. Th
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
 #| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
 ```
 
 ## Diagnostics
@@ -326,9 +477,6 @@ posterior_vs_prior(first_model) +
 #| fig-subcap: ["Trace plot", "Rhat plot"]
 #| layout-ncol: 2
 
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
 ```
 
 
