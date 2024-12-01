@@ -126,5 +126,4 @@ cleaned_unit_data <- cleaned_unit_data %>%
 distinct_cleaned_data <- cleaned_unit_data %>% distinct()
 
 #### Save data ####
-write_csv(distinct_cleaned_data, "data/02-analysis_data/analysis_data.csv")
 write_parquet(distinct_cleaned_data, "data/02-analysis_data/analysis_data.parquet")
