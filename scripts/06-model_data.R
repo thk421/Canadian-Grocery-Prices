@@ -51,9 +51,9 @@ overall_best_vendor_data <- weekly_meal_plan_cost_per_vendor %>%
     promotional_effort = normalize(avg_products_on_sale),  # Higher sale frequency is better
     
     # overall score calculation
-    overall_score = 0.4 * affordability +
+    overall_score = 0.5 * affordability +
       0.2 * reliability +
-      0.2 * sale_transparency +
+      0.1 * sale_transparency +
       0.1 * product_appeal +
       0.1 * promotional_effort
   ) %>%
