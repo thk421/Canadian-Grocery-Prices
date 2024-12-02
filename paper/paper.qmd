@@ -22,6 +22,8 @@ library(ggplot2)
 library(lubridate)
 library(arrow)
 library(knitr)
+library(modelsummary)
+library(rstan)
 
 analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
 ```
@@ -67,15 +69,15 @@ The "Canadian Grocery Price Data" dataset was sourced from Project Hammer [@groc
 #| warning: false
 #| message: false
 
-# First table with columns 1 to 5
+# First table with columns 1 to 4
 analysis_data %>%
-  slice(379030:379040) %>%
+  slice(370430:370440) %>%
   select(1:5) %>%  # Selecting first 5 columns
   kable(caption = "Sample Canadian Grocery Price Data - Part 1", align = rep("c", 5))
 
 # Second table with columns 5 to the end
 analysis_data %>%
-  slice(379030:379040) %>%
+  slice(370430:370440) %>%
   select(6:ncol(analysis_data)) %>%  # Selecting columns 6 to the last
   kable(caption = "Sample Canadian Grocery Price Data - Part 2", align = rep("c", ncol(analysis_data)-5))
 
@@ -92,7 +94,8 @@ After the cleaning process, we are left with a dataset containing several attrib
 ## Outcome variables
 
 **Price per Unit**
-- The primary outcome variable in our study is the price per unit of each product. This outcome variable captures the key phenomenon we are interested in: how much consumers are paying per unit of a product, after accounting for varying packaging sizes and vendor pricing strategies. It is calculated by dividing the current price by the unit size (in grams, milliliters, or items) for each product. This allows us to standardize prices across different products that may be sold in different quantities. The calculation of price per unit is crucial for comparing products sold in various units of measurement and understanding the underlying cost dynamics of each product.
+
+- The primary outcome variable in our study is the price per unit of each product. This outcome variable captures the key phenomenon we are interested in: how much consumers are paying per unit of a product, after accounting for varying packaging sizes and vendor pricing strategies. It is calculated by dividing the current price by the unit size (in grams, milliliters, or items) for each product. This can be seen in @tbl-price-per-unit, where the current price of the 'Portion Of Frozen Atlantic Salmon' product is standardized from 2.99 to 0.00299 to match the standardized unit, while the other products in the table remain the same because they are already standardized. The calculation of price per unit is crucial for comparing products sold in various units of measurement and understanding the underlying cost dynamics of each product.
 
 ```{r}
 #| label: tbl-price-per-unit
@@ -101,40 +104,62 @@ After the cleaning process, we are left with a dataset containing several attrib
 #| warning: false
 #| message: false
 
+# Set random seed for reproducibility
+set.seed(100)
+
+# Create a summary table with selected columns and sample 5 random observations
+summary_table <- analysis_data %>%
+  select(product_name, current_price, price_per_standard_unit) %>%
+  sample_n(5)  # Sample 5 random rows
+
+# Display the summary table
+kable(summary_table, caption = "Summary Table of Product Prices")
+
 ```
 
 **Overall Vendor Score**
-- Another outcome variable is the overall vendor score, which takes into account multiple criteria to evaluate vendors. The highest weight is put on affordability which is measured by the average price per unit of groceries from each vendor. Some additional factors taken into account are whether products are organic (quality), are in stock (reliability), are on sale or are best sellers (appeal), and if there was a quiet price decrease (transparency).
+
+- Another outcome variable is the overall vendor score as seen in @fig-overall-vendor-score, which takes into account multiple criteria to evaluate vendors. The highest weight is put on affordability which is measured by the average price per unit of groceries from each vendor. Some additional factors taken into account are whether products are organic (quality), are in stock (reliability), are on sale or are best sellers (appeal), and if there was a quiet price decrease (transparency).
    
 ```{r}
-#| label: tbl-overall-vendor-score
-#| tbl-cap: "Summary of overall vendor scores"
+#| label: fig-overall-vendor-score
+#| fig-cap: "Summary of overall vendor scores"
 #| echo: false
 #| warning: false
 #| message: false
 
+overall_vendor_scores_bar <-
+  readRDS(file = here::here("models/overall_vendor_scores_bar.rds"))
+
+overall_vendor_scores_bar
 ```
 
 **Future Price Trends**
-- This outcome variable represents the predicted trajectory of grocery prices over time, estimated using a Bayesian statistical model. The model incorporates historical pricing data, vendor-specific trends, and product categories to generate probabilistic forecasts. By quantifying uncertainty, the model provides a nuanced view of potential future price fluctuations, helping consumers anticipate changes and make informed decisions.
+
+- This outcome variable as seen in @fig-future-price-trends represents the predicted trajectory of grocery prices over time, estimated using a Bayesian statistical model. The model incorporates historical pricing data, vendor-specific trends, and product categories to generate probabilistic forecasts. By quantifying uncertainty, the model provides a nuanced view of potential future price fluctuations, helping consumers anticipate changes and make informed decisions.
    
 ```{r}
-#| label: tbl-future-price-trends
-#| tbl-cap: "Future Price Trends"
+#| label: fig-future-price-trends
+#| fig-cap: "Predicted Future Price Trends"
 #| echo: false
 #| warning: false
 #| message: false
 
+predicted_price_trend <-
+  readRDS(file = here::here("models/predicted_price_trend.rds"))
+
+predicted_price_trend
 ```
    
 ## Predictor variables
 
 **Temporal Information** 
-- Timestamp (nowtime): This refers to the time when the data was collected. It enables the identification of trends over time, such as the seasonal impact on stock or sales. This element is critical when applying Bayesian inference to predict future price trends. From Figure 3, we see that majority of the data was collected after October, which might bring some limitations that will be discussed further into this paper.
+
+- Timestamp (nowtime): This refers to the time when the data was collected. It enables the identification of trends over time, such as the seasonal impact on stock or sales. This element is critical when applying Bayesian inference to predict future price trends. From @fig-nowtime, we see that majority of the data was collected after October, which might bring some limitations that will be discussed further into this paper.
    
 ```{r}
 #| label: fig-nowtime
-#| tbl-cap: "Nowtime Density Plot"
+#| fig-cap: "Nowtime Density Plot"
 #| echo: false
 #| warning: false
 #| message: false
@@ -147,6 +172,7 @@ ggplot(analysis_data, aes(x = as.Date(nowtime))) +  # Convert to Date format for
 ```
 
 **Vendor Characterisics**
+
 - Vendor Name (vendor): There are 8 vendors in this analysis: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors. For instance, we can factor in the fact that Voila has approximately 4 times the number of products compared to Galleria as seen in the table below.
    
 ```{r}
@@ -167,6 +193,7 @@ knitr::kable(vendor_summary, caption = "Summary of Vendor Names", col.names = c(
 ```
 
 **Product Classification**
+
 - Food Category (food_category): Classification as “Fruits & Vegetables,” “Protein Foods,” or “Grain Products” affects weighted cost calculations. Looking at the summary table below, we see that the overall number of protein foods far outweigh grain products.
 
 ```{r}
@@ -187,6 +214,7 @@ knitr::kable(category_summary, caption = "Summary of Food Categories", col.names
 ```
 
 **Product Price Information**
+
 - Current Price (current_price): This is the most recent price of a product (in CAD) used when measuring weighted costs and quiet decreases. The table below presents the price statistics for a product range, including the minimum price (0.2), maximum price (65.99), mean price (7.03), and standard deviation (5.20). The standard deviation of 5.20 is relatively high compared to the mean price of 7.03, suggesting significant variability in prices.
 
 ```{r}
@@ -214,7 +242,7 @@ knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c
 
 ```{r}
 #| label: fig-price-decrease
-#| fig-cap: "Product quiet price decrease"
+#| fig-cap: "Count of quiet price decreases by vendor"
 #| echo: false
 #| warning: false
 #| message: false
@@ -222,14 +250,16 @@ knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c
 quiet_price_dec_bar <-
   readRDS(file = here::here("models/quiet_price_dec_bar.rds"))
 
+quiet_price_dec_bar
 ```
 
 **Stock and Promotional Indicators**
+
 - Stock Status (stock_status): The proportion of products available (in stock) for each vendor reflects the reliability of a vendor in meeting consumer demands. Vendors with higher average stock levels may be perceived as more dependable by consumers. According to @fig-stock-status, Loblaws has the most Fruits & Vegetables, Galleria has the most Grain Products, and Metro has the most Protein Foods.
 
 ```{r}
 #| label: fig-stock-status
-#| fig-cap: "Product stock status"
+#| fig-cap: "Count of products in stock by vendor and food category"
 #| echo: false
 #| warning: false
 #| message: false
@@ -237,13 +267,14 @@ quiet_price_dec_bar <-
 avg_stock_facet <-
   readRDS(file = here::here("models/avg_stock_facet.rds"))
 
+avg_stock_facet
 ```
 
 - On Sale (is_sale): When a product is on sale and is explicitly labeled, we can use this predictor for identifying explicit promotions that can benefit consumers. In @fig-on-sale, we measure the average number of products explicitly labeled as “on sale” per vendor, but we notice that only Voila has this label.
 
 ```{r}
 #| label: fig-on-sale
-#| fig-cap: "Number of products on sale"
+#| fig-cap: "Sale occurrence by vendor"
 #| echo: false
 #| warning: false
 #| message: false
@@ -251,13 +282,14 @@ avg_stock_facet <-
 is_sale_bar <-
   readRDS(file = here::here("models/is_sale_bar.rds"))
 
+is_sale_bar
 ```
 
 - Best Seller Status (is_best): The “Best Seller” designation is a key predictor for stock prioritization, promotional strategies, and pricing trends. As shown in @fig-best-seller, Walmart is the only vendor that explicitly uses this label, a crucial observation to consider when developing our statistical model.
  
 ```{r}
 #| label: fig-best-seller
-#| fig-cap: "Number of best-seller products"
+#| fig-cap: "Proportion of best sellers by vendor"
 #| echo: false
 #| warning: false
 #| message: false
@@ -265,13 +297,14 @@ is_sale_bar <-
 is_best_bar <-
   readRDS(file = here::here("models/is_best_bar.rds"))
 
+is_best_bar
 ```
 
-   - Organic Product Status (is_organic): Whether a product is “Organic” serves as a critical predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In Figure 8, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
+- Organic Product Status (is_organic): Whether a product is “Organic” serves as a critical predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In @fig-is-organic, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
 
 ```{r}
 #| label: fig-is-organic
-#| fig-cap: "Number of organic products"
+#| fig-cap: "Count of organic products by vendor and food category"
 #| echo: false
 #| warning: false
 #| message: false
@@ -279,6 +312,7 @@ is_best_bar <-
 organic_product_bar <-
   readRDS(file = here::here("models/organic_product_bar.rds"))
 
+organic_product_bar
 ```
 
 # Model {#sec-model}
@@ -298,12 +332,12 @@ $$
 
 where:  
 
-- \(\beta_0\): Intercept representing the baseline price.  
-- \(\text{nowtime}_i\): Continuous variable indicating the timestamp of data collection.  
-- \(\text{vendor}_i\): Categorical variable with levels for the eight vendors: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria.  
-- \(\text{food\_category}_i\): Categorical variable indicating "Fruits & Vegetables," "Protein Foods," or "Grain Products."  
-- \(\text{current\_price}_i\): Continuous variable for the most recent price of a product.  
-- \(\epsilon_i\): Random error term capturing unexplained variability.
+- $\beta_0$: Intercept representing the baseline price.  
+- $\text{nowtime}_i$: Continuous variable indicating the timestamp of data collection.  
+- $\text{vendor}_i$: Categorical variable with levels for the eight vendors: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria.  
+- $\text{food\_category}_i$: Categorical variable indicating "Fruits & Vegetables," "Protein Foods," or "Grain Products."  
+- $\text{current\_price}_i$: Continuous variable for the most recent price of a product.  
+- $\epsilon_i$: Random error term capturing unexplained variability.
 
 ## Priors  
 
@@ -314,9 +348,181 @@ The Bayesian model incorporates weakly informative priors to reflect plausible r
 
 ### Model Justification
 
-The selection of predictors included or excluded in the Bayesian model was guided by their relevance, interpretability, and alignment with the research objectives. Below is a detailed breakdown:
+The selection of predictors included or excluded in the Bayesian model was guided by their relevance, interpretability, and alignment with the research objectives. A detailed breakdown can be seen in @sec-appendix-C.
 
-#### Included Predictors
+## Assumptions  
+- The outcome variable, **`price_per_standard_unit`**, is normally distributed around the predicted mean.  
+- Predictors have linear effects on the outcome.  
+- Residual errors are independent and identically distributed.  
+- Vendor and product effects are hierarchical, reflecting their nested relationships.
+
+## Implementation and Validation  
+The model was implemented in R using the `brms` package. Validation was done by visually checking posterior predictive checks to assess the model's fit.  
+
+## Limitations  
+The model assumes a consistent distribution of predictors across vendors and time, which may not hold in sparse data. Additionally, the linearity assumption may oversimplify complex relationships. Future iterations could explore interaction terms or non-linear effects to enhance flexibility.
+
+## Alternative Models Considered  
+Linear regression without Bayesian inference was considered but failed to incorporate uncertainty adequately. A Bayesian logistic model was evaluated for binary outcomes like **`is_sale`**, **is_best**, and **is_organic** but could not capture the continuous nature of the primary outcome. The chosen model balances complexity and interpretability while addressing hierarchical dependencies.
+
+# Results {#sec-results}
+
+The average weekly meal plan cost by vendor and food category in @fig-avg-price-stacked shows in order which vendors overall are the most cost-effective to the least cost-effective. By looking at the different colors that represent the food catgory, it can also be compared which food group is more cost-effective in which store.
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-avg-price-stacked
+#| fig-cap: "Average weekly meal plan cost by vendor and food category"
+#| warning: false
+
+avg_price_stacked_bar <-
+  readRDS(file = here::here("models/avg_price_stacked_bar.rds"))
+
+avg_price_stacked_bar
+```
+
+The overall best vendor can be seen in @fig-overall-vendor-score, and the predicted future price trends per vendor is shown in @fig-future-price-trends.
+
+Our Bayesian model results are summarized in @tbl-model-summary. It provides the parameter estimates, predictive metrics, and significance levels to support the model. Further discussion for these results can be found in @sec-second-point.
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-model-summary
+#| tbl-cap: "Bayesian model for predicted future price trends summary"
+#| warning: false
+
+bayesian_model <-
+  readRDS(file = here::here("models/bayesian_model.rds"))
+
+# Generate a summary table for the Bayesian model
+model_table <- modelsummary(
+  bayesian_model, 
+  stars = TRUE,
+  coef_omit = "(Intercept)"
+)
+
+# Print the table
+model_table
+```
+
+# Discussion {#sec-discussion}
+
+If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+
+## Paper Summary {#sec-first-point}
+what was done in this paper?
+
+## Bayesian Model Explanation {#sec-second-point}
+
+### Key Terms
+
+- b_current_price (0.955): The regression coefficient for current_price. This indicates that for each unit increase in current_price, the future price is expected to increase by 0.955 units, holding other variables constant.
+
+- b_food_categoryGrainProducts (0.065): Grain products are associated with a slight positive increase in the predicted future price relative to the baseline category (likely "Fruits & Vegetables").
+
+- b_food_categoryProteinFoods (0.178): Protein foods are associated with a larger increase in the predicted future price compared to the baseline category.
+
+- b_vendor (e.g., -0.013 for Loblaws):* These coefficients represent the effect of each vendor relative to the reference vendor. For instance, Loblaws has a slight negative impact on future prices compared to the baseline vendor.
+
+- b_month (0.008): The slight positive effect of the month variable suggests minor upward trends in prices over time.
+
+- sigma (1.596): This represents the residual standard deviation, indicating the variability of the outcome variable (future price) that is not explained by the predictors.
+
+- R² (0.903): This high value indicates that 90.3% of the variance in the future price is explained by the predictors in the model.
+
+- R² Adj. (0.903): Adjusted R² accounts for the number of predictors and indicates a similarly strong fit.
+
+- R² Marg. (0.903): Marginal R² reflects the variance explained by fixed effects only.
+
+- ICC (0.0): The Intraclass Correlation Coefficient suggests no substantial variance at the grouping level (e.g., product name in this case).
+
+### Predictive Metrics
+
+- ELPD (-9361.9): The Expected Log Predictive Density is a measure of predictive accuracy, where higher (less negative) values indicate better predictions.
+
+- ELPD s.e. (338.1): The standard error for ELPD, showing uncertainty around this estimate.
+
+- LOOIC (18,723.8): The Leave-One-Out Information Criterion measures model fit; smaller values are better. It is often used for model comparison.
+
+- LOOIC s.e. (676.2): The standard error of the LOOIC estimate.
+
+- WAIC (18,729.2): The Watanabe-Akaike Information Criterion is another metric for model fit, similar to LOOIC. Again, smaller values are better.
+
+- RMSE (1.59): The Root Mean Square Error quantifies the average error of the model's predictions, with lower values indicating better fit.
+
+### Bayesian Model Results Summary
+
+The high R² and R² Marg. values suggest the model explains most of the variability in future prices. Amongst the predictors, **current_price** is the strongest predictor, with nearly a 1:1 relationship to future prices. Other variables like **food categories** and **vendors** have smaller but notable effects. Metrics like LOOIC and RMSE show that the model performs well, but further investigation into predictive accuracy and residual patterns could refine interpretations.
+
+### Predicted Future Price Trends
+
+According to the predicted future price trends in @fig-future-price-trends, Galleria exhibits relatively stable predicted price trends, with slight variations over time. The predicted prices stay consistent, without significant spikes, suggesting steady pricing strategies. Loblaws shows stable prices with slight fluctuations but no dramatic increases or decreases. This implies consistent pricing practices with minor seasonal or product-related variations. Metro displays a similar pattern of stability to Loblaws but with marginally larger variations. The periodicity of the vertical bars may indicate uncertainty in the predictions during certain months. NoFrills has a noticeable spike mid-period, followed by a return to stability. This indicates a potential pricing anomaly or predicted fluctuation in a specific month before returning to normal pricing levels. SaveOnFoods presents consistent prices with some minor upward shifts, suggesting a gradual increase or variability in certain product categories. However, sporadic trends can be seen where there is an abrupt jump between months, which could reflect noise in the data. T&T has a slight peak mid-period, followed by stabilization. This may reflect a seasonal effect or a one-time price fluctuation for specific products. Voila shows a small spike mid-period but generally maintains consistent prices. The predicted pricing pattern mirrors a temporary fluctuation, likely tied to vendor or product-specific dynamics. Walmart demonstrates the most volatility in its price trends, with noticeable spikes. This may highlight significant uncertainty in Walmart's pricing patterns or irregularities caused by promotional events or external market forces. The vertical lines represent the uncertainty intervals (credible intervals) of the Bayesian predictions. Wider intervals imply greater uncertainty about the predicted prices for that month. These intervals can stem from limited data availability for specific vendors or products, variability in historical pricing trends, or external factors influencing the model’s predictive accuracy.
+
+## Overall Best Vendor {#sec-third-point}
+
+Choosing the best vendor based on the predicted future price trends depends on the specific priorities of consumers, such as affordability, price stability, and certainty. For affordability, NoFrills appears to have the lowest predicted prices overall, despite a noticeable spike in one period. Its consistent low prices outside this anomaly make it the most affordable option for price-sensitive consumers. Walmart also shows relatively low predicted prices but with more variability and uncertainty than NoFrills. For price stability, Loblaws and Metro exhibit the most stable price trends, with minimal fluctuations or uncertainty over time. For consumers prioritizing predictability in costs, these vendors may be the best choice. Galleria, Loblaws, and Metro have narrower credible intervals (vertical bars), indicating higher confidence in the model’s predictions for their prices. This suggests these vendors may have more predictable pricing strategies, making them reliable options. On the other hand, Walmart and NoFrills have wider credible intervals, reflecting more uncertainty in their pricing. This could indicate a higher risk of price volatility. Thus, based on the bayesian model, we conclude that NoFrills emerges as the best option when considering affordability, as its prices are consistently low with only one significant spike. Loblaws or Metro could be the best option for consumers who value price stability and predictability over absolute cost.
+
+Taking into account the Overall Vendor Score from @fig-overall-vendor-score, we can now make a more comprehensive evaluation. We observe that Voila achieves the highest rating, while Galleria ranks the lowest. These scores were primarily driven by affordability, which accounted for 50% of the total rating. Other factors contributing to the score included reliability (20%), measured by the vendor's consistency in keeping products in stock; sale transparency (10%), reflecting whether the vendor avoids quiet price increases; product appeal (10%), with a focus on the availability of organic products; and promotional efforts (10%), which evaluated how clearly products were marketed as being on sale. Despite its higher prices compared to others, Voila has the highest overall vendor score. This high score suggests that it performs well across multiple factors like reliability, transparency, product appeal, and promotional efforts. These qualities could make it the best choice for consumers who prioritize a combination of affordability and additional factors like product quality, transparency, and sales efforts. Voila seems to provide strong value beyond just price, appealing to consumers seeking a well-rounded vendor. Although NoFrills has the second-best overall vendor score, it is the most affordable in terms of predicted prices. This makes it an excellent choice for consumers primarily focused on low cost. However, it ranks slightly lower in the overall score because factors like transparency and promotional efforts are less emphasized compared to Voila. 
+
+Given the importance of both affordability and vendor quality (including reliability, appeal, and transparency), Voila should be considered the best vendor. Despite higher prices compared to NoFrills, Voila offers a balanced combination of affordable pricing and superior service, making it the most well-rounded option overall. It also has narrower credible intervals in the predicted price trends compared to NoFrills, making it a more stable choice.
+
+## Weaknesses {#sec-fourth-point}
+
+While this study provides valuable insights into the dynamics of grocery pricing across different vendors, there are several limitations worth considering. First, the model's reliance on historical pricing data and vendor-specific trends may not fully capture the complexity of real-world pricing fluctuations, which are influenced by a variety of external factors such as market shifts, supply chain disruptions, or changes in consumer behavior. Furthermore, the data collected might not show accurate prediction of price tends throughout the year because most of the data collected as seen in @fig-nowtime is from after July. As a result, while the predictions offer valuable insights, they may not always align with actual price trends in the future. 
+
+Second, the analysis primarily focused on a few key variables (such as current price, vendor, and food category), and may have overlooked other potentially important factors. For example, changes in consumer preferences, seasonality, and macroeconomic conditions could have significant impacts on prices and may not have been fully integrated into the model. This represents a gap that could be explored in future studies.
+
+Additionally, the dataset was limited to a specific time frame (2019-2020) and geographic region (Canada), meaning that the findings may not be generalizable to other countries or time periods. To improve the model’s applicability, future research could expand the dataset to include a broader range of time periods, geographic regions, and product categories.
+
+## Next Steps {#sec-fifth-point}
+
+To address these weaknesses, there are several avenues for future research. First, incorporating more granular data, such as real-time pricing or additional product attributes (e.g., packaging size, brand loyalty, or consumer ratings), could provide a more comprehensive understanding of price dynamics and vendor performance. Expanding the model to include additional variables could lead to more accurate predictions and help better capture the real-world complexities of grocery pricing.
+
+Second, future studies could explore the impact of external factors such as supply chain disruptions, inflation, or environmental sustainability initiatives on grocery prices. This would involve integrating external data sources to complement the existing dataset and help contextualize the price trends observed in this study.
+
+Lastly, conducting similar analyses across different countries or regions would allow for a comparative assessment of pricing strategies and vendor performance, providing valuable insights for international policy makers, researchers, and consumers. This could also facilitate the development of more robust, generalized pricing models that can be applied across various markets.
+
+\newpage
+
+\appendix
+
+# Appendix: Sampling Methdology Overview - Weaknesses and Potential Improvements {#sec-appendix-A}
+
+The Canadian Grocery Price Data sourced from Project Hammer provides valuable insights into grocery pricing trends across vendors, product categories, and regions. The data was obtained through a screen scrape of the website's user interface, which is why it lacks certain details that would typically be available through the internal APIs powering the grocers' websites. However, the sampling methodology underlying this dataset presents several weaknesses that could impact the robustness and generalizability of findings.
+
+## Weaknesses
+
+1. The dataset was limited to a specific time frame (2019-2020) and geographic region (Canada), meaning that the findings may not be generalizable to other countries or time periods. Specifically, data is collected starting from February 28, 2024, but these were for smaller baskets of products. Majority of the usable data with a variety of products starts from July, potentially missing seasonal variations or short-term fluctuations in prices caused by external factors such as supply chain disruptions, weather events, or promotions.
+
+2. The dataset relies on product identifiers and descriptions to standardize items across vendors. Inconsistent labeling or categorization may lead to mismatches or incomplete comparisons, particularly for highly variable products like produce. 
+
+3. There may also be missing data for certain days for certain vendors when specific extracts failed. Instances of missing unit information, product details, or pricing history reduce the completeness of the dataset and necessitate assumptions or imputation that may introduce errors.
+
+## Improvements
+
+While the current sampling methodology provides valuable insights, several improvements can enhance the dataset's robustness, accuracy, and overall usefulness for analysis:
+
+1. To capture a more comprehensive picture of pricing trends, data collection should span a longer time frame, ideally including multiple seasons and holidays. This would help account for seasonal variations, promotional periods, and other temporal factors influencing grocery prices. A broader time range would allow for a better understanding of price fluctuations throughout the year, enabling more accurate predictions and trend analysis.
+
+2. Implement a more refined product matching system, potentially by using standardized product IDs or barcodes across vendors. Additionally, categorization should be standardized across all products to ensure accurate comparisons, particularly for perishable goods like produce. This would reduce mismatches and make comparisons between vendors more reliable, ensuring that price trends reflect genuine product similarities rather than differences in labeling or categorization.
+
+3. Enhance the data collection process by improving the scraping method to reduce data loss. Using a more robust scraping framework that retries failed extractions or integrates better error handling can reduce instances of missing data. This would improve the completeness of the dataset, ensuring a more reliable foundation for analysis and reducing the need for imputation that might introduce errors. Where possible, supplement the screen-scraped data with data sourced from the internal APIs of the grocers' websites. Internal APIs tend to offer more accurate, comprehensive, and real-time data, including product details, stock levels, and historical price trends. This would increase the accuracy of the dataset and provide additional insights into product availability, pricing trends, and promotions, leading to more precise analyses.
+
+# Appendix: Additional Data Details {#sec-appendix-B}
+
+## Data Cleaning Steps
+
+To prepare the dataset for analysis, we conducted comprehensive data cleaning. First, product and price datasets were merged based on product identifiers to create a unified dataset. Rows with missing critical information, such as unit or price, were removed. To standardize product categorization, keywords were defined for three primary food categories: fruits and vegetables, protein foods, and grain products. Products matching these keywords were assigned to their respective categories, while others were excluded.
+
+Unit standardization was implemented to ensure consistency in price comparisons. Units were cleaned, converted to lowercase, and mapped to standardized units (e.g., grams, milliliters). A conversion table was applied to normalize all prices to a standard per-unit measure. Additional flags were created to capture stock status, sale indicators, best-seller labels, and organic products based on product descriptions.
+
+Unnecessary columns, such as URLs, brands, and redundant identifiers, were dropped to streamline the dataset. Prices were then adjusted to calculate standardized price-per-unit values, enabling direct comparisons across products and vendors. Rows with unrecognized units or missing standardized price information were filtered out. Finally, duplicate entries were removed to ensure data integrity, and the cleaned dataset was sorted by vendor for further analysis.
+
+# Appendix: Additional Model Details {#sec-appendix-C}
+
+## Included Predictors in the Bayesian Model
 1. **Temporal Information**:  
    - **`nowtime`**: Captures potential seasonal trends or time-dependent price fluctuations, ensuring the model can account for temporal variability in pricing.  
 
@@ -332,7 +538,7 @@ These features were chosen based on insights from exploratory data analysis, ens
 
 ---
 
-#### Excluded Predictors
+## Excluded Predictors in the Bayesian Model
 1. **Product Price Information**:  
    - **`price_decrease`**: Highlights subtle pricing strategies, such as quiet reductions, which may not be explicitly marked as sales.
    
@@ -356,134 +562,66 @@ These features were chosen based on insights from exploratory data analysis, ens
 
 This selection ensures the model is both parsimonious and robust, focusing on variables with the highest explanatory power while avoiding potential confounders or redundant predictors.
 
-## Assumptions  
-- The outcome variable, **`price_per_standard_unit`**, is normally distributed around the predicted mean.  
-- Predictors have linear effects on the outcome.  
-- Residual errors are independent and identically distributed.  
-- Vendor and product effects are hierarchical, reflecting their nested relationships.
-
-## Implementation and Validation  
-The model was implemented in R using the `brms` package. Validation was done by visually checking posterior predictive checks to assess the model's fit.  
-
-## Limitations  
-The model assumes a consistent distribution of predictors across vendors and time, which may not hold in sparse data. Additionally, the linearity assumption may oversimplify complex relationships. Future iterations could explore interaction terms or non-linear effects to enhance flexibility.
-
-## Alternative Models Considered  
-Linear regression without Bayesian inference was considered but failed to incorporate uncertainty adequately. A Bayesian logistic model was evaluated for binary outcomes like **`is_sale`**, **is_best**, and **is_organic** but could not capture the continuous nature of the primary outcome. The chosen model balances complexity and interpretability while addressing hierarchical dependencies.
-
-# Results {#sec-results}
-
-Our results are summarized in @tbl-modelresults.
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-overall-vendor-scores
-#| fig-cap: ""
-#| warning: false
-
-overall_vendor_scores_bar <-
-  readRDS(file = here::here("models/overall_vendor_scores_bar.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-bayesian-model
-#| fig-cap: ""
-#| warning: false
-
-bayesian_model <-
-  readRDS(file = here::here("models/bayesian_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-predicted-price-trend
-#| fig-cap: ""
-#| warning: false
-
-predicted_price_trend <-
-  readRDS(file = here::here("models/predicted_price_trend.rds"))
-```
-
-
-# Discussion {#sec-discussion}
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-Please don't use these as sub-heading labels - change them to be what your point actually is.
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix: Sampling Methdology Overview - Weaknesses and Potential Improvements {#sec-appendix-A}
-
-# Appendix: Additional Data Details {#sec-appendix-B}
-
-## Data Cleaning Steps
-
-To prepare the dataset for analysis, we conducted comprehensive data cleaning. First, product and price datasets were merged based on product identifiers to create a unified dataset. Rows with missing critical information, such as unit or price, were removed. To standardize product categorization, keywords were defined for three primary food categories: fruits and vegetables, protein foods, and grain products. Products matching these keywords were assigned to their respective categories, while others were excluded.
-
-Unit standardization was implemented to ensure consistency in price comparisons. Units were cleaned, converted to lowercase, and mapped to standardized units (e.g., grams, milliliters). A conversion table was applied to normalize all prices to a standard per-unit measure. Additional flags were created to capture stock status, sale indicators, best-seller labels, and organic products based on product descriptions.
-
-Unnecessary columns, such as URLs, brands, and redundant identifiers, were dropped to streamline the dataset. Prices were then adjusted to calculate standardized price-per-unit values, enabling direct comparisons across products and vendors. Rows with unrecognized units or missing standardized price information were filtered out. Finally, duplicate entries were removed to ensure data integrity, and the cleaned dataset was sorted by vendor for further analysis.
-
-# Appendix: Additional Model Details {#sec-appendix-C}
 
 ## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In @fig-pp-check, we implement a posterior predictive check for the bayesian model of our analysis. This shows an overlay of the observed data density (y) and the posterior predictive densities (y_rep) drawn from the model. The dark line represents the observed data density (y), while the lighter lines represent the posterior predictive densities (y_rep) simulated from the model. The predictive densities align well with the observed density in the bulk of the distribution (around 0 to 10), indicating that the model is capturing the central tendency of the data reasonably well. There appears to be a slight discrepancy in the right tail of the distribution (beyond ~10). The observed density drops more steeply than most of the predictive densities, suggesting that the model may be slightly overestimating the probability of higher prices. Overall, the model fits the main part of the data distribution adequately and the slight deviation in the tail may be acceptable, but if predicting high prices accurately is critical, the model might need more refinement by adding more predictors. 
+ 
 
 ```{r}
 #| eval: true
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-ppcheckandposteriorvsprior
+#| label: fig-pp-check
 #| layout-ncol: 2
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
+
+bayesian_model <-
+  readRDS(file = here::here("models/bayesian_model.rds"))
+
+pp_check(bayesian_model)
 
 ```
 
 ## Diagnostics
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+@tbl-bayesian-model-summary shows us the summary of the bayesian model. Since the Rhat value for all parameters are 1, and both Bulk_ESS and Tail_ESS for all parameters are larger than 100, we can conclude that there is excellent convergence in the bayesian model.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| message: false
 #| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
+#| label: tbl-bayesian-model-summary
+#| tbl-cap: "Checking the convergence of the bayesian model using Rhat and ESS"
+
+# Convert the summary to a more structured format
+bayesian_summary <- summary(bayesian_model)
+
+# Extract the relevant part of the summary (coefficients, diagnostics, etc.)
+model_summary_df <- as.data.frame(bayesian_summary$fixed)  # or use `bayesian_summary$summary` for more detailed info
+model_summary_df[] <- lapply(model_summary_df, function(x) {
+  if (is.numeric(x)) round(x, 2) else x
+})
+
+# Create a formatted table with caption
+knitr::kable(model_summary_df, caption = "Checking the convergence of the bayesian model using Rhat and ESS")
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-trace-plot
+#| fig-cap: "Checking the convergence of the bayesian model using trace plot"
 #| layout-ncol: 2
+
+plot(bayesian_model)
 
 ```
 
-
-
 \newpage
 
-
 # References
-
-
