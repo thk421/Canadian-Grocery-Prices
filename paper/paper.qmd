@@ -1,6 +1,6 @@
 ---
-title: "Predicting Grocery Price Trends Using Bayesian Models"
-subtitle: "An analysis of price patterns across Canadian grocery vendors to identify the most beneficial vendor for consumers"
+title: "Predicting Canadian Grocery Price Trends Using Bayesian Models"
+subtitle: "An analysis of price patterns across grocery vendors in Canada to identify the most beneficial vendor for consumers"
 author: Tina Kim
 thanks: "Code and data are available at: https://github.com/thk421/Canadian-Grocery-Prices.git"
 date: today
@@ -608,6 +608,8 @@ model_summary_df[] <- lapply(model_summary_df, function(x) {
 # Create a formatted table with caption
 knitr::kable(model_summary_df, caption = "Checking the convergence of the bayesian model using Rhat and ESS")
 ```
+
+@fig-trace-plot shows the traceplots for the bayesian model. [Add more here]
 
 ```{r}
 #| echo: false
