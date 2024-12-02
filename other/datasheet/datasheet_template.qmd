@@ -4,13 +4,14 @@ author: Tina Kim
 thanks: "Code and data are available at: https://github.com/thk421/Canadian-Grocery-Prices.git."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "The Canadian Grocery Price Dataset provides a comprehensive collection of product pricing and availability information from major grocery vendors across Canada. Designed to support research on affordability, convenience, and sustainability in grocery shopping, the dataset contains detailed entries on data collection dates, vendor names, product names, unit prices, sale statuses, stock statuses, and best-seller statuses. Data was collected through automated web scraping, ensuring consistency and temporal relevance, while preprocessing enhanced comparability across vendors. This dataset aims to inform consumer decision-making, vendor selection, and policy development by offering insights into pricing trends and vendor performance. The dataset is suitable for tasks such as predictive modeling, vendor scoring, and economic analysis, with potential applications in sustainability and food security studies. It is shared under an open-source license to encourage broad use and collaboration, with provisions for periodic updates and community contributions."
 format: pdf
 number-sections: true
 bibliography: references.bib
 ---
 
 Extract of the questions from @gebru2021datasheets.
+Datset from @grocery_data.
 
 
 **Motivation**
