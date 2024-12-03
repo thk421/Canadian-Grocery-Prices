@@ -24,6 +24,7 @@ library(arrow)
 library(knitr)
 library(modelsummary)
 library(rstan)
+library(bayesplot)
 
 analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.parquet"))
 ```
@@ -31,36 +32,27 @@ analysis_data <- read_parquet(here::here("data/02-analysis_data/analysis_data.pa
 
 # Introduction
 
-Overview paragraph
-
 The 2019 Canada's Food Guide (CFG) [@cfg2019] emphasizes the importance of balanced nutrition, advocating for a diet rich in vegetables, fruits, whole grains, and protein foods sourced from both plants and animals. It encourages reducing saturated fats, added sugars, and highly processed foods while recommending unsweetened, lower-fat milk or fortified plant-based alternatives. Notably, the 2019 CFG introduces greater flexibility compared to previous editions by integrating dairy products into the broader protein foods category, reflecting a more inclusive approach to nutrition. 
 
 However, adhering to the 2019 CFG has become increasingly challenging due to rising grocery costs. A basket of groceries that cost \$1,000 five years ago now costs approximately $1,296 in 2024 [@rbc_grocery_costs]. This escalation forces consumers to make more informed and difficult choices, often weighing the affordability of less healthy but cheaper options against the higher costs of healthier alternatives. 
 
 To address this issue, our study explores grocery pricing trends across eight Canadian vendors: Metro, Save-On-Foods, Galleria, T&T Supermarket, Voilà, Walmart, No Frills, and Loblaws. By examining predictors such as product categories, vendor pricing, and temporal trends, this research provides critical insights into the dynamics of grocery pricing. Additionally, Bayesian statistical methods are employed to model future price changes, offering valuable tools for consumers and policymakers navigating the growing challenges of maintaining healthy, cost-effective diets.
 
-Estimand paragraph
-
-The key estimand of this study is the effect of vendor choice, product category, and temporal trends on grocery pricing across Canada. Specifically, we aim to estimate how much more or less consumers might pay for certain product categories when purchasing from different vendors, considering the ongoing trends in grocery pricing and the role that seasonal and economic shifts play. Through this analysis, we seek to estimate the probability of future price decreases or increases based on these factors.
+The key estimand of this study is the effect of vendor choice, product category, and temporal trends on grocery pricing across Canada. Specifically, we aim to estimate how much more or less consumers might pay for certain product categories when purchasing from different vendors, considering the ongoing trends in grocery pricing. Through this analysis, we seek to estimate the probability of future price decreases or increases based on these factors.
 
 Another key estimand is the lowest total cost of constructing a week’s worth of meals using commonly available ingredients that adhere to the 2019 CFG, tailored for each vendor. All analysis is conducted using a standardized price measure to ensure consistency, comparability, and fairness across products, units, vendors, and contexts. Since prices are often reported in various units (e.g., kilograms, grams, liters, or milliliters), standardizing them to a common unit (such as grams, milliliters, or individual items) eliminates variability caused by differing measurement scales, enabling accurate and direct comparisons. This comparison extends beyond affordability to also consider quality, reliability, transparency, and appeal to calculate an overall score measure. Quality is assessed by comparing if the product is organic or not. Reliability is based on stock availability. Transparency is measured through quiet price decreases. Lastly, best seller or sale promotions are integrated for appeal. This composite metric provides a comprehensive rating for each vendor to offer tailored recommendations, helping consumers identify the vendor that best aligns with their specific needs and priorities.
 
-Results paragraph
-
-The analysis reveals that vendor choice plays a significant role in determining grocery prices, with large national vendors generally offering lower prices compared to local or regional options. Furthermore, we observe a clear seasonal trend in grocery pricing, with prices typically rising in the winter months and dropping during certain sales periods. The model also indicates that certain product categories, particularly organic and plant-based foods, are subject to higher price volatility, while staple items such as grains and protein foods remain relatively stable.
-
-Why it matters paragraph
+The analysis reveals that vendor choice plays a significant role in determining grocery prices when factoring product categories and temporal attributes. NoFrills offers the lowest predicted prices, making it ideal for budget-conscious shoppers, though it has occasional price spikes. For those valuing price stability, Loblaws or Metro are better options. However, Voila emerges as the top choice, balancing affordability with superior service and reliability.
 
 Understanding how pricing trends vary across different vendors and product categories is crucial for consumers seeking to optimize their grocery spending while adhering to the dietary guidelines outlined by Canada's Food Guide. This research not only informs consumer decision-making but also provides valuable insights for policymakers and vendors aiming to address food accessibility and affordability in Canada. By modeling future price trends, we can better anticipate and prepare for fluctuations in grocery costs, helping people in Canada make healthier, more cost-effective food choices.
 
-Telegraphing paragraph: The remainder of this paper is structured as follows. @sec-data describes the data used in the analysis, @sec-model details the Bayesian model and assumptions, @sec-results presents the results, and @sec-discussion offers a discussion of the findings and suggests areas for future research.
-
+The remainder of this paper is structured as follows. @sec-data describes the data used in the analysis, @sec-model details the Bayesian model and assumptions, @sec-results presents the results, and @sec-discussion offers a discussion of the findings and suggests areas for future research. An overview of the sampling methdology is in @sec-appendix-A. Additional data details are explained in @sec-appendix-B, and additional model details are noted in @sec-appendix-C.
 
 # Data {#sec-data}
 
 ## Overview
 
-The "Canadian Grocery Price Data" dataset was sourced from Project Hammer [@grocery_data], and a statistical analysis was performed using the R programming language [@citeR]. The primary objective of this analysis was to clean, explore, and visualize the data to identify which grocery vendor currently and in the future offers the most cost-effective options for individuals adhering to the 2019 CFG. Various R libraries were utilized throughout the process. The tidyverse library [@tidyverse] provides a comprehensive set of tools for data manipulation, cleaning, and visualization, enabling efficient handling of datasets. The lubridate library [@lubridate] simplifies working with date-time objects while arrow [@arrow] is used to handle large datasets efficiently, especially for columnar formats like Parquet. For Bayesian modeling, rstanarm [@rstanarm] and brms [@brms] offer powerful tools for fitting and interpreting multilevel models while bayesplot [@bayesplot] aids in the graphical exploration of Bayesian model results, enhancing the interpretation of complex models. A summary table showcasing 10 sample observations from the cleaned dataset is presented in @tbl-grocery-data-summary. The table was divided into Part 1 and Part 2 for better readability, but the original dataset is formatted as one continuous table.
+The "Canadian Grocery Price Data" dataset was sourced from Project Hammer [@grocery_data], and a statistical analysis was performed using the R programming language [@citeR]. The primary objective of this analysis was to clean, explore, and visualize the data to identify which grocery vendor currently and in the future offers the most cost-effective options for individuals adhering to the 2019 CFG. Various R libraries were utilized throughout the process. The tidyverse library [@tidyverse] provides a comprehensive set of tools for data manipulation, cleaning, and visualization, enabling efficient handling of datasets. The lubridate library [@lubridate] simplifies working with date-time objects while arrow [@arrow] is used to handle large datasets efficiently, especially for formats in Parquet. For Bayesian modeling, rstanarm [@rstanarm] and brms [@brms] offer powerful tools for fitting and interpreting multilevel models while bayesplot [@bayesplot] aids in the graphical exploration of Bayesian model results, enhancing the interpretation of complex models. A summary table showcasing 10 sample observations from the cleaned dataset is presented in @tbl-grocery-data-summary. The table was divided into Part 1 and Part 2 for better readability, but the original dataset is formatted as one continuous table.
 
 ```{r}
 #| label: tbl-grocery-data-summary
@@ -84,8 +76,6 @@ analysis_data %>%
 ```
 
 ## Measurement
-	
-Some paragraphs about how we go from a phenomena in the world to an entry in the dataset.
 
 In this analysis, the phenomenon of interest is the cost of constructing a meal plan based on the 2019 CFG by going through grocery prices of different products from various vendors. The original Canadian Grocery Price Data from Project Hammer used in this analysis came in two files, one containing metadata and product details, and the other containing time-series price data. The files were merged into one dataset and select variables were chosen to construct the analysis data for this paper. Detailed cleaning steps for the analysis data can be seen in @sec-appendix-B.
 
@@ -119,7 +109,7 @@ kable(summary_table, caption = "Summary Table of Product Prices")
 
 **Overall Vendor Score**
 
-- Another outcome variable is the overall vendor score as seen in @fig-overall-vendor-score, which takes into account multiple criteria to evaluate vendors. The highest weight is put on affordability which is measured by the average price per unit of groceries from each vendor. Some additional factors taken into account are whether products are organic (quality), are in stock (reliability), are on sale or are best sellers (appeal), and if there was a quiet price decrease (transparency).
+- Another outcome variable is the overall vendor score as seen in @fig-overall-vendor-score, which takes into account multiple criteria to evaluate vendors. The highest weight is put on affordability since it is the primary goal of this paper, and is measured by the average price per unit of groceries from each vendor. Some additional factors taken into account are whether products are organic (quality), are in stock (reliability), are on sale or are best sellers (appeal), and if there was a quiet price decrease (transparency). The last three factors had the lowest weights because it did not apply to every vendor.
    
 ```{r}
 #| label: fig-overall-vendor-score
@@ -173,7 +163,7 @@ ggplot(analysis_data, aes(x = as.Date(nowtime))) +  # Convert to Date format for
 
 **Vendor Characterisics**
 
-- Vendor Name (vendor): There are 8 vendors in this analysis: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors. For instance, we can factor in the fact that Voila has approximately 4 times the number of products compared to Galleria as seen in the table below.
+- Vendor Name (vendor): There are 8 vendors in this analysis as shown in the table below: Voila, Loblaws, NoFrills, Metro, Walmart, TandT, SaveonFoods, and Galleria. This variable is crucial since we are comparing results between these vendors.
    
 ```{r}
 #| label: tbl-vendors
@@ -238,7 +228,7 @@ knitr::kable(price_summary, caption = "Summary of Current Prices", col.names = c
 
 ```
 
-- Quiet Price Decrease (price_decrease): Tracks subtle pricing adjustments by identifying instances where a product’s price decreased without being labeled as a sale. This outcome sheds light on subtle pricing strategies vendors might employ to remain competitive without overt promotional activities. It provides insights into whether vendors prioritize transparent discounting (sales) or discreet price reductions. As seen in @fig-price-decrease, Metro has the most number of products with decreased prices that were not on sale.
+- Quiet Price Decrease (price_decrease): Tracks subtle pricing adjustments by identifying instances where a product’s price decreased without being labeled as a sale. This outcome indicates subtle pricing strategies vendors might employ to remain competitive without overt promotional activities. It provides insights into whether vendors prioritize transparent discounting (sales) or discreet price reductions. As seen in @fig-price-decrease, Metro has the most number of products with decreased prices that were not on sale.
 
 ```{r}
 #| label: fig-price-decrease
@@ -300,7 +290,7 @@ is_best_bar <-
 is_best_bar
 ```
 
-- Organic Product Status (is_organic): Whether a product is “Organic” serves as a critical predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In @fig-is-organic, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
+- Organic Product Status (is_organic): Whether a product is “Organic” serves as a predictor for those who want higher quality products while risking affordability. We compare the availability of high-quality products across vendors and categories by looking for product names that include “fresh” or “organic”. In @fig-is-organic, we see that Metro and Voila have the widest range of organic products. These products tend to be more pricey than normal products, which is a trade-off for people who want to invest in better quality over affordability.
 
 ```{r}
 #| label: fig-is-organic
@@ -346,7 +336,7 @@ The Bayesian model incorporates weakly informative priors to reflect plausible r
 - $\beta_1, \beta_2, \beta_3, \beta_4 \sim \mathcal{N}(0, 5)$: Moderate effect sizes are prioritized, but larger effects are not ruled out.  
 - $\sigma \sim \text{Student-}t(3, 0, 10)$: Allows flexibility for variance in product pricing.  
 
-### Model Justification
+## Model Justification
 
 The selection of predictors included or excluded in the Bayesian model was guided by their relevance, interpretability, and alignment with the research objectives. A detailed breakdown can be seen in @sec-appendix-C.
 
@@ -357,7 +347,7 @@ The selection of predictors included or excluded in the Bayesian model was guide
 - Vendor and product effects are hierarchical, reflecting their nested relationships.
 
 ## Implementation and Validation  
-The model was implemented in R using the `brms` package. Validation was done by visually checking posterior predictive checks to assess the model's fit.  
+The model was implemented in R using the `brms` package. Validation was done by visually checking posterior predictive checks to assess the model's fit and is explained with more detail in @sec-appendix-C.  
 
 ## Limitations  
 The model assumes a consistent distribution of predictors across vendors and time, which may not hold in sparse data. Additionally, the linearity assumption may oversimplify complex relationships. Future iterations could explore interaction terms or non-linear effects to enhance flexibility.
@@ -367,7 +357,7 @@ Linear regression without Bayesian inference was considered but failed to incorp
 
 # Results {#sec-results}
 
-The average weekly meal plan cost by vendor and food category in @fig-avg-price-stacked shows in order which vendors overall are the most cost-effective to the least cost-effective. By looking at the different colors that represent the food catgory, it can also be compared which food group is more cost-effective in which store.
+The average weekly meal plan cost by vendor and food category in @fig-avg-price-stacked ranks vendors from most to least cost-effective. The color-coded food categories also allow for comparisons of which food groups are more cost-effective at specific stores.
 
 ```{r}
 #| echo: false
@@ -409,10 +399,14 @@ model_table
 
 # Discussion {#sec-discussion}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
 ## Paper Summary {#sec-first-point}
-what was done in this paper?
+This paper explored several complementary analyses to evaluate grocery pricing trends across vendors and food categories. These efforts provided deeper insights into affordability and purchasing strategies aligned with the Canadian Food Guide recommendations. 
+
+Firstly, the average weekly meal plan cost analysis revealed significant differences among vendors, offering a detailed breakdown of pricing trends across food categories. This visualization highlighted which vendors were most cost-effective overall and how food group pricing varied between stores. The additional breakdown of costs by food group identified which categories—fruits and vegetables, protein, grains, or dairy—had the highest and lowest costs across vendors. 
+
+Vendor-specific attributes, such as sale transparency, product appeal, and reliability of being in stock, were also examined as part of a broader evaluation. While affordability remained a dominant factor, these additional features provided context for choosing vendors based on consumer priorities beyond cost. For example, stores that prioritize organic products or explicitly promote sales emerged as better choices for consumers seeking environmentally conscious or clearly discounted options.
+
+This research also underscored the importance of informed meal planning, where a combination of affordability and quality factors can guide consumer decisions. The results have implications for public policy, particularly in addressing food accessibility and encouraging healthier eating habits by promoting cost-effective options for meeting dietary recommendations.
 
 ## Bayesian Model Explanation {#sec-second-point}
 
@@ -458,7 +452,7 @@ The high R² and R² Marg. values suggest the model explains most of the variabi
 
 ### Predicted Future Price Trends
 
-According to the predicted future price trends in @fig-future-price-trends, Galleria exhibits relatively stable predicted price trends, with slight variations over time. The predicted prices stay consistent, without significant spikes, suggesting steady pricing strategies. Loblaws shows stable prices with slight fluctuations but no dramatic increases or decreases. This implies consistent pricing practices with minor seasonal or product-related variations. Metro displays a similar pattern of stability to Loblaws but with marginally larger variations. The periodicity of the vertical bars may indicate uncertainty in the predictions during certain months. NoFrills has a noticeable spike mid-period, followed by a return to stability. This indicates a potential pricing anomaly or predicted fluctuation in a specific month before returning to normal pricing levels. SaveOnFoods presents consistent prices with some minor upward shifts, suggesting a gradual increase or variability in certain product categories. However, sporadic trends can be seen where there is an abrupt jump between months, which could reflect noise in the data. T&T has a slight peak mid-period, followed by stabilization. This may reflect a seasonal effect or a one-time price fluctuation for specific products. Voila shows a small spike mid-period but generally maintains consistent prices. The predicted pricing pattern mirrors a temporary fluctuation, likely tied to vendor or product-specific dynamics. Walmart demonstrates the most volatility in its price trends, with noticeable spikes. This may highlight significant uncertainty in Walmart's pricing patterns or irregularities caused by promotional events or external market forces. The vertical lines represent the uncertainty intervals (credible intervals) of the Bayesian predictions. Wider intervals imply greater uncertainty about the predicted prices for that month. These intervals can stem from limited data availability for specific vendors or products, variability in historical pricing trends, or external factors influencing the model’s predictive accuracy.
+According to the predicted future price trends in @fig-future-price-trends, most vendors show relatively stable predicted price trends, with slight variations over time. However, the periodicity of the vertical bars in the graphs may indicate uncertainty in the predictions during certain months. Galleria has a sharp decrease followed by a sharp increase halfway into the year, showing unstability in pricing trends. Loblaws and Metro have minor variations and seem overall more stable. NoFrills has a noticeable spike mid-period, followed by a return to stability. This indicates a potential pricing anomaly or predicted fluctuation in a specific month before returning to normal pricing levels. SaveOnFoods presents consistent prices with some minor upward shifts, suggesting a gradual increase or variability in certain product categories. However, sporadic trends can be seen where there is an abrupt jump between months, which could reflect noise in the data. T&T has a slight peak mid-period, followed by stabilization. This may reflect a seasonal effect or a one-time price fluctuation for specific products. Voila shows a small spike mid-period but generally maintains consistent prices. Walmart demonstrates the most volatility in its price trends, with noticeable spikes. This may highlight significant uncertainty in Walmart's pricing patterns or irregularities caused by promotional events or external market forces. The vertical lines represent the uncertainty intervals (credible intervals) of the Bayesian predictions. Wider intervals imply greater uncertainty about the predicted prices for that month. These intervals can stem from limited data availability for specific vendors or products, variability in historical pricing trends, or external factors influencing the model’s predictive accuracy.
 
 ## Overall Best Vendor {#sec-third-point}
 
@@ -609,19 +603,63 @@ model_summary_df[] <- lapply(model_summary_df, function(x) {
 knitr::kable(model_summary_df, caption = "Checking the convergence of the bayesian model using Rhat and ESS")
 ```
 
-@fig-trace-plot shows the traceplots for the bayesian model. [Add more here]
+The traceplots for the bayesian model are shown in three separate figures, @fig-trace-plot-group1, @fig-trace-plot-group2, and @fig-trace-plot-group3 for better visibility. These plots display the sampled values for each parameter across iterations for two chains. Ideally, the chains should mix well and overlap to indicate convergence. Overall, the appearance of the trace plots suggest that the Bayesian model has converged well for all parameters used in the model. Both chains overlap and explore the posterior space effectively, with no significant signs of non-convergence. This ensures the use of these posterior estimates in the inference and analysis of this paper is appropriate.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| message: false
 #| warning: false
-#| label: fig-trace-plot
-#| fig-cap: "Checking the convergence of the bayesian model using trace plot"
-#| layout-ncol: 2
 
-plot(bayesian_model)
+posterior_samples <- as.matrix(bayesian_model)
 
+# Group 1
+group1_params <- c("b_Intercept", "b_current_price", "b_food_categoryGrainProducts", "b_food_categoryProteinFoods", "b_vendorLoblaws")
+mcmc_trace_group1 <- mcmc_trace(posterior_samples[, group1_params]) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Group 2
+group2_params <- c("b_vendorMetro", "b_vendorNoFrills", "b_vendorSaveOnFoods", "b_vendorTandT", "b_vendorVoila")
+mcmc_trace_group2 <- mcmc_trace(posterior_samples[, group2_params]) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Group 3
+group3_params <- c("b_vendorWalmart", "b_month", "b_price_decrease", "sd_product_name__Intercept", "sigma")
+mcmc_trace_group3 <- mcmc_trace(posterior_samples[, group3_params]) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-trace-plot-group1
+#| fig-cap: "Trace plots for first five predictors"
+
+mcmc_trace_group1
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-trace-plot-group2
+#| fig-cap: "Trace plots for sixth to tenth predictors"
+
+mcmc_trace_group2
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+#| label: fig-trace-plot-group3
+#| fig-cap: "Trace plots for last five predictors"
+
+mcmc_trace_group3
 ```
 
 \newpage
