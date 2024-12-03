@@ -4,7 +4,10 @@
 # Date: 28 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Have the 05-exploratory_data_analysis.R script loaded
+# Pre-requisites: 
+  # - Have the 05-exploratory_data_analysis.R script loaded
+  # - `tidyverse`, `rstanarm`, `brms`, `bayesplot` and `arrow` packages 
+      # must be installed and loaded
 # Any other information needed? None
 
 

@@ -4,7 +4,8 @@
 # Date: 19 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: None
+# Pre-requisites: 
+  # - The `tidyverse` package must be installed and loaded
 # Any other information needed? None
 
 

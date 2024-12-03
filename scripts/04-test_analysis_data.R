@@ -4,15 +4,18 @@
 # Date: 28 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Have the analysis data loaded
+# Pre-requisites: 
+  # - Have the analysis data loaded
+  # - `tidyverse`, `arrow` and `lubridate` packages must be installed and loaded
 # Any other information needed? None
 
 
 #### Workspace setup ####
 library(tidyverse)
 library(lubridate)
+library(arrow)
 
-analysis_data <- read_csv("data/02-analysis_data/analysis_data.csv")
+analysis_data <- read_parquet("data/02-analysis_data/analysis_data.parquet")
 
 
 #### Test data ####

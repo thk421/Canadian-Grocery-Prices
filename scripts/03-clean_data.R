@@ -4,7 +4,9 @@
 # Date: 19 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Need to have downloaded the data
+# Pre-requisites: 
+  # - Need to have downloaded the data from 02-download_data.R
+  # - The `tidyverse` and `arrow` packages must be installed and loaded
 # Any other information needed? None
 
 #### Workspace setup ####

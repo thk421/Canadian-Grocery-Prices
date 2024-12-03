@@ -4,7 +4,9 @@
 # Date: 28 November 2024
 # Contact: tinak.kim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Have the analysis data loaded
+# Pre-requisites: 
+  # - Have the analysis data loaded
+  # - `tidyverse`, `rstanarm` and `arrow` packages must be installed and loaded
 # Any other information needed? None
 
 
