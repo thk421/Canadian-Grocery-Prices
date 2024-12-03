@@ -27,8 +27,8 @@ unzip(destfile, exdir = "unzipped_files")
 
 # Read the CSV file
 csv_file <- list.files("unzipped_files", pattern = "\\.csv$", full.names = TRUE)
-data_price <- read.csv("unzipped_files/hammer-4-raw.csv")
-data_product <- read.csv("unzipped_files/hammer-4-product.csv")
+data_price <- read_csv("unzipped_files/hammer-4-raw.csv")
+data_product <- read_csv("unzipped_files/hammer-4-product.csv")
 
 
 #### Save data ####
